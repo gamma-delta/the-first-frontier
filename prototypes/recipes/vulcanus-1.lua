@@ -91,3 +91,6 @@ for _,calcite2lime in ipairs{
     end
   end
 end
+
+pglobals.recipe.add("metallurgic-science-pack",
+  {type="item", name="native-aluminum", amount=1})

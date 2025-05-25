@@ -179,13 +179,27 @@ pglobals.recipe = {
 }
 
 pglobals.tech = {
-  remove_unlock = function(tech_name, recipe)
+  remove_unlock = function(tech_name, recipe, ...)
+    local recipes = table.pack(recipe, ...)
     local tech = data.raw["technology"][tech_name]
     for i, v in ipairs(tech.effects) do
-      if v.type == "unlock-recipe" and v.recipe == recipe then
-        table.remove(tech.effects, i)
+      if v.type == "unlock-recipe" then
+        for _, recipe in ipairs(recipes) do
+          if v.recipe == recipe then
+            table.remove(tech.effects, i)
+            goto continue
+          end
+        end
         return
       end
+    ::continue::
+    end
+  end,
+  add_unlock = function(tech_name, recipe, ...)
+    local recipes = table.pack(recipe, ...)
+    local tech = data.raw["technology"][tech_name]
+    for _,recipe in ipairs(recipes) do
+      table.insert(tech.effects, {type="unlock-recipe", recipe=recipe})
     end
   end
 }

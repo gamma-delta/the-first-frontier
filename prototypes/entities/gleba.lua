@@ -59,6 +59,30 @@ boompuff_plant.autoplace.probability_expression = 0.0
 
 data:extend{boompuff_plant}
 
+-- Show the little spores the boompuffs puff
+local boompuff_boom = data.raw["projectile"]["boompuff-seed"]
+local seed_shot = {
+  filename = "__petraspace__/graphics/icons/boompuff-propagule-sheet.png",
+  draw_as_glow = true,
+  size = 64,
+  x = 0, y = 0,
+  scale = 0.2,
+  priority = "high",
+}
+boompuff_boom.animation = seed_shot
+-- Hit walls
+boompuff_boom.hit_collision_mask = { layers={
+  player=true, train=true, trigger_target = true,
+  object=true,
+}}
+boompuff_boom.collision_box = {{-0.1, -0.1}, {0.1, 0.1}}
+-- Shrink radius, make the seeds fly farther.
+-- This makes walls useable
+boompuff_boom.action[2].radius = 1
+local boompuff_explode_fx = data.raw["explosion"]["boompuff-explosion"].created_effect
+boompuff_explode_fx.cluster_count = 7
+boompuff_explode_fx.distance = 5
+
 -- Need to have 3 slots now for propagules, wood, spoilage
 data.raw["agricultural-tower"]["agricultural-tower"].output_inventory_size = 3
 

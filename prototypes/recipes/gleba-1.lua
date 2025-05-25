@@ -54,6 +54,7 @@ data:extend{
       -- Of course IRL soil-fixing bacteria make ammonia, not nitric acid,
       -- but what can I do
       {type="item", name="iron-bacteria", amount=1},
+      -- is this too much?
       {type="item", name="spoilage", amount=200},
       {type="fluid", name="ammonia", amount=30},
     },
@@ -74,6 +75,7 @@ data:extend{
   -- so even with +50% productivity i think using the same ratios but backwards
   -- won't let you generate infinite oil.
   -- Although I suppose if you do it's not the end of the world.
+  -- Tested it with a bunch of t2 prod mods, it always peters out
   {
     type = "recipe",
     name = "light-oil-reforming",
@@ -222,3 +224,6 @@ table.insert(
   data.raw["recipe"]["bioplastic"].ingredients,
   {type="fluid", name="hydrogen", amount=10}
 )
+
+pglobals.recipe.add("agricultural-science-pack", 
+  {type="fluid", name="nitric-acid", amount=20})

@@ -149,18 +149,21 @@ data:extend{
   {
     type = "recipe",
     name = "nitric-acid",
-    category = "chemistry-or-cryogenics",
+    category = "oil-processing",
+    additional_categories = {"cryogenics"},
     ingredients = {
-      -- Yeah this is simple, but this is literally the ostwald process!
+      -- Friendship ended with ostwald process
+      -- now this made up thing is my new friend
       {type="fluid", name="ammonia", amount=10},
       {type="fluid", name="oxygen", amount=20},
+      {type="item", name="sulfur", amount=1},
     },
     energy_required = 7,
     enabled = false,
     results = {
       {type="fluid", name="nitric-acid", amount=10},
-      -- turn this into steam for your n2o4!
-      {type="fluid", name="water", amount=10},
+      -- half the efficiency of the normal recipe
+      {type="fluid", name="sulfuric-acid", amount=5},
     },
     main_product = "nitric-acid",
     subgroup = "chemistry",

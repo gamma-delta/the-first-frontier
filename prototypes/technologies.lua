@@ -344,6 +344,7 @@ em_plant.effects = {
 
 -- Intermediate tech: Lightning rods
 pglobals.tech.remove_unlock("planet-discovery-fulgora", "lightning-rod")
+pglobals.tech.add_unlock("planet-discovery-fulgora", "fulgoran-sludge-refining")
 data:extend{
   {
     type = "technology",
