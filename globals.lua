@@ -221,19 +221,19 @@ pglobals.icons = {
     return {
       {
         icon = input,
-        scale = 0.75,
-        shift = {0, -8},
+        scale = 0.4,
+        shift = {0, -4},
       },
       {
         icon = out1,
-        scale = 0.5,
-        shift = {-16, 16},
+        scale = 0.25,
+        shift = {-8, 8},
         draw_background = true
       },
       {
         icon = out2,
-        scale = 0.5,
-        shift = {16, 16},
+        scale = 0.25,
+        shift = {8, 8},
         draw_background = true
       }
     }
@@ -243,20 +243,20 @@ pglobals.icons = {
     return {
       {
         icon = in1,
-        scale = 0.5,
-        shift = {-16, -16},
+        scale = 0.25,
+        shift = {-8, -8},
         draw_background = true
       },
       {
         icon = in2,
-        scale = 0.5,
-        shift = {16, -16},
+        scale = 0.25,
+        shift = {8, -8},
         draw_background = true
       },
       {
         icon = output,
-        scale = 0.75,
-        shift = {0, 8},
+        scale = 0.4,
+        shift = {0, 4},
         draw_background = true
       },
     }

@@ -227,7 +227,8 @@ data:extend{
     order = "c[nutrients]-z-a[fertilizer]",
     pictures = make_pics("fertilizer", 3, {size=64, scale=0.5, mipmap_count=4}),
     fuel_category = "nutrients",
-    fuel_value = "3MJ",
+    -- nutrience is 2MJ
+    fuel_value = "1.5MJ",
     inventory_move_sound = spage_sounds.agriculture_inventory_move,
     pick_sound = spage_sounds.agriculture_inventory_pickup,
     drop_sound = spage_sounds.agriculture_inventory_move,

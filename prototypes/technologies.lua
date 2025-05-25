@@ -358,7 +358,21 @@ data:extend{
       ingredients = science("E"),
       time = 30
     }
-  }
+  },
+  {
+    type = "technology",
+    name = "superconductor",
+    icon = "__petraspace__/graphics/technologies/superconductor.png",
+    icon_size = 256,
+    prerequisites = {"electromagnetic-science-pack"},
+    effects = {recipe("superconductor")},
+    -- TODDO
+    unit = {
+      count = 999999999,
+      ingredients = science("E"),
+      time = 30
+    }
+  },
 }
 
 -- Gleba I

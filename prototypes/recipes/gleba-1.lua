@@ -225,5 +225,5 @@ table.insert(
   {type="fluid", name="hydrogen", amount=10}
 )
 
-pglobals.recipe.add("agricultural-science-pack", 
+pglobals.recipe.add("agricultural-science-pack",
   {type="fluid", name="nitric-acid", amount=20})
