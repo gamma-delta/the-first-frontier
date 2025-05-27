@@ -177,6 +177,7 @@ data:extend{
       -- recipe("n2o4-thruster-oxidizer"),
     }
   },
+  -- TODO: this could just be Gleba's heating tower, moved
   {
     type = "technology",
     name = "thermodynamics",
@@ -320,6 +321,23 @@ vanilla_thruster_tech.visable_when_disabled = false
 
 -- Vulcanus I
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
+-- Intermediate: tungsten heat pipes
+data:extend{
+  {
+    type = "technology",
+    name = "tungsten-heat-pipe",
+    -- TODO
+    icon = "__petraspace__/graphics/technologies/geothermal-heat-exchanger.png",
+    icon_size = 640,
+    prerequisites = {"metallurgic-science-pack"},
+    effects = {recipe("tungsten-heat-pipe")},
+    unit = {
+      count = 100,
+      ingredients = science("M"),
+      time = 30,
+    }
+  }
+}
 
 -- Fulgora I
 -- Unlock recyclers by mining scrap, so you can keep the vaults for electricity

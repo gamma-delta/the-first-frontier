@@ -135,7 +135,7 @@ data:extend{
     name = "geothermal-heat-exchanger",
     icon = "__petraspace__/graphics/icons/geothermal-heat-exchanger.png",
     subgroup = "smelting-machine",
-    order = "cz[geothermal]",
+    order = "cza[geothermal]",
     inventory_move_sound = item_sounds.metal_large_inventory_move,
     pick_sound = item_sounds.metal_large_inventory_pickup,
     drop_sound = item_sounds.metal_large_inventory_move,
@@ -183,4 +183,64 @@ foundry.energy_source = {
     south = heat_pipe_direction_pic("south", true),
     west = heat_pipe_direction_pic("west", true),
   }
+}
+
+-- Tungsten heat pipes
+-- TODO: slightly awkward heat joins on entities like GHX and nuclear
+-- reactor that have copper colors
+local thp = pglobals.copy_then(data.raw["heat-pipe"]["heat-pipe"], {
+  name = "tungsten-heat-pipe",
+  minable = {mining_time=0.1, result = "tungsten-heat-pipe"},
+  corpse = "tungsten-heat-pipe-remnants",
+  icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+  order = "z-cza[thp]",
+  -- Use the vanilla heat overlay for now
+  -- TODO: when at full heat it looks exactly like the vanilla heat pipe
+  -- i might need to actually sprite a new greeble for the center bind point
+  connection_sprites = make_heat_pipe_pictures(
+    "__petraspace__/graphics/entities/tungsten-heat-pipe/", "thp",
+    {
+      single = { name = "straight-vertical-single", ommit_number = true },
+      straight_vertical = { variations = 6 },
+      straight_horizontal = { variations = 6 },
+      corner_right_up = { name = "corner-up-right", variations = 6 },
+      corner_left_up = { name = "corner-up-left", variations = 6 },
+      corner_right_down = { name = "corner-down-right", variations = 6 },
+      corner_left_down = { name = "corner-down-left", variations = 6 },
+      t_up = {},
+      t_down = {},
+      t_right = {},
+      t_left = {},
+      cross = { name = "t" },
+      ending_up = {},
+      ending_down = {},
+      ending_right = {},
+      ending_left = {}
+    }
+)
+})
+thp.heat_buffer.specific_heat = "200kJ"
+thp.heat_buffer.max_transfer = "1GW"
+thp.heat_buffer.max_temperature = 2000
+data:extend{
+  thp,
+  pglobals.copy_then(data.raw["item"]["heat-pipe"], {
+    name = "tungsten-heat-pipe",
+    default_import_location = "vulcanus",
+    place_result = "tungsten-heat-pipe",
+    icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+  }),
+  pglobals.copy_then(data.raw["corpse"]["heat-pipe-remnants"], {
+    name = "tungsten-heat-pipe-remnants",
+    icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+    animation = make_rotated_animation_variations_from_sheet(6, {
+      filename = "__petraspace__/graphics/entities/tungsten-heat-pipe/remnants.png",
+      line_length = 1,
+      width = 122,
+      height = 100,
+      direction_count = 2,
+      shift = util.by_pixel(0.5, -1.5),
+      scale = 0.5,
+    })
+  }),
 }

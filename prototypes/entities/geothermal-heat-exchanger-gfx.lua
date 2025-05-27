@@ -92,6 +92,8 @@ return {
     -- glow_1,
   },
   -- the load-bearing mspaint drawing
+  -- apparently this doesn't appear in lava at all,
+  -- which is why i couldn't get it to appear
   reflection = {
     pictures = {
       filename = PATH .. "reflection.png",
@@ -100,7 +102,7 @@ return {
       height = 128,
       shift = util.by_pixel(0, 70),
       variation_count = 1,
-      scale = 5,
+      scale = 2.5,
     },
     rotate = false,
     orientation_to_variation = false,

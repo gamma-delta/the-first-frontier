@@ -94,3 +94,29 @@ end
 
 pglobals.recipe.add("metallurgic-science-pack",
   {type="item", name="native-aluminum", amount=1})
+
+data:extend{
+  {
+    type = "recipe",
+    name = "tungsten-heat-pipe",
+    category = "metallurgy",
+    enabled = false,
+    -- TODO this does not recycle
+    -- big mining drills and turbelts are ~* hard coded *~ I GUESS,
+    -- all other metallurgy is no recycling. will need to fix this.
+    allow_productivity = true,
+    allow_decomposition = true,
+    surface_conditions = {
+      {property="pressure", min=4000, max=4000},
+    },
+    ingredients = {
+      {type="item", name="tungsten-plate", amount=5},
+      {type="item", name="copper-plate", amount=10},
+      {type="fluid", name="water", amount=200},
+    },
+    energy_required = 2,
+    results = {
+      {type="item", name="tungsten-heat-pipe", amount=1},
+    },
+  }
+}

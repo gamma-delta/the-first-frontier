@@ -136,3 +136,11 @@ thruster.max_performance.fluid_usage = thruster.max_performance.fluid_usage * 10
 -- So HTs are 6 2/3 times better.
 local ht = data.raw["reactor"]["heating-tower"]
 ht.energy_source.emissions_per_minute.pollution = 100 * 20
+
+-- Make the nuclear reactor get hot enough to power the foundry
+data.raw["reactor"]["nuclear-reactor"].heat_buffer.max_temperature = 2000
+local heat_pipe = data.raw["heat-pipe"]["heat-pipe"].heat_buffer
+-- it takes a WHOLE MEGAWATT to heat a heat pipe by 1 degree in vanilla.
+-- Jesus, no wonder reactors take so long to spin up.
+heat_pipe.specific_heat = "100kJ"
+heat_pipe.max_transfer = "100MW"
