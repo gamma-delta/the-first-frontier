@@ -121,7 +121,7 @@ data.raw["recipe"]["processing-unit"].ingredients = {
   {type="item", name="advanced-circuit", amount=2},
   {type="item", name="electronic-circuit", amount=20},
   {type="item", name="circuit-substrate", amount=5},
-  -- more properly, nitric acid is used for this
+  -- more properly, nitric acid is used for this IRL
   -- however, i want sulfuric and acid to have seperate identities.
   -- Sulfuric is used for grungy mechanical processes
   -- Nitric is used for clean futuristic processes
@@ -251,3 +251,163 @@ data.raw["recipe"]["low-density-structure"].ingredients = {
 -- Turn it into ourple science or make your walls thicker or something.
 table.insert(data.raw["recipe"]["landfill"].ingredients, 
   {type="item", name="iron-stick", amount=2})
+
+-- TIER 1 --
+data:extend{
+  -- Same ratios as steel
+  {
+    type = "recipe",
+    name = "depleted-uranium",
+    category = "smelting",
+    ingredients = {{type="item", name="uranium-ore", amount=5}},
+    energy_required = 16,
+    results = {{type="item", name="uranium-238", amount=1}},
+    enabled = false,
+  },
+}
+local nuke_colors = {
+  primary = {0.3, 1, 0},
+  secondary = {0.2, 1, 0},
+  tertiary = {0.1, 1, 0},
+  quaternary = {0.3, 1, 0},
+}
+local function nuke_waste(count)
+  return {
+    type = "item", name = "nuclear-waste", amount = count,
+    percent_spoiled = 0, ignored_by_productivity = 9999,
+  }
+end
+
+local centri_recipe = data.raw["recipe"]["centrifuge"]
+centri_recipe.ingredients = {
+  { type="item", name="advanced-circuit", amount=100 },
+  { type="item", name="concrete", amount=100 },
+  { type="item", name="electric-engine-unit", amount=25 },
+  { type="item", name="steel-plate", amount=50 },
+  { type="item", name="uranium-238", amount=5 },
+}
+-- don't ask me how you make a centrifuge in a centrifuge
+centri_recipe.additional_categories = {"centrifuging"}
+centri_recipe.crafting_machine_tint = nuke_colors
+
+local u_proc = data.raw["recipe"]["uranium-processing"]
+u_proc.crafting_machine_tint = nuke_colors
+table.insert(u_proc.results, nuke_waste(1))
+
+data.raw["recipe"]["uranium-fuel-cell"] = {
+  type = "recipe",
+  name = "uranium-fuel-cell",
+  enabled = false,
+  category = "centrifuging",
+  ingredients = {
+    {type="item", name="uranium-235", amount=10},
+    {type="item", name="uranium-238", amount=20},
+    {type="item", name="steel-plate", amount=10},
+  },
+  energy_required = 10,
+  results = {
+    {type="item", name="uranium-fuel-cell", amount=10},
+    nuke_waste(1),
+  },
+  main_product = "uranium-fuel-cell",
+  crafting_machine_tint = nuke_colors,
+  allow_productivity = true,
+  allow_decomposition = true,
+}
+
+local cell_reproc = data.raw["recipe"]["nuclear-fuel-reprocessing"]
+cell_reproc.crafting_machine_tint = {
+  primary = {0.8, 0.4, 0},
+  secondary = {0.7, 0.7, 0},
+  tertiary = {0, 1, 0},
+  quaternary = {0, 1, 0},
+}
+cell_reproc.ingredients[1].amount = 1
+cell_reproc.results = {
+  -- 1/4 input U
+  {type="item", name="uranium-238", amount=1, probability = 0.5},
+  {type="item", name="plutonium", amount=1, probability = 0.2},
+  nuke_waste(5),
+}
+
+data:extend{
+  {
+    type = "recipe",
+    name = "mox-fuel-cell",
+    enabled = false,
+    category = "centrifuging",
+    ingredients = {
+      {type="item", name="uranium-235", amount=2},
+      {type="item", name="plutonium", amount=5},
+      {type="item", name="steel-plate", amount=10},
+      {type="item", name="uranium-238", amount=20},
+    },
+    energy_required = 20,
+    results = {
+      {type="item", name="mox-fuel-cell", amount=10},
+      nuke_waste(1),
+    },
+    main_product = "mox-fuel-cell",
+    crafting_machine_tint = {
+      primary = {0.8, 0.4, 0},
+      secondary = {0.8, 0.8, 0},
+      tertiary = {0, 1, 0},
+      quaternary = {1, 1, 0},
+    }
+  },
+  {
+    type = "recipe",
+    name = "breeder-fuel-cell",
+    enabled = false,
+    category = "centrifuging",
+    ingredients = {
+      {type="item", name="uranium-235", amount=2},
+      {type="item", name="plutonium", amount=15},
+      {type="item", name="steel-plate", amount=10},
+      {type="item", name="uranium-238", amount=20},
+    },
+    energy_required = 30,
+    results = {
+      {type="item", name="breeder-fuel-cell", amount=10},
+      nuke_waste(1),
+    },
+    main_product = "breeder-fuel-cell",
+    crafting_machine_tint = {
+      primary = {0.8, 0.4, 0},
+      secondary = {0.8, 0.8, 0},
+      tertiary = {1.0, 0.5, 0},
+      quaternary = {1, 0.5, 0},
+    },
+  },
+  {
+    type = "recipe",
+    name = "breeder-fuel-cell-reprocessing",
+    enabled = false,
+    category = "centrifuging",
+    subgroup = "uranium-processing",
+    order = "b[uranium-products]-za",
+    -- TODO
+    icons = pglobals.icons.mini_over(
+      "__petraspace__/graphics/icons/plutonium.png",
+      "__petraspace__/graphics/icons/breeder-fuel-cell.png"
+    ),
+    ingredients = {
+      {type="item", name="depleted-breeder-fuel-cell", amount=1},
+    },
+    energy_required = 60,
+    -- 15 -> 20
+    results = {
+      {type="item", name="plutonium", amount=2},
+      nuke_waste(10),
+    },
+    allow_decomposition = false,
+    crafting_machine_tint = {
+      primary = {0.8, 0.4, 0},
+      secondary = {0.8, 0.8, 0},
+      tertiary = {1.0, 0.5, 0},
+      quaternary = {1, 0.5, 0},
+    }
+  },
+}
+
+data.raw["recipe"]["kovarex-enrichment-process"].hidden = true

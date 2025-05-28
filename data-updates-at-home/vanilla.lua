@@ -152,3 +152,41 @@ data.raw["utility-constants"]["default"].space_platform_acceleration_expression 
 local thruster = data.raw["thruster"]["thruster"]
 thruster.min_performance.fluid_usage = thruster.min_performance.fluid_usage * 10
 thruster.max_performance.fluid_usage = thruster.max_performance.fluid_usage * 10
+
+-- Nuke cells have 10x the cost, give them ~10x the power
+data.raw["item"]["uranium-fuel-cell"].fuel_value = "50GJ"
+
+-- Give centrifuges many module slots, to make them feel more like Nauvis'
+-- special building
+local centri = data.raw["assembling-machine"]["centrifuge"]
+centri.module_slots = 6
+
+-- Centrifuge lights
+-- primary, secondary, tertiary: thumper color left right center
+-- quaternary: light color
+local centri_wvs = centri.graphics_set.working_visualisations
+local centri_wv_light = centri_wvs[1]
+centri_wv_light.apply_recipe_tint = "quaternary"
+centri_wv_light.light.color = {1,1,1}
+
+local new_centri_wvs = {
+  centri_wv_light,
+}
+
+for i,ani_layer in ipairs(centri_wvs[2].animation.layers) do
+  local _, _, letter = ani_layer.filename:find("centrifuge%-(%a)%-light%.png")
+  letter = letter:lower()
+  ani_layer.filename = 
+    "__petraspace__/graphics/entities/centrifuge/" .. letter .. "-light.png"
+
+  local cardinals = {"primary", "secondary", "tertiary"}
+
+  local new_wv = {
+    effect = "uranium-glow",
+    fadeout = true,
+    apply_recipe_tint = cardinals[i],
+    animation = ani_layer,
+  }
+  table.insert(new_centri_wvs, new_wv)
+end
+centri.graphics_set.working_visualisations = new_centri_wvs

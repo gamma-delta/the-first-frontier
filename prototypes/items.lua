@@ -152,6 +152,91 @@ data:extend{
   ),
 }
 
+-- Nauvis
+local function fuel_cell_pic(path)
+  return {
+    layers = {
+      {
+        filename = path,
+        size = 64, scale = 0.5, mipmap_count = 4,
+      },
+      {
+        filename = "__base__/graphics/icons/uranium-fuel-cell-light.png",
+        draw_as_light = true,
+        size = 64, scale = 0.5, mipmap_count = 4,
+      }
+    }
+  }
+end
+local u238 = data.raw["item"]["uranium-238"]
+u238.icon = "__petraspace__/graphics/icons/u238/1.png"
+u238.pictures = make_pics("u238", 3)
+data:extend{
+  {
+    type = "item",
+    name = "nuclear-waste",
+    icon = "__petraspace__/graphics/icons/nuclear-waste.png",
+    stack_size = 1,
+    weight = rocket_cap * 10,
+    subgroup = "uranium-processing",
+    order = "zzz",
+
+    inventory_move_sound = item_sounds.nuclear_inventory_move,
+    pick_sound = item_sounds.nuclear_inventory_pickup,
+    drop_sound = item_sounds.nuclear_inventory_move,
+    random_tint_color = item_tints.iron_rust,
+
+    -- TODO: using spoilagelib, i could make this spoil faster,
+    -- but have a 50% chance to spoil back into itself, and spit out pollution
+    spoil_result = "uranium-ore",
+    spoil_ticks = 24 * hour,
+
+    -- nice try
+    auto_recycle = false,
+  },
+  pglobals.copy_then(data.raw["item"]["uranium-235"], {
+    name = "plutonium",
+    icon = "__petraspace__/graphics/icons/plutonium.png",
+    order = "a[uranium-processing]-z",
+    pictures = {
+      {
+        filename = "__petraspace__/graphics/icons/plutonium.png",
+        size = 64, scale = 0.5, mipmap_count = 4,
+      },
+      {
+        filename = "__petraspace__/graphics/icons/plutonium-glow.png",
+        draw_as_light = true,
+        size = 64, scale = 0.5, mipmap_count = 4,
+      }
+    }
+  }),
+  pglobals.copy_then(data.raw["item"]["uranium-fuel-cell"], {
+    name = "mox-fuel-cell",
+    order = "b[uranium-products]-c",
+    icon = "__petraspace__/graphics/icons/mox-fuel-cell.png",
+    pictures = fuel_cell_pic("__petraspace__/graphics/icons/mox-fuel-cell.png"),
+
+    burnt_result = "depleted-uranium-fuel-cell",
+    -- over twice the power
+    fuel_value = "120GJ",
+  }),
+  pglobals.copy_then(data.raw["item"]["uranium-fuel-cell"], {
+    name = "breeder-fuel-cell",
+    icon = "__petraspace__/graphics/icons/breeder-fuel-cell.png",
+    pictures = fuel_cell_pic("__petraspace__/graphics/icons/breeder-fuel-cell.png"),
+    order = "b[uranium-products]-d",
+
+    burnt_result = "depleted-breeder-fuel-cell",
+    -- less power
+    fuel_value = "20GJ",
+  }),
+  pglobals.copy_then(data.raw["item"]["depleted-uranium-fuel-cell"], {
+    name = "depleted-breeder-fuel-cell",
+    order = "b[uranium-products]-e",
+    icon = "__petraspace__/graphics/icons/depleted-breeder-fuel-cell.png",
+  }),
+}
+
 -- Vulcanus
 data:extend{
   pglobals.copy_then(data.raw["item"]["calcite"], {
@@ -306,6 +391,7 @@ data:extend{
   ),
 }
 
+--[[
 data:extend{
   {
     type = "item",
@@ -333,6 +419,7 @@ data:extend{
     fuel_value = "500GJ"
   },
 }
+]]--
 
 -- === Science! === --
 local function science_pack(name, order, icon, tint)

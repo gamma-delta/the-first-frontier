@@ -319,6 +319,10 @@ local vanilla_thruster_tech = data.raw["technology"]["space-platform-thruster"]
 vanilla_thruster_tech.enabled = false
 vanilla_thruster_tech.visable_when_disabled = false
 
+-- TIER 1 --
+
+-- Nauvian research
+
 -- Vulcanus I
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
 -- Intermediate: tungsten heat pipes
