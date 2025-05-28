@@ -21,9 +21,40 @@ table.insert(data.raw["assembling-machine"]["electromagnetic-plant"].crafting_ca
 table.insert(data.raw["furnace"]["stone-furnace"].crafting_categories, "dirty-smelting")
 table.insert(data.raw["furnace"]["steel-furnace"].crafting_categories, "dirty-smelting")
 
+-- Make flamethrower turrets have Consequences
+-- It looks like each individual blob of flame in a stream is a separate object.
+-- They last for 2-3 seconds each.
+-- Let's make it as bad as a normal mining drill?
+for _,path in ipairs{"flamethrower-fire-stream", "handheld-flamethrower-fire-stream"} do
+  local obj = data.raw["stream"][path]
+  obj.emissions_per_second = {pollution=10/60}
+end
+
+-- Make uranium require more H2SO4
+local uore = data.raw["resource"]["uranium-ore"]
+-- default is 10
+uore.minable.fluid_amount = 50
+
+-- Make heating towers pollute more than burners
+-- Wiki says that HTs make 24MJ/pollution, boilers make 3.6MJ
+-- So HTs are 6 2/3 times better.
+local ht = data.raw["reactor"]["heating-tower"]
+ht.energy_source.emissions_per_minute.pollution = 100 * 20
+
+-- Make the nuclear reactor get hot enough to power the foundry
+data.raw["reactor"]["nuclear-reactor"].heat_buffer.max_temperature = 2000
+local heat_pipe = data.raw["heat-pipe"]["heat-pipe"].heat_buffer
+-- it takes a WHOLE MEGAWATT to heat a heat pipe by 1 degree in vanilla.
+-- Jesus, no wonder reactors take so long to spin up.
+heat_pipe.specific_heat = "100kJ"
+heat_pipe.max_transfer = "100MW"
+
 -- Let you place the rocket silo on airless moons but not space platforms
 data.raw["rocket-silo"]["rocket-silo"].surface_conditions = 
   {{property="gravity", min=1}}
+-- Thruster only on splatform
+data.raw["thruster"]["thruster"].surface_conditions = 
+  {{property="gravity", max=0}}
 
 -- Augh
 -- Stick anything in a lunar rocket silo
@@ -62,15 +93,6 @@ data.raw["recipe"]["thruster-fuel"].hidden = true
 data.raw["recipe"]["thruster-oxidizer"].hidden = true
 data.raw["recipe"]["advanced-thruster-fuel"].hidden = true
 data.raw["recipe"]["advanced-thruster-oxidizer"].hidden = true
-
--- Make flamethrower turrets have Consequences
--- It looks like each individual blob of flame in a stream is a separate object.
--- They last for 2-3 seconds each.
--- Let's make it as bad as a normal mining drill?
-for _,path in ipairs{"flamethrower-fire-stream", "handheld-flamethrower-fire-stream"} do
-  local obj = data.raw["stream"][path]
-  obj.emissions_per_second = {pollution=10/60}
-end
 
 -- Make oxide asteroids drop quicklime
 -- It turns out that we don't actually know very much about the makeup
@@ -130,17 +152,3 @@ data.raw["utility-constants"]["default"].space_platform_acceleration_expression 
 local thruster = data.raw["thruster"]["thruster"]
 thruster.min_performance.fluid_usage = thruster.min_performance.fluid_usage * 10
 thruster.max_performance.fluid_usage = thruster.max_performance.fluid_usage * 10
-
--- Make heating towers pollute more than burners
--- Wiki says that HTs make 24MJ/pollution, boilers make 3.6MJ
--- So HTs are 6 2/3 times better.
-local ht = data.raw["reactor"]["heating-tower"]
-ht.energy_source.emissions_per_minute.pollution = 100 * 20
-
--- Make the nuclear reactor get hot enough to power the foundry
-data.raw["reactor"]["nuclear-reactor"].heat_buffer.max_temperature = 2000
-local heat_pipe = data.raw["heat-pipe"]["heat-pipe"].heat_buffer
--- it takes a WHOLE MEGAWATT to heat a heat pipe by 1 degree in vanilla.
--- Jesus, no wonder reactors take so long to spin up.
-heat_pipe.specific_heat = "100kJ"
-heat_pipe.max_transfer = "100MW"
