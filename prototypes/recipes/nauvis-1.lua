@@ -423,8 +423,10 @@ data:extend{
   -- But making reprocessing take a long time can undermine that;
   -- if it took 10x as long to reprocess one piece of waste as to
   -- dump it at 10x pollution, that's the same amount of pollution.
+  -- Also, measure centrifuge-seconds/waste
 
-  -- 6 CPS/W
+  -- 30 CPS/W
+  -- 30 CS/W
   {
     type = "recipe",
     name = "nuclear-waste-reprocessing",
@@ -437,10 +439,13 @@ data:extend{
     ),
     order = "z-a",
     ingredients = {
+      -- what's a plausible item you could use here?
+      -- centrifuges do not currently have fluid i/o, otherwise I would use
+      -- nitric acid. I guess i could add fluid i/o
       {type="item", name="nuclear-waste", amount=10},
       {type="item", name="coal", amount=20},
     },
-    energy_required = 60,
+    energy_required = 300,
     results = {
       -- STONE AND STONE BYPRODUCTS
       {type="item", name="stone", amount=5},
@@ -458,6 +463,7 @@ data:extend{
     },
   },
   -- 2 CPS/W
+  -- 2 CS/W
   {
     type = "recipe",
     name = "barreled-nuclear-waste",
@@ -482,7 +488,8 @@ data:extend{
       quaternary = {1, 1, 0},
     },
   },
-  -- 50 CPS/W
+  -- 92 CPS/W
+  -- 1 CS/W
   {
     type = "recipe",
     name = "nuclear-waste-dumping",
@@ -495,7 +502,7 @@ data:extend{
       "__petraspace__/graphics/icons/nuclear-waste.png"
     ),
     ingredients = {{type="item", name="nuclear-waste", amount=1}},
-    energy_required = 5,
+    energy_required = 1,
     results = {},
     allow_decomposition = false,
     allow_productivity = false,
@@ -507,7 +514,8 @@ data:extend{
       tertiary = {0.5, 1.0, 0},
       quaternary = {1, 1, 0},
     },
-    emissions_multiplier = 10,
+    -- U atomic number
+    emissions_multiplier = 92,
   },
 }
 
