@@ -1,5 +1,19 @@
 local pglobals = require "globals"
 
+local lrs_icons = {
+  {
+    icon = "__petraspace__/graphics/icons/lunar-rocket-silo.png",
+    icon_size = 64,
+  },
+  {
+    icon = "__PlanetsLib__/graphics/icons/moon-technology-symbol.png",
+    icon_size = 128,
+    scale = 0.2,
+    shift = {-8, -8},
+    floating = true
+  }
+}
+
 local function rocket_part_recipe(gravity)
   -- Nauvis at 10m/s^2 is our baseline.
   local default_fuel = 100
@@ -110,6 +124,7 @@ data:extend{
     {
       name = "lunar-rocket-silo",
       place_result = "lunar-rocket-silo",
+      icons = lrs_icons,
     }
   ),
 }
@@ -123,8 +138,7 @@ local lrs = pglobals.copy_then(
     launch_to_space_platforms = false,
     rocket_entity = "lunar-rocket-rsr",
     minable = {mining_time=1, result = "lunar-rocket-silo"},
-    -- lmao
-    icons = PlanetsLib.technology_icon_moon("__base__/graphics/icons/rocket-silo.png", 64)
+    icons = lrs_icons,
   }
 )
 lrs.door_back_sprite.filename = "__petraspace__/graphics/entities/lunar-rocket-silo/door-back.png"
