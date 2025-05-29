@@ -25,8 +25,8 @@ for _,type in ipairs(heatable_types) do
       heat_buf = proto.energy_source
     end
     if heat_buf then
-      local message = {"text.heat-info", 
-        heat_buf.specific_heat, tostring(heat_buf.max_temperature)}
+      local message = {"text.heat-info",
+        heat_buf.specific_heat, tostring(heat_buf.max_temperature), heat_buf.max_transfer}
       if proto.factoriopedia_description then
         message = {"", proto.factoriopedia_description, "\n\n", message}
       end
@@ -44,7 +44,7 @@ for _,sp in ipairs{
   "orbital-science-pack",
   "production-science-pack",
   "utility-science-pack",
-  "space-science-pack",
+  -- "space-science-pack",
   "metallurgic-science-pack",
   "electromagnetic-science-pack",
   "agricultural-science-pack",
@@ -54,6 +54,7 @@ for _,sp in ipairs{
   local proto = data.raw["tool"][sp]
   proto.localised_description = { "technology-description." .. sp }
 end
+data.raw["tool"]["space-science-pack"].localised_description = {"technology-description.space-science-pack-space-age"}
 
 -- Make self-recycling recipes produce much more pollution
 for _,recipe in pairs(data.raw["recipe"]) do
@@ -68,4 +69,4 @@ for _,recipe in pairs(data.raw["recipe"]) do
   end
 end
 -- While i'm at it tweak other pollution amounts
-data.raw["recipe"]["scrap-recycling"].emissions_multiplier = 0.1
+-- data.raw["recipe"]["scrap-recycling"].emissions_multiplier = 0.1
