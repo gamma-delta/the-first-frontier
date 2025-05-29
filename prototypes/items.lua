@@ -126,7 +126,7 @@ data:extend{
     }
   ),
   pglobals.copy_then(
-    data.raw["item"]["iron-ore"],
+    data.raw["item"]["iron-plate"],
     {
       name = "aluminum-plate",
       weight = rocket_cap / 500,

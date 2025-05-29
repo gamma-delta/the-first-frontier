@@ -78,6 +78,9 @@ function lrs_gui.create_gui(evt)
 end
 
 function lrs_gui.update_gui(lrs, root)
+  -- If someone in the editor unsets the recipe all bets are off
+  if lrs.name ~= "lunar-rocket-silo" or lrs.get_recipe() == nil then return end
+  
   local player = game.get_player(root.player_index)
   local content = root["content"]
 
@@ -128,7 +131,7 @@ end
 function lrs_gui.get_inventory_mass(lrs)
   local mass = 0
   local inv = lrs.get_inventory(defines.inventory.rocket_silo_rocket)
-  if not inv then return nil end
+  if not inv then return 0 end
 
   for _,item in ipairs(inv.get_contents()) do
     local proto = prototypes.item[item.name]
@@ -149,31 +152,25 @@ function lrs_gui.check_launch(evt)
     return
   end
 
-  local final_check = lrs.launch_rocket()
+  -- Guess destination, pick player
+  local moony_dest = lrs_gui.get_moony_dest(lrs)
+  if not moony_dest then return end
+  local final_check = lrs.launch_rocket(
+    -- {type=defines.cargo_destination.surface, surface=moony_dest.name},
+    {type=defines.cargo_destination.orbit},
+    player.character
+  )
   if final_check then
-    if not storage.lrs_players_in_pods then storage.lrs_players_in_pods = {} end
-    storage.lrs_players_in_pods[pod.unit_number] = {
-      player = player,
-      character = player.character
-    }
-
+    -- yay!
+    player.print("Sorry for the janky lack of cloud animation, it's an engine limitation")
     player.opened = nil
-    -- Teleporting the player inside the rocket silo hides them from view
-    -- due to Z-ordering
-    player.teleport({x=lrs.rocket.position.x, y=lrs.rocket.position.y - 1})
-    player.set_controller{
-      type = defines.controllers.cutscene,
-      start_position = pod.position,
-      waypoints = {{ target=pod, transition_time=0, time_to_wait=9999999 }}
-    }
-    player.print("This animation is really jank right now due to engine limitations, sit tight, you'll get there soon")
   end
 end
 
 function lrs_gui.check_update(evt)
   for _,player in ipairs(game.connected_players) do
     local the_gui = player.gui.relative["ps-lrs"]
-    if the_gui then
+    if the_gui and player.selected then
       lrs_gui.update_gui(player.selected, the_gui)
     end
   end

@@ -3,7 +3,7 @@ local putil = require("__petraspace__/control/utils")
 local pglobals = require("__petraspace__/globals")
 
 local on_any_built = putil.on_any_built(function(evt)
-  if evt.entity.name ~= "lunar-rocket-silo" or evt.entity.name ~= "rocket-silo" 
+  if evt.entity.name ~= "lunar-rocket-silo" and evt.entity.name ~= "rocket-silo" 
   then
     return
   end
@@ -55,43 +55,12 @@ local function on_rocket_launch(evt)
   end
 end
 
-local function on_cargo_pod_finished_descending(evt)
-  local pod = evt.cargo_pod
-  if pod.name ~= "lunar-cargo-pod" then return end
-  -- how
-  if not storage.lrs_players_in_pods then return end
-  local pip = storage.lrs_players_in_pods[pod.unit_number]
-  if pip then
-    pip.player.set_controller{
-      type = defines.controllers.character,
-      character = pip.character,
-    }
-    -- Need to teleport slightly out of the way, otherwise if there is no
-    -- landing pad, the pod landing on your head kills you.
-    -- which is pretty funny
-    pip.character.teleport(pod.position, pod.surface)
-    pip.player.teleport(0, -2)
-    local pos = pod.surface.find_non_colliding_position(
-      pip.character.name,
-      pip.player.position,
-      0, -- radius
-      1 -- resolution
-    )
-    if pos then 
-      pip.player.teleport(pos)
-    else
-      pip.player.teleport(0, -2)
-    end
-  end
-end
-
 return {
   events = putil.smash_events{
     on_any_built,
     {
-      [defines.events.on_rocket_launch_ordered] = on_rocket_launch,
+      -- [defines.events.on_rocket_launch_ordered] = on_rocket_launch,
       [defines.events.on_cargo_pod_finished_ascending] = uppies,
-      [defines.events.on_cargo_pod_finished_descending] = on_cargo_pod_finished_descending,
-    }
+   }
   },
 }

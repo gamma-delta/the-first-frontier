@@ -1,4 +1,5 @@
 local pglobals = require("globals")
+local procession_gfx = require("procession-gfx")
 
 local effects = require("__core__.lualib.surface-render-parameter-effects")
 
@@ -407,8 +408,17 @@ PlanetsLib:extend{
       arrival = {"platform-to-planet-b"},
       departure = {"planet-to-platform-a"}
     },
-    -- TODO figure out something for this
-    procession_graphic_catalogue = planet_catalogue_vulcanus,
+    --[[
+    procession_graphic_catalogue = procession_gfx.make_gfx{
+      clouds = "__space-age__/graphics/procession/clouds/aquilo-cloudscape.png",
+      clouds_l0 = "__space-age__/graphics/procession/clouds/aquilo-cloudscape-layered-0.png",
+      clouds_l1 = "__space-age__/graphics/procession/clouds/aquilo-cloudscape-layered-1.png",
+      clouds_l2 = "__space-age__/graphics/procession/clouds/aquilo-cloudscape-layered-2.png",
+      clouds_l3 = "__space-age__/graphics/procession/clouds/aquilo-cloudscape-layered-3.png",
+      planet_tint = "__space-age__/graphics/procession/clouds/aquilo-sky-tint.png",
+    },
+    ]]
+    procession_graphic_catalogue = require("__space-age__/prototypes/planet/procession-catalogue-aquilo"),
     surface_properties =
     {
       ["day-night-cycle"] = 31 * minute,
