@@ -53,8 +53,6 @@ fluid_mining.unit = {
   ingredients = science("r"),
   time = 10,
 }
--- TODO: bump uranium processing to later in the tech tree.
--- Fiddling with this now because it feels ugly, but will work on it more later
 data.raw["technology"]["uranium-processing"].prerequisites = {
   "uranium-mining",
   "chemical-science-pack",
@@ -121,6 +119,20 @@ table.insert(
 
 table.insert(data.raw["technology"]["low-density-structure"].prerequisites, "simple-bauxite-extraction")
 
+local heating_tower = data.raw["technology"]["heating-tower"]
+heating_tower.prerequisites = {"chemical-science-pack"}
+heating_tower.unit = {
+  count = 300,
+  ingredients = science("rgb"),
+  time = 30,
+}
+heating_tower.effects = {
+  recipe("heating-tower"),
+  recipe("heat-pipe"),
+  recipe("heat-exchanger"),
+  recipe("steam-turbine"),
+}
+
 data:extend{
 -- Push into space --
   {
@@ -177,35 +189,15 @@ data:extend{
       -- recipe("n2o4-thruster-oxidizer"),
     }
   },
-  -- TODO: this could just be Gleba's heating tower, moved
-  {
-    type = "technology",
-    name = "thermodynamics",
-    icon = "__petraspace__/graphics/technologies/thermodynamics.png",
-    icon_size = 256,
-    prerequisites = { "chemical-science-pack" },
-    unit = {
-      count = 300,
-      ingredients = science("rgb"),
-      time = 30,
-    },
-    effects = {
-      recipe("heating-tower"),
-      recipe("heat-pipe"),
-      recipe("heat-exchanger"),
-      recipe("steam-turbine"),
-    }
-  },
   {
     type = "technology",
     name = "discover-viate",
-    -- TODO fix this
     icons = PlanetsLib.technology_icon_moon("__petraspace__/graphics/icons/space-location/viate.png", 2048),
     localised_description = {"space-location-description.viate"},
     prerequisites = { 
       "orbital-science-pack",
       "rocket-propellants", "electric-engine", "concrete",
-      "thermodynamics",
+      "heating-tower",
     },
     unit = {
       count = 300,
@@ -233,8 +225,7 @@ data:extend{
     type = "technology",
     name = "discover-regolith",
     icon = "__petraspace__/graphics/technologies/discover-regolith.png",
-    -- Weird size
-    icon_size = 968,
+    icon_size = 256,
     prerequisites = { "discover-viate" },
     research_trigger = {
       type = "mine-entity",
@@ -279,7 +270,7 @@ data:extend{
     type = "technology",
     name = "dust-spraydown",
     -- TODO
-    icon = "__petraspace__/graphics/technologies/thermodynamics.png",
+    icon = "__base__/graphics/technology/fluid-handling.png",
     icon_size = 256,
     prerequisites = { "space-science-pack" },
     unit = { count = 50, time = 10, ingredients = science("s") },
@@ -293,7 +284,7 @@ data:extend{
 local tech_vanilla_rocket = data.raw["technology"]["rocket-silo"]
 tech_vanilla_rocket.prerequisites = { "space-science-pack" }
 tech_vanilla_rocket.unit = {
-  count = 1000,
+  count = 500,
   time = 60,
   ingredients = science("2r2b2g2os"),
 }
@@ -314,6 +305,7 @@ tech_vanilla_splatform.effects = {
 for _,planet_tech in ipairs{"vulcanus", "fulgora", "gleba"} do
   local tech = data.raw["technology"]["planet-discovery-" .. planet_tech]
   tech.prerequisites[1] = "space-platform"
+  table.insert(tech.unit.ingredients, {"orbital-science-pack", 1})
 end
 local vanilla_thruster_tech = data.raw["technology"]["space-platform-thruster"]
 vanilla_thruster_tech.enabled = false
@@ -322,6 +314,80 @@ vanilla_thruster_tech.visable_when_disabled = false
 -- TIER 1 --
 
 -- Nauvian research
+data:extend{
+  {
+    type = "technology",
+    name = "basic-uranium-processing",
+    icon = "__petraspace__/graphics/technologies/basic-uranium-processing.png",
+    icon_size = 256,
+    -- "uranium mining" == fracking
+    -- There's no real reason for it to require splatform
+    -- other than symmetry
+    prerequisites = {"space-platform", "uranium-mining"},
+    effects = {recipe("depleted-uranium")},
+    unit = {
+      count = 1000,
+      time = 60,
+      ingredients = science("rgbs"),
+    }
+  },
+}
+local vanilla_u = data.raw["technology"]["uranium-processing"]
+vanilla_u.prerequisites = {"basic-uranium-processing"}
+vanilla_u.unit = nil
+vanilla_u.research_trigger = {
+  type = "craft-item",
+  item = "uranium-238",
+  count = 5,
+}
+local vanilla_upower = data.raw["technology"]["nuclear-power"]
+vanilla_upower.prerequisites = {"uranium-processing", "heating-tower"}
+vanilla_upower.effects = {recipe("nuclear-reactor"), recipe("uranium-fuel-cell")}
+
+data:extend{
+  {
+    type = "technology",
+    name = "nuclear-waste-processing",
+    icon = "__petraspace__/graphics/technologies/nuclear-waste-processing.png",
+    icon_size = 256,
+    prerequisites = {"uranium-processing"},
+    effects = {
+      recipe("nuclear-waste-reprocessing"),
+      recipe("barreled-nuclear-waste"),
+      recipe("nuclear-waste-dumping"),
+    },
+    research_trigger = {
+      type = "craft-item",
+      item = "nuclear-waste",
+      -- enough for it to get annoying
+      count = 100,
+    }
+  },
+  {
+    type = "technology",
+    name = "plutonium-processing",
+    icon = "__petraspace__/graphics/technologies/plutonium-processing.png",
+    icon_size = 256,
+    prerequisites = {"nuclear-power"},
+    effects = {
+      recipe("mox-fuel-cell"),
+      recipe("breeder-fuel-cell"),
+      recipe("breeder-fuel-cell-reprocessing"),
+    },
+    research_trigger = {
+      type = "craft-item",
+      item = "plutonium",
+      count = 1,
+    },
+  },
+}
+local purple_sci = data.raw["technology"]["production-science-pack"]
+table.insert(purple_sci.prerequisites, "nuclear-waste-processing")
+table.insert(purple_sci.unit.ingredients, {"space-science-pack", 1})
+local yellow_sci = data.raw["technology"]["utility-science-pack"]
+table.insert(yellow_sci.prerequisites, "plutonium-processing")
+table.insert(yellow_sci.prerequisites, "exoskeleton-equipment")
+table.insert(yellow_sci.unit.ingredients, {"space-science-pack", 1})
 
 -- Vulcanus I
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
@@ -332,7 +398,7 @@ data:extend{
     name = "tungsten-heat-pipe",
     -- TODO
     icon = "__petraspace__/graphics/technologies/geothermal-heat-exchanger.png",
-    icon_size = 640,
+    icon_size = 256,
     prerequisites = {"metallurgic-science-pack"},
     effects = {recipe("tungsten-heat-pipe")},
     unit = {

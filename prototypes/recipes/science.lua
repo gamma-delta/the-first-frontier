@@ -96,3 +96,31 @@ spience.ingredients = {
   {type="item", name="rocket-fuel", amount=5},
 }
 spience.surface_conditions = {{ property="gravity", max=2.5 }}
+
+local purple_sci = data.raw["recipe"]["production-science-pack"]
+purple_sci.ingredients = {
+  {type="item", name="electric-furnace", amount=1},
+  {type="item", name="productivity-module", amount=1},
+  {type="item", name="rail", amount=30},
+  {type="item", name="circuit-substrate", amount=30},
+  {type="item", name="nuclear-waste", amount=1, ignored_by_stats=1},
+}
+purple_sci.results[1].amount = 5
+-- produces a slight trickle of waste, probabilistically
+table.insert(purple_sci.results,
+  {type="item", name="nuclear-waste", amount=2, probability = 0.51,
+    ignored_by_productivity = 9999, ignored_by_stats=1})
+purple_sci.main_product = "production-science-pack"
+
+local yellow_sci = data.raw["recipe"]["utility-science-pack"]
+yellow_sci.ingredients = {
+  {type="item", name="flying-robot-frame", amount=1},
+  {type="item", name="low-density-structure", amount=3},
+  {type="item", name="exoskeleton-equipment", amount=1},
+  {type="item", name="plutonium", amount=1, ignored_by_stats=1},
+}
+yellow_sci.results[1].amount = 5
+table.insert(yellow_sci.results,
+  {type="item", name="plutonium", amount=1, probability = 0.99,
+    ignored_by_productivity = 9999, ignored_by_stats=1})
+yellow_sci.main_product = "utility-science-pack"

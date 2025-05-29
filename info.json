@@ -8,7 +8,8 @@
     "space-age >= 2.0.0",
     "ch-concentrated-solar",
     "PlanetsLib >= 1.2.20",
-    "quick-adjustable-inserters >= 2.0.6"
+    "quick-adjustable-inserters >= 2.0.6",
+    "? tintable-centrifuges >= 0.1.0"
   ],
   "quality_required": true,
   "space_travel_required": true,

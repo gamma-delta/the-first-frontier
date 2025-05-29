@@ -18,6 +18,7 @@ data:extend{
     type = "recipe",
     name = "simple-bauxite-extraction",
     category = "chemistry",
+    additional_categories = {"centrifuging"},
     subgroup = "chemistry",
     order = "c[aluminum]-a",
     enabled = false,
@@ -243,6 +244,7 @@ data.raw["recipe"]["low-density-structure"].ingredients = {
   { type="item", name="aluminum-plate", amount=1 },
   { type="item", name="plastic-bar", amount=5 },
 }
+pglobals.recipe.replace("flying-robot-frame", "steel-plate", "low-density-structure")
 
 -- stop POSTING about SHOVING STONE INTO CHESTS
 -- this is only 1 iron plate per 50 stone, quite cheap,
@@ -290,9 +292,15 @@ centri_recipe.ingredients = {
 centri_recipe.additional_categories = {"centrifuging"}
 centri_recipe.crafting_machine_tint = nuke_colors
 
+local reactor_recipe = data.raw["recipe"]["nuclear-reactor"]
+table.insert(reactor_recipe.ingredients,
+  {type="item", name="uranium-238", amount=500})
+
 local u_proc = data.raw["recipe"]["uranium-processing"]
 u_proc.crafting_machine_tint = nuke_colors
 table.insert(u_proc.results, nuke_waste(1))
+-- but keep everything else the same.
+-- i ~* could *~ make it produce stone and stone byproducts, but ... like. why
 
 data.raw["recipe"]["uranium-fuel-cell"] = {
   type = "recipe",
@@ -326,7 +334,7 @@ cell_reproc.ingredients[1].amount = 1
 cell_reproc.results = {
   -- 1/4 input U
   {type="item", name="uranium-238", amount=1, probability = 0.5},
-  {type="item", name="plutonium", amount=1, probability = 0.2},
+  {type="item", name="plutonium", amount=1, probability = 0.8},
   nuke_waste(5),
 }
 
@@ -338,7 +346,7 @@ data:extend{
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
-      {type="item", name="plutonium", amount=5},
+      {type="item", name="plutonium", amount=10},
       {type="item", name="steel-plate", amount=10},
       {type="item", name="uranium-238", amount=20},
     },
@@ -362,7 +370,7 @@ data:extend{
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
-      {type="item", name="plutonium", amount=15},
+      {type="item", name="plutonium", amount=20},
       {type="item", name="steel-plate", amount=10},
       {type="item", name="uranium-238", amount=20},
     },
@@ -389,15 +397,15 @@ data:extend{
     -- TODO
     icons = pglobals.icons.mini_over(
       "__petraspace__/graphics/icons/plutonium.png",
-      "__petraspace__/graphics/icons/breeder-fuel-cell.png"
+      "__petraspace__/graphics/icons/depleted-breeder-fuel-cell.png"
     ),
     ingredients = {
       {type="item", name="depleted-breeder-fuel-cell", amount=1},
     },
     energy_required = 60,
-    -- 15 -> 20
+    -- 20 -> 30
     results = {
-      {type="item", name="plutonium", amount=2},
+      {type="item", name="plutonium", amount=3},
       nuke_waste(10),
     },
     allow_decomposition = false,
@@ -406,8 +414,112 @@ data:extend{
       secondary = {0.8, 0.8, 0},
       tertiary = {1.0, 0.5, 0},
       quaternary = {1, 0.5, 0},
-    }
+    },
+  },
+
+  -- The objective is for dumping waste to be dramatically worst in terms of
+  -- centrifuge-pollution-seconds/waste.
+  -- But making reprocessing take a long time can undermine that;
+  -- if it took 10x as long to reprocess one piece of waste as to
+  -- dump it at 10x pollution, that's the same amount of pollution.
+
+  -- 6 CPS/W
+  {
+    type = "recipe",
+    name = "nuclear-waste-reprocessing",
+    enabled = false,
+    category = "centrifuging",
+    subgroup = "uranium-processing",
+    icons = pglobals.icons.mini_over(
+      "__base__/graphics/icons/arrows/signal-shuffle.png",
+      "__petraspace__/graphics/icons/nuclear-waste.png"
+    ),
+    order = "z-a",
+    ingredients = {
+      {type="item", name="nuclear-waste", amount=10},
+      {type="item", name="coal", amount=20},
+    },
+    energy_required = 60,
+    results = {
+      -- STONE AND STONE BYPRODUCTS
+      {type="item", name="stone", amount=5},
+      {type="item", name="iron-ore", amount=3},
+      {type="item", name="uranium-ore", amount=2},
+    },
+    allow_decomposition = true,
+    -- why not
+    allow_productivity = true,
+    crafting_machine_tint = {
+      primary = {1.0, 1.0, 0},
+      secondary = {0.8, 1.0, 0},
+      tertiary = {0, 1.0, 0},
+      quaternary = {1, 1, 0},
+    },
+  },
+  -- 2 CPS/W
+  {
+    type = "recipe",
+    name = "barreled-nuclear-waste",
+    enabled = false,
+    category = "centrifuging",
+    subgroup = "uranium-processing",
+    order = "z-b",
+    ingredients = {
+      {type="item", name="nuclear-waste", amount=10},
+      {type="item", name="barrel", amount=1},
+      {type="fluid", name="water", amount=100},
+    },
+    energy_required = 5,
+    results = {{type="item", name="barreled-nuclear-waste", amount=1}},
+    allow_decomposition = true,
+    allow_productivity = false,
+    auto_recycle = false,
+    crafting_machine_tint = {
+      primary = {1.0, 1.0, 0},
+      secondary = {0.8, 0.8, 0},
+      tertiary = {0.5, 1.0, 0},
+      quaternary = {1, 1, 0},
+    },
+  },
+  -- 50 CPS/W
+  {
+    type = "recipe",
+    name = "nuclear-waste-dumping",
+    enabled = false,
+    category = "centrifuging",
+    subgroup = "uranium-processing",
+    order = "z-c",
+    icons = pglobals.icons.mini_over(
+      "__base__/graphics/icons/signal/signal-trash-bin.png",
+      "__petraspace__/graphics/icons/nuclear-waste.png"
+    ),
+    ingredients = {{type="item", name="nuclear-waste", amount=1}},
+    energy_required = 5,
+    results = {},
+    allow_decomposition = false,
+    allow_productivity = false,
+    allow_efficiency = false,
+    allow_pollution = false,
+    crafting_machine_tint = {
+      primary = {1.0, 1.0, 0},
+      secondary = {0.8, 0.8, 0},
+      tertiary = {0.5, 1.0, 0},
+      quaternary = {1, 1, 0},
+    },
+    emissions_multiplier = 10,
   },
 }
 
-data.raw["recipe"]["kovarex-enrichment-process"].hidden = true
+-- TODO: give these actual prereqs
+for _,tech in ipairs{"atomic-bomb", "captive-biter-spawner"} do
+  local proto = data.raw["technology"][tech]
+  for i,req in ipairs(proto.prerequisites) do
+    if req == "kovarex-enrichment-process" then
+      table.remove(proto.prerequisites, i)
+      goto continue
+    end
+  end
+  ::continue::
+end
+data.raw["technology"]["kovarex-enrichment-process"] = nil
+data.raw["recipe"]["kovarex-enrichment-process"] = nil

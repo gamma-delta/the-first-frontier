@@ -179,7 +179,7 @@ data:extend{
     stack_size = 1,
     weight = rocket_cap * 10,
     subgroup = "uranium-processing",
-    order = "zzz",
+    order = "z[waste]-a",
 
     inventory_move_sound = item_sounds.nuclear_inventory_move,
     pick_sound = item_sounds.nuclear_inventory_pickup,
@@ -234,6 +234,17 @@ data:extend{
     name = "depleted-breeder-fuel-cell",
     order = "b[uranium-products]-e",
     icon = "__petraspace__/graphics/icons/depleted-breeder-fuel-cell.png",
+  }),
+  pglobals.copy_then(data.raw["item"]["depleted-uranium-fuel-cell"], {
+    name = "barreled-nuclear-waste",
+    order = "z[waste]-b",
+    icon = "__petraspace__/graphics/icons/barreled-nuclear-waste.png",
+    stack_size = 1,
+    mass = 10 * rocket_cap,
+    auto_recycle = false,
+    spoil_result = "barrel",
+    spoil_ticks = 24 * hour,
+    auto_recycle = false,
   }),
 }
 

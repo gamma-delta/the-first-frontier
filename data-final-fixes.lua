@@ -68,4 +68,4 @@ for _,recipe in pairs(data.raw["recipe"]) do
   end
 end
 -- While i'm at it tweak other pollution amounts
-data.raw["recipe"]["scrap-recycling"].emissions_multiuplier = 0.1
+data.raw["recipe"]["scrap-recycling"].emissions_multiplier = 0.1
