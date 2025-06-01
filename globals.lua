@@ -217,6 +217,19 @@ pglobals.icons = {
       },
     }
   end,
+  ore_deposit = function(ore)
+    return {
+      {
+        icon = ore,
+      },
+      {
+        icon = "__base__/graphics/icons/signal/signal-mining.png",
+        scale = 0.3333,
+        shift = {-8, -8},
+        draw_background = true
+      },
+    }
+  end,
   one_into_two = function(input, out1, out2)
     return {
       {

@@ -10,7 +10,7 @@ data:extend{
       name = "bauxite-ore",
       map_color = { 0.75, 0.50, 0.45 },
       mining_visualization_tint = { 0.75, 0.50, 0.45 },
-      icon = "__petraspace__/graphics/icons/bauxite/1.png",
+      icons = pglobals.icons.ore_deposit "__petraspace__/graphics/icons/bauxite/1.png",
       minable = {
         mining_particle = "stone-particle",
         mining_time = 1,
@@ -45,7 +45,7 @@ data:extend{
       name = "ice-deposit",
       map_color = { 0.5, 0.7, 1.0 },
       mining_visualization_tint = { 0.75, 0.75, 0.1 },
-      icon = "__space-age__/graphics/icons/ice.png",
+      icons = pglobals.icons.ore_deposit "__space-age__/graphics/icons/ice.png",
       minable = {
         mining_particle = "stone-particle",
         mining_time = 1,
@@ -90,7 +90,7 @@ data:extend{
       -- dark brown?
       map_color = { 0.6, 0.2, 0.1 },
       -- mining_visualization_tint = { 0.75, 0.75, 0.1 },
-      icon = "__petraspace__/graphics/icons/regolith/1.png",
+      icons = pglobals.icons.ore_deposit "__petraspace__/graphics/icons/regolith/1.png",
       minable = {
         mining_particle = "stone-particle",
         mining_time = 2,
@@ -130,7 +130,7 @@ data:extend{
 local anthracite = pglobals.copy_then(data.raw["resource"]["coal"], {
   name = "anthracite-coal",
   map_color = { 0, 0, 0 },
-  icon = "__base__/graphics/icons/coal.png",
+  icons = pglobals.icons.ore_deposit "__base__/graphics/icons/coal.png",
   minable = {
     mining_particle = "coal-particle",
     mining_time = 2,
