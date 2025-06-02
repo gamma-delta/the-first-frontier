@@ -45,7 +45,7 @@ data:extend{
 
 -- Nauvian circuit substrate recipes
 -- This makes the fulgoran recycling ratios a little different,
--- but you can still get plenty of iron from gears
+-- but you can still get plenty of iron from gears (Edit: no)
 -- and copper from LDS and POC and whatever
 data:extend{
   {
@@ -193,6 +193,20 @@ data:extend{
 }
 
 data:extend{
+  {
+    type = "recipe",
+    name = "rocket-control-unit",
+    category = "data-card-programming",
+    enabled = false,
+    ingredients = {
+      {type="item", name="orbital-data-card", amount=1},
+      {type="item", name="processing-unit", amount=1},
+      {type="item", name="electric-engine-unit", amount=1},
+    },
+    energy_required = 10,
+    results = {{type="item", name="rocket-control-unit", amount=1}},
+    auto_recycle = false,
+  },
   {
     type = "recipe",
     name = "lunar-rocket-silo",

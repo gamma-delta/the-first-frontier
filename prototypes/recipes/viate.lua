@@ -1,4 +1,9 @@
 -- Recipes for Viate, and its use as a stepping stone
+-- It's impossible to get oil products on Viate
+-- (and other moons? need to make those)
+-- This means I can mandate some amount of rocket ingredients in from the host
+-- planet.
+-- MB i'll make each moon purposely devoid of some particular resource
 
 local pglobals = require("globals")
 

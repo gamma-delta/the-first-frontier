@@ -31,8 +31,11 @@ local function rocket_part_recipe(gravity)
     category = "rocket-building",
     ingredients =
     {
-      {type = "item", name = "processing-unit", amount = 1},
+      -- Vulcanus
       {type = "item", name = "low-density-structure", amount = 1},
+      -- Fulgora
+      {type = "item", name = "rocket-control-unit", amount = 1},
+      -- Gleba
       {type = "item", name = "precision-optical-component", amount = 1},
       {type = "fluid", name = "thruster-fuel", amount = real_fuel, fluidbox_index = 1},
       {type = "fluid", name = "thruster-oxidizer", amount = real_fuel, fluidbox_index = 2},

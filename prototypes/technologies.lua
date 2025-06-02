@@ -212,7 +212,10 @@ data:extend{
         -- dunno what this does
         use_icon_overlay_constant = true,
       },
+      -- should i split this into LRS and Viate researches?
+      -- it would p be bloat
       recipe("lunar-rocket-silo"),
+      recipe("rocket-control-unit"),
       -- recipe("ice-melting"),
       recipe("orbital-data-card-low-pressure"),
       recipe("precision-optical-component-low-pressure"),

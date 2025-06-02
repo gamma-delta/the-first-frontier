@@ -86,7 +86,20 @@ data:extend{
       move_sound = spage_sounds.ice_inventory_move,
       weight = rocket_cap / 400,
     }
-  )
+  ),
+  pglobals.copy_then(
+    data.raw["item"]["electronic-circuit"],
+    {
+      -- they're back!!
+      name = "rocket-control-unit",
+      -- right before rocket parts
+      order = "d[rocket-parts]-d!",
+      icon = "__petraspace__/graphics/icons/rocket-control-unit.png",
+
+      stack_size = 20,
+      weight = rocket_cap / 20,
+    }
+  ),
 }
 
   -- === Aluminum === --

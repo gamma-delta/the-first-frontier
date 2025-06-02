@@ -160,3 +160,29 @@ data.raw["item"]["uranium-fuel-cell"].fuel_value = "50GJ"
 -- special building
 local centri = data.raw["assembling-machine"]["centrifuge"]
 centri.module_slots = 6
+-- this makes the centrifuge wiggle faster, but tbqh i like it
+centri.crafting_speed = 2
+local eppp = require("__space-age__/prototypes/entity/electromagnetic-plant-pictures")
+centri.fluid_boxes_off_when_no_fluid_recipe = true
+-- Setting input-output on input FBs is what the EM plant does
+-- It looks like it somehow intelligently "knows" to passthru the fluid?
+local function centri_fb(io, dir, pos)
+  return {
+    production_type = io,
+    pipe_picture = eppp.pipe_pictures,
+    pipe_picture_frozen = eppp.pipe_pictures_frozen,
+    pipe_covers = pipecoverspictures(),
+    volume = 200,
+    pipe_connections = {{
+      flow_direction="input-output",
+      direction=defines.direction[dir],
+      position=pos
+    }},
+  }
+end
+centri.fluid_boxes = {
+  centri_fb("input", "west", {-1, 0}),
+  centri_fb("input", "east", {1, 0}),
+  centri_fb("output", "north", {0, -1}),
+  centri_fb("output", "south", {0, 1}),
+}
