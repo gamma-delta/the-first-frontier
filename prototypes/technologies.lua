@@ -126,6 +126,7 @@ heating_tower.unit = {
   ingredients = science("rgb"),
   time = 30,
 }
+heating_tower.research_trigger = nil
 heating_tower.effects = {
   recipe("heating-tower"),
   recipe("heat-pipe"),
