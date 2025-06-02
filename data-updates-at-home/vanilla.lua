@@ -178,6 +178,12 @@ local function centri_fb(io, dir, pos)
       direction=defines.direction[dir],
       position=pos
     }},
+    secondary_draw_orders = {
+      north = -1,
+      south = 1,
+      west = -1,
+      east = -1
+    }
   }
 end
 centri.fluid_boxes = {

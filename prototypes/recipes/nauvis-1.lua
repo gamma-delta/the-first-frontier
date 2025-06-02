@@ -453,20 +453,18 @@ data:extend{
     ),
     order = "z-a",
     ingredients = {
-      -- what's a plausible item you could use here?
-      -- centrifuges do not currently have fluid i/o, otherwise I would use
-      -- nitric acid. I guess i could add fluid i/o
       {type="item", name="nuclear-waste", amount=10},
-      {type="item", name="coal", amount=20},
+      {type="fluid", name="nitric-acid", amount=20},
     },
     energy_required = 300,
     results = {
       -- STONE AND STONE BYPRODUCTS
       {type="item", name="stone", amount=5},
       {type="item", name="iron-ore", amount=3},
-      {type="item", name="uranium-ore", amount=2},
+      -- note you can get productivity here
+      {type="item", name="uranium-ore", amount=10},
     },
-    allow_decomposition = true,
+    allow_decomposition = false,
     -- why not
     allow_productivity = true,
     crafting_machine_tint = {

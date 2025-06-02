@@ -106,9 +106,9 @@ purple_sci.ingredients = {
   {type="item", name="nuclear-waste", amount=1, ignored_by_stats=1},
 }
 purple_sci.results[1].amount = 5
--- produces a slight trickle of waste, probabilistically
+-- On average, slowly consumes waste. But like really, really slowly
 table.insert(purple_sci.results,
-  {type="item", name="nuclear-waste", amount=2, probability = 0.51,
+  {type="item", name="nuclear-waste", amount=1, probability = 0.99,
     ignored_by_productivity = 9999, ignored_by_stats=1})
 purple_sci.main_product = "production-science-pack"
 
