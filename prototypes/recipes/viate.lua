@@ -140,6 +140,8 @@ spt.ingredients = {
   -- This is only turned on in the Krastorio compat. Why? It makes sense.
   {type = "item", name="heat-pipe", amount=20}
 }
+-- Ship up exactly one, it's easier that way
+spt.weight = 1000 * kg
 
 -- make the SLT more expensive than in the base game because
 -- you don't really need hardcore combat utils as much until later.

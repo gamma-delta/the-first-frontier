@@ -113,7 +113,7 @@ function lrs_gui.update_gui(lrs, root)
     .get_inventory(defines.inventory.rocket_silo_rocket)
     .is_empty()
   local problem
-  if not lrs.rocket then
+  if not lrs.rocket or lrs.status ~= defines.entity_status.waiting_to_launch_rocket then
     problem = {"gui-rocket-silo.rocket-is-not-ready"}
   elseif lrs.frozen then
     problem = {"gui-rocket-silo.frozen-rocket"}
@@ -155,9 +155,14 @@ function lrs_gui.check_launch(evt)
   -- Guess destination, pick player
   local moony_dest = lrs_gui.get_moony_dest(lrs)
   if not moony_dest then return end
+  -- Generate the planet if it doesn't exist to avoid crashing
+  local moony_planet = game.planets[moony_dest.name]
+  if moony_planet.surface == nil then
+    moony_planet.create_surface()
+  end
   local final_check = lrs.launch_rocket(
-    -- {type=defines.cargo_destination.surface, surface=moony_dest.name},
-    {type=defines.cargo_destination.orbit},
+    {type=defines.cargo_destination.surface, surface=moony_dest.name},
+    -- {type=defines.cargo_destination.orbit},
     player.character
   )
   if final_check then

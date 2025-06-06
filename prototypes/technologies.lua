@@ -198,7 +198,8 @@ data:extend{
     prerequisites = { 
       "orbital-science-pack",
       "rocket-propellants", "electric-engine", "concrete",
-      "heating-tower",
+      "heating-tower", "construction-robotics"
+      -- robots are so you can remotely move items to your silo
     },
     unit = {
       count = 300,

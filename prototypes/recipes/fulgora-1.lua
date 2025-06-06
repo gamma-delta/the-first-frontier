@@ -74,6 +74,8 @@ data:extend{
     subgroup = "fulgora-processes",
     order = "az[after-trash]-a",
     enabled = false,
+    auto_recycle = false,
+    allow_productivity = true,
     energy_required = 5,
     ingredients = {
       {type="fluid", name="fulgoran-sludge", amount=100},

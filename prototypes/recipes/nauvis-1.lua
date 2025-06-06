@@ -358,6 +358,7 @@ data:extend{
     type = "recipe",
     name = "mox-fuel-cell",
     enabled = false,
+    allow_productivity = true,
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
@@ -382,6 +383,7 @@ data:extend{
     type = "recipe",
     name = "breeder-fuel-cell",
     enabled = false,
+    allow_productivity = true,
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
@@ -406,6 +408,7 @@ data:extend{
     type = "recipe",
     name = "breeder-fuel-cell-reprocessing",
     enabled = false,
+    allow_productivity = true,
     category = "centrifuging",
     subgroup = "uranium-processing",
     order = "b[uranium-products]-za",
