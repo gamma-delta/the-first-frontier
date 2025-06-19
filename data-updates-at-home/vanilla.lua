@@ -192,3 +192,15 @@ centri.fluid_boxes = {
   centri_fb("output", "north", {0, -1}),
   centri_fb("output", "south", {0, 1}),
 }
+
+-- Hide techs for quality modules
+-- I'll worry about what to do with quality later
+for _,tech in ipairs{
+  "quality-module", "quality-module-2", "quality-module-3",
+  "epic-quality", "legendary-quality"
+} do
+  local proto = data.raw["technology"][tech]
+  proto.hidden = true
+  proto.enabled = false
+  proto.visible_when_disabled = false
+end
