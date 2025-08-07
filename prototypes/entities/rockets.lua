@@ -65,6 +65,7 @@ end
 for gravi,_ in pairs(all_gravities) do
   data:extend{ rocket_part_recipe(gravi) }
 end
+data.raw["recipe"]["rocket-part"] = data.raw["recipe"]["ps-rocket-part-gravity-10"]
 
 -- Edit some rocket silo stuff here, not in data-updates,
 -- so i can clone the edited version into the lunar one

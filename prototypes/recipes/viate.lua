@@ -1,5 +1,5 @@
 -- Recipes for Viate, and its use as a stepping stone
--- It's impossible to get oil products on Viate
+-- It's impossible to get oil products or carbon on Viate
 -- (and other moons? need to make those)
 -- This means I can mandate some amount of rocket ingredients in from the host
 -- planet.
@@ -15,7 +15,7 @@ data:extend{
     category = "smelting",
     enabled = false,
     energy_required = 6.4,
-    ingredients = {{type="item", name="regolith", amount=2}},
+    ingredients = {{type="item", name="regolith", amount=1}},
     results = {{type="item", name="stone-brick", amount=1}},
     allow_productivity = true,
     allow_decomposition = false,
@@ -35,18 +35,17 @@ data:extend{
     ingredients = {
       {type="item", name="regolith", amount=10},
       -- 1 ice = 20 water = 200 steam
-      -- so each of these is five ice (at freddie's)
-      {type="fluid", name="steam", amount=1000},
+      {type="fluid", name="water", amount=200},
     },
     allow_productivity = true,
     allow_decomposition = false,
     results = {
       {type="item", name="stone", amount=5},
+      {type="item", name="native-aluminum", amount=5},
       {type="item", name="iron-ore", amount=10},
-      {type="item", name="bauxite-ore", amount=5},
     },
     icons = pglobals.icons.mini_over(
-      "__base__/graphics/icons/fluid/steam.png",
+      "__base__/graphics/icons/fluid/water.png",
       "__petraspace__/graphics/icons/regolith/1.png"
     ),
   },
@@ -61,20 +60,19 @@ data:extend{
     ingredients = {
       {type="item", name="regolith", amount=10},
       {type="fluid", name="sulfuric-acid", amount=10},
+      {type="fluid", name="steam", amount=200},
     },
     allow_productivity = true,
     allow_decomposition = false,
     results = {
-      {type="item", name="stone", amount=10},
-      {type="item", name="native-aluminum", amount=5},
+      {type="item", name="stone", amount=2},
+      {type="item", name="native-aluminum", amount=15},
       {type="item", name="copper-ore", amount=2},
       -- One sulfur makes 10 H2SO4. Naively looping it around will not
       -- produce enough to close the loop; you need >20% productivity.
       -- Filling this recipe and the sulfuric acid recipe with 3 prod1 mods
       -- should barely close the loop.
       -- However you also need enough iron ore to react it ...
-      -- and use the sulfur to get rid of your excess bauxite from the
-      -- washing recipe.
       -- You will probably be relying on shipments of S from Nauvis for a while.
       {type="item", name="sulfur", amount=1, probability=0.8},
     },
@@ -122,13 +120,17 @@ data:extend{
   }
 }
 
+-- I want to encourage, but not require, making the mirrors on the moon.
 local hsm = data.raw["recipe"]["chcs-heliostat-mirror"]
 hsm.ingredients = {
   {type="item", name="electronic-circuit", amount=5},
   {type="item", name="aluminum-plate", amount=5}, -- FeC -> Al
-  {type="item", name="precision-optical-component", amount = 5}, -- Cu -> POC
+  {type="item", name="iron-gear-wheel", amount=10},
 }
 
+-- You cannot ship this, you have to make it on Viate.
+-- I want it to be the precursor challenge to space science.
+-- So, don't make it hideously expensive ...
 local spt = data.raw["recipe"]["chcs-solar-power-tower"]
 spt.ingredients = {
   -- Keep it the same, also this way it encourages you to make conc reat babay

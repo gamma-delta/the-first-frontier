@@ -46,6 +46,8 @@ data.raw["reactor"]["nuclear-reactor"].heat_buffer.max_temperature = 2000
 local heat_pipe = data.raw["heat-pipe"]["heat-pipe"].heat_buffer
 -- it takes a WHOLE MEGAWATT to heat a heat pipe by 1 degree in vanilla.
 -- Jesus, no wonder reactors take so long to spin up.
+-- However experiments reveal that it requires a high-ish SHC in order
+-- to transfer any heat at all
 heat_pipe.specific_heat = "100kJ"
 heat_pipe.max_transfer = "100MW"
 

@@ -88,12 +88,13 @@ data:extend{
 -- Do I want to introduce viate skip? it would be funny.
 local spience = data.raw["recipe"]["space-science-pack"]
 -- Spience makes 5 of them
+-- you way overproduce iron on the moon, given that you have
+-- to ship in all of your steel.
+-- therefore I want spience to be a huge iron hog.
 spience.ingredients = {
   {type="item", name="space-platform-foundation", amount=1},
-  {type="item", name="precision-optical-component", amount=5},
-  {type="item", name="low-density-structure", amount=10},
-  {type="item", name="aluminum-plate", amount=10},
-  {type="item", name="rocket-fuel", amount=5},
+  {type="item", name="precision-optical-component", amount=1},
+  {type="item", name="storage-tank", amount=5},
 }
 spience.surface_conditions = {{ property="gravity", max=2.5 }}
 
