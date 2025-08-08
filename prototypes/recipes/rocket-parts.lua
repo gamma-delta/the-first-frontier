@@ -208,7 +208,7 @@ local function rocket_part_recipe(gravity)
     enabled = true,
     hide_from_player_crafting = true,
     auto_recycle = false,
-    hidden = true,
+    hidden = gravity ~= 10,
     category = "rocket-building",
     ingredients =
     {
@@ -246,4 +246,4 @@ end
 for gravi,_ in pairs(all_gravities) do
   data:extend{ rocket_part_recipe(gravi) }
 end
-data.raw["recipe"]["rocket-part"] = data.raw["recipe"]["ps-rocket-part-gravity-10"]
+data.raw["recipe"]["rocket-part"].hidden = true
