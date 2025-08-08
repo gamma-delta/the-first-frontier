@@ -32,7 +32,7 @@ data:extend{
   },
 }
 
-require("recipes/rocket-juice")
+require("recipes/rocket-parts")
 
 require("recipes/nauvis-1")
 require("recipes/viate")
