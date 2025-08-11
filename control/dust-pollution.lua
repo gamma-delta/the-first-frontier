@@ -26,7 +26,7 @@ local function create_secret_beacon(evt)
       force = evt.force,
       raise_built = true,
     }
-    -- game.print("Created beacon " .. tostring(secret_beacon) .. " parented to " .. tostring(entity))
+    game.print("Created beacon " .. tostring(secret_beacon) .. " parented to " .. tostring(entity))
     local extra = putil.extra(secret_beacon)
     extra.parent = entity
   end

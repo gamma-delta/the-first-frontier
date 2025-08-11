@@ -42,17 +42,9 @@ out.dust = {
       string = bp, position = {-1, 0},
     }
   ]],
-  -- The langfile is a flat-out lie. It looks like event handlers don't run in
-  -- simulations so instead I am going to just gradually throttle their power.
+  -- I figured out how to get simulations to run events!
   update = [[
-    local eei = game.surfaces[1].find_entities_filtered{
-      area = {{-20, -20}, {20,20}},
-      name = "electric-energy-interface"
-    }[1]
-    local tick_adj = game.tick / 100
-    local diminish = math.max((100 - tick_adj) / 100, 0)
-    -- this is in joules per tick
-    eei.power_production = 300 * 1000 * 6 / 60 * diminish
+    game.surfaces[1].pollute({0, 0}, 100)
   ]]
 }
 

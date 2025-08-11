@@ -11,6 +11,7 @@ data:extend{
     order = "![before-fulgora]-a",
     trigger = {type="research", technology="discover-viate"},
     simulation = viate_tnt.welcome,
+    mods = {"petraspace"},
   },
   {
     type = "tips-and-tricks-item",
@@ -21,6 +22,7 @@ data:extend{
     tag = "[fluid=steam]",
     trigger = {type="change-surface", surface="viate"},
     simulation = viate_tnt.dust,
+    mods = {"petraspace"},
   },
   {
     type = "tips-and-tricks-item-category",
@@ -35,7 +37,7 @@ data:extend{
     order = "!first",
     indent = 0,
     trigger = {type="research", technology="rocket-propellants"},
-    simulation = rocket_juice.intro
+    simulation = rocket_juice.intro,
   },
   {
     type = "tips-and-tricks-item",
