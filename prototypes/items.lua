@@ -366,6 +366,20 @@ data:extend{
   }
 }
 
+-- Superalloys
+data:extend {
+  pglobals.copy_then(data.raw["item"]["tungsten-plate"], {
+    name = "magpie-alloy",
+    subgroup = "vulcanus-processes",
+    order = "zb[superalloys]-a",
+    icon = "__petraspace__/graphics/icons/magpie-alloy/1.png",
+    pictures = make_pics("magpie-alloy", 8),
+    stack_size = 20,
+    weight = rocket_cap / 20,
+    random_tint_color = item_tints.iron_rust,
+  }),
+}
+
 -- Particle physics
 data:extend{
   {

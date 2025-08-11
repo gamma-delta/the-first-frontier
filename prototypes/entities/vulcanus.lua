@@ -219,7 +219,7 @@ local thp = pglobals.copy_then(data.raw["heat-pipe"]["heat-pipe"], {
     }
 )
 })
-thp.heat_buffer.specific_heat = "20kJ"
+thp.heat_buffer.specific_heat = "200kJ"
 thp.heat_buffer.max_transfer = "1GW"
 thp.heat_buffer.max_temperature = 2000
 data:extend{

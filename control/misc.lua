@@ -85,7 +85,16 @@ return {
       [defines.events.on_force_created] = function(evt) 
         add_qai_techs(evt.force)
       end,
-      [defines.events.on_research_finished] = tmp_you_win
+      [defines.events.on_research_finished] = tmp_you_win,
+      [defines.events.on_surface_created] = function(evt)
+        local surface = game.surfaces[evt.surface_index]
+        if surface.name == "aquilo" then
+          surface.freeze_daytime = true
+          -- 0 is midday for some reason
+          -- 0.5 is the middle of the night i guess
+          surface.daytime = 0.5
+        end
+      end,
     }
   },
   on_init = function()
