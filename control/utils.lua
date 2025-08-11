@@ -66,6 +66,11 @@ end
 -- Returns a table for events and a table for on_nth_ticks
 utils.on_type_by_tick = function(entity_name, ticks, fn)
   local events_tbl = utils.on_any_built(function(evt)
+    -- This happens if someone places entities on tick 0,
+    -- such as tips and tricks
+    if not storage.on_type_by_tick then 
+      storage.on_type_by_tick = {}
+    end
     if not storage.on_type_by_tick[entity_name] then
     -- A set of all those entities
       storage.on_type_by_tick[entity_name] = {}

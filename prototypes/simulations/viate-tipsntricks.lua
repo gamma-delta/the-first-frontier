@@ -2,6 +2,7 @@ local out = {}
 out.welcome = {
   planet = "viate",
   generate_map = true,
+  mods = {"petraspace"},
 
   -- Instead of manually placing things (cringe!) just generate a map.
   -- I scouted this location ahead of time.
@@ -24,6 +25,8 @@ out.dust = {
   planet = "viate",
   generate_map = false,
   checkerboard = true,
+  -- This is the secret sauce to get scripts to run
+  mods = {"petraspace"},
 
   -- default size is 22 across, 11 tall
   init = [[
@@ -41,10 +44,19 @@ out.dust = {
     local ret = game.surfaces[1].create_entities_from_blueprint_string{
       string = bp, position = {-1, 0},
     }
+
+    log(game.surfaces[1].pollutant_type.name)
+
+    -- Sigh. Raise the script built events by hand
+    for _,e in ipairs(game.surfaces[1].find_entities_filtered{name="big-mining-drill"}) do
+      script.raise_script_built{entity=e}
+    end
   ]],
-  -- I figured out how to get simulations to run events!
   update = [[
-    game.surfaces[1].pollute({0, 0}, 100)
+    -- Every second it gets 1% slower
+    if game.tick % 60 == 0 then
+      game.surfaces[1].pollute({0, 0}, 10)
+    end
   ]]
 }
 

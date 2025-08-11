@@ -11,7 +11,6 @@ data:extend{
     order = "![before-fulgora]-a",
     trigger = {type="research", technology="discover-viate"},
     simulation = viate_tnt.welcome,
-    mods = {"petraspace"},
   },
   {
     type = "tips-and-tricks-item",
@@ -22,7 +21,6 @@ data:extend{
     tag = "[fluid=steam]",
     trigger = {type="change-surface", surface="viate"},
     simulation = viate_tnt.dust,
-    mods = {"petraspace"},
   },
   {
     type = "tips-and-tricks-item-category",
