@@ -16,6 +16,7 @@ require "prototypes/entities/fulgora"
 require "prototypes/entities/gleba"
 require "prototypes/entities/enemies/sapper"
 require "prototypes/entities/platforms"
+require "prototypes/tiles"
 
 require "prototypes/technologies"
 require "prototypes/entities/misc"
