@@ -39,60 +39,26 @@ data:extend{
       -- TODO idfc
       main = {
         {
-          picture = "__petraspace__/graphics/tiles/fulgora-scaffolding.png",
+          picture = "__petraspace__/graphics/tiles/fulgoran-scaffolding/main.png",
           size = 1,
           scale = 0.5,
-          count = 12,
-          line_length = 6,
-          x = 64,
-          y = 64,
+          count = 16,
+          line_length = 8,
+          x = 0,
+          y = 0,
         },
         {
-          picture = "__petraspace__/graphics/tiles/fulgora-scaffolding.png",
+          picture = "__petraspace__/graphics/tiles/fulgoran-scaffolding/main.png",
           size = 2,
           scale = 0.5,
-          count = 6,
-          line_length = 3,
-          x = 64,
-          y = 64 * 3,
+          count = 8,
+          line_length = 4,
+          x = 0,
+          y = 64 * 2,
         },
       },
       -- TODO figure out transition
-      transition = {
-        overlay_layout = {
-          -- inner_corner
-          side = {
-            spritesheet = "__petraspace__/graphics/tiles/fulgora-scaffolding.png",
-            count = 32,
-            scale = 0.5,
-            tile_height = 1,
-            x = 8 * 64,
-            y = 0,
-            count = 6,
-            line_length = 6,
-          },
-          outer_corner = {
-            spritesheet = "__petraspace__/graphics/tiles/fulgora-scaffolding.png",
-            count = 6,
-            scale = 0.5,
-            tile_height = 1,
-            x = 8 * 64,
-            y = 4 * 64,
-            count = 1,
-            line_length = 1,
-          },
-          -- double_side
-          -- u_transition
-          -- o_transition
-        },
-      }
-
-      -- material_background =
-      -- {
-      --   picture = "__space-age__/graphics/terrain/space-platform/space-platform.png",
-      --   count = 8,
-      --   scale = 0.5
-      -- }
+      transition = data.raw["tile"]["foundation"].variants.transition,
     },
 
     walking_sound = base_tile_sounds.walking.concrete,

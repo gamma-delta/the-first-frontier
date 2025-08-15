@@ -45,7 +45,7 @@ local function make_sapper(
   local tint_projectile = tints.projectile
   local tint_projectile_mask = tints.projectile_mask
 
-  local sapper_scale = 1 * scale
+  local sapper_scale = 1.4 * scale
   local sapper_head_size = 0.7
   local sapper_leg_thickness = 0.8
   local sapper_leg_ground_position = {0, -6 * scale}
@@ -76,6 +76,9 @@ local function make_sapper(
   local sapper_graphics_definitions = {
     icon = "__space-age__/graphics/icons/".. prefix .."strafer.png",
     body = {
+      -- shhhhhhhhh
+      -- this renders under the legs,
+      -- `animation` renders over
       base_animation = {
         layers = {
           util.sprite_load("__space-age__/graphics/entity/strafer/torso/torso-main",
@@ -83,7 +86,7 @@ local function make_sapper(
             scale=0.5*sapper_head_size*sapper_scale,
             direction_count=64,
             multiply_shift=0.0,
-            shift = util.by_pixel( 0, -0.0),
+            shift = util.by_pixel(0, -8),
             tint_as_overlay = true,
             tint = tint_body,
             surface = "gleba",
@@ -94,7 +97,7 @@ local function make_sapper(
             scale=0.5*sapper_head_size*sapper_scale*0.5,
             direction_count=64,
             multiply_shift=0.0,
-            shift = util.by_pixel( 0, -0.0),
+            shift = util.by_pixel( 0, -8),
             tint_as_overlay = true,
             tint = tint_mask,
             surface = "gleba",
@@ -116,27 +119,38 @@ local function make_sapper(
       },
       animation = {
         layers = {
-          util.sprite_load("__space-age__/graphics/entity/strafer/torso/head-main",
+          util.sprite_load("__petraspace__/graphics/entities/sapper/body",
           {
             scale=0.5*sapper_head_size*sapper_scale,
             direction_count=64,
-            --multiply_shift=0.0,
-            shift = util.by_pixel( 0, -22.0),
+            multiply_shift=0.0,
+            shift = util.by_pixel( 0, -8),
             tint_as_overlay = true,
             tint = tint_body,
             surface = "gleba",
             usage = "enemy"
           }),
-          util.sprite_load("__space-age__/graphics/entity/strafer/torso/head-main-mask",
+          util.sprite_load("__petraspace__/graphics/entities/sapper/body-mask",
           {
-            scale=0.5*sapper_head_size*sapper_scale,
+            scale=0.5*sapper_head_size*sapper_scale*0.5,
             direction_count=64,
-            --multiply_shift=0.0,
-            shift = util.by_pixel( 0, -22.0),
+            multiply_shift=0.0,
+            shift = util.by_pixel( 0, -0.0),
             tint_as_overlay = true,
             tint = tint_mask,
             surface = "gleba",
             usage = "enemy"
+          }),
+          util.sprite_load("__petraspace__/graphics/entities/sapper/lights",
+          {
+            scale=0.5*sapper_head_size*sapper_scale,
+            direction_count=64,
+            multiply_shift=0.0,
+            shift = util.by_pixel( 0, -8),
+            draw_as_glow = true,
+            blend_mode = "additive",
+            surface = "gleba",
+            usage = "enemy",
           }),
         }
       },
