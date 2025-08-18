@@ -551,7 +551,7 @@ logibots.unit = {
 }
 -- Recipe is in post-t1
 local turbelts = data.raw["technology"]["turbo-transport-belt"]
-turbelts.prerequisites = {"metallurgic-science-pack", "agricultural-science-pack"}
+turbelts.prerequisites = {"metallurgic-science-pack", "carbon-fiber"}
 turbelts.unit = {
   count = 1000,
   ingredients = science("rgbspMA"),
