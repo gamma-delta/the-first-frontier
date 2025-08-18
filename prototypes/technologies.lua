@@ -400,6 +400,7 @@ table.insert(yellow_sci.unit.ingredients, {"space-science-pack", 1})
 
 -- Vulcanus I
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
+pglobals.tech.add_unlock("foundry", "lime-calcination")
 -- Intermediate: tungsten heat pipes
 data:extend{
   {
@@ -484,7 +485,7 @@ table.insert(data.raw["technology"]["bacteria-cultivation"].effects,
 -- With oil reformation, all the special bio-recipes are no longer
 -- necessary. (Plastic, rocket fuel, sulfur, and jelly.)
 data.raw["technology"]["bioflux-processing"].hidden = true
-pglobals.remove_prereq("agricultural-science-pack", "bioflux-processing")
+pglobals.tech.remove_prereq("agricultural-science-pack", "bioflux-processing")
 
 data:extend{
   {
@@ -536,12 +537,28 @@ data:extend{
   },
 }
 
+-- Each pair of inner planets has its own cool technology.
+-- Fulgora+Vulc already is ... deep oil ocean rails? seems lame.
+-- may play with that.
+-- Fulgora+Gleba is Logi system (complex robotics and swarming behaviors)
+-- Gleba+Vulc is Turbelts
+local logibots = data.raw["technology"]["logistic-system"]
+logibots.prerequisites = {"electromagnetic-science-pack", "agricultural-science-pack"}
+logibots.unit = {
+  count = 1000,
+  ingredients = science("rgbsyEA"),
+  time = 60
+}
+-- Recipe is in post-t1
+local turbelts = data.raw["technology"]["turbo-transport-belt"]
+turbelts.prerequisites = {"metallurgic-science-pack", "agricultural-science-pack"}
+turbelts.unit = {
+  count = 1000,
+  ingredients = science("rgbspMA"),
+  time = 60,
+}
+
 data:extend{
-  -- Each pair of inner planets has its own cool technology.
-  -- Fulgora+Vulc already is ... deep oil ocean rails? seems lame.
-  -- may play with that.
-  -- Fulgora+Gleba is Logi system (complex robotics and swarming behaviors)
-  -- Gleba+Vulcanus is ... some kind of productivity probably? Or Fertilizer?
   {
     type = "technology",
     name = "advanced-bauxite-extraction",
@@ -565,11 +582,4 @@ data:extend{
       recipe("casting-low-density-structure"),
     },
   }
-}
-local logibots = data.raw["technology"]["logistic-system"]
-logibots.prerequisites = {"electromagnetic-science-pack", "agricultural-science-pack"}
-logibots.unit = {
-  count = 1000,
-  ingredients = science("rgbuEA"),
-  time = 60
 }

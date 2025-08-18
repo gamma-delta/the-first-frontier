@@ -203,11 +203,11 @@ pglobals.tech = {
     end
   end,
   remove_prereq = function(tech_name, prereq, ...)
-    local strikeout_prereqs = pglobals.set(table.pack, prereq, ...)
+    local strikeout_prereqs = pglobals.set(table.pack(prereq, ...))
     local tech = data.raw["technology"][tech_name]
     local new_prereqs = {}
     for i, pre in ipairs(tech.prerequisites) do
-      if not prereqs[pre] then
+      if not strikeout_prereqs[pre] then
         table.insert(new_prereqs, pre)
       end
     end
