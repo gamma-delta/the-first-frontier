@@ -88,7 +88,7 @@ local function make_sapper(
             multiply_shift=0.0,
             shift = util.by_pixel(0, -8),
             tint_as_overlay = true,
-            tint = tint_body,
+            -- tint = tint_body,
             surface = "gleba",
             usage = "enemy"
           }),
@@ -548,9 +548,9 @@ local function make_sapper(
 end
 
 -- Sappers lean yellowy-er
-local small_color = {70, 110, 100, 255}
-local med_color = {90, 110, 110, 255}
-local large_color = {90, 120, 150, 255}
+local small_color = {140, 140, 120, 255}
+local med_color = {160, 150, 120, 255}
+local large_color = {160, 120, 100, 255}
 make_sapper("small-", 0.7, 500, 1.95, "500kW", "1MJ", {
   mask = fade(small_color, 0.2),
   mask_thigh = fade(small_color, 0.4),

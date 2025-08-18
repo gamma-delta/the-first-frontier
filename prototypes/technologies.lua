@@ -116,6 +116,10 @@ table.insert(
   data.raw["technology"]["laser-weapons-damage-1"].prerequisites,
   "laser-turret"
 )
+table.insert(
+  data.raw["technology"]["night-vision-equipment"].prerequisites,
+  "laser-turret"
+)
 
 table.insert(data.raw["technology"]["low-density-structure"].prerequisites, "simple-bauxite-extraction")
 
@@ -477,6 +481,10 @@ table.insert(data.raw["technology"]["bacteria-cultivation"].effects,
   recipe("light-oil-reforming"))
 table.insert(data.raw["technology"]["bacteria-cultivation"].effects, 
   recipe("heavy-oil-reforming"))
+-- With oil reformation, all the special bio-recipes are no longer
+-- necessary. (Plastic, rocket fuel, sulfur, and jelly.)
+data.raw["technology"]["bioflux-processing"].hidden = true
+pglobals.remove_prereq("agricultural-science-pack", "bioflux-processing")
 
 data:extend{
   {
@@ -501,6 +509,7 @@ data:extend{
     icon_size = 256,
     effects = {
       { type="unlock-recipe", recipe="fertilizer" },
+      { type="unlock-recipe", recipe="anfo-explosives" },
     },
     prerequisites = {"agricultural-science-pack"},
     unit = {
@@ -556,4 +565,11 @@ data:extend{
       recipe("casting-low-density-structure"),
     },
   }
+}
+local logibots = data.raw["technology"]["logistic-system"]
+logibots.prerequisites = {"electromagnetic-science-pack", "agricultural-science-pack"}
+logibots.unit = {
+  count = 1000,
+  ingredients = science("rgbuEA"),
+  time = 60
 }

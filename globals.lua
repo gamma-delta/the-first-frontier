@@ -201,6 +201,17 @@ pglobals.tech = {
     for _,recipe in ipairs(recipes) do
       table.insert(tech.effects, {type="unlock-recipe", recipe=recipe})
     end
+  end,
+  remove_prereq = function(tech_name, prereq, ...)
+    local strikeout_prereqs = pglobals.set(table.pack, prereq, ...)
+    local tech = data.raw["technology"][tech_name]
+    local new_prereqs = {}
+    for i, pre in ipairs(tech.prerequisites) do
+      if not prereqs[pre] then
+        table.insert(new_prereqs, pre)
+      end
+    end
+    tech.prerequisites = new_prereqs
   end
 }
 

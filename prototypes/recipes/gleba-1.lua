@@ -56,6 +56,8 @@ data:extend{
       {type="item", name="iron-bacteria", amount=1},
       -- is this too much?
       {type="item", name="spoilage", amount=200},
+      -- Give you something to do with jelly
+      {type="item", name="jelly", amount=4},
       {type="fluid", name="ammonia", amount=30},
     },
     results = {
@@ -75,7 +77,9 @@ data:extend{
   -- so even with +50% productivity i think using the same ratios but backwards
   -- won't let you generate infinite oil.
   -- Although I suppose if you do it's not the end of the world.
-  -- Tested it with a bunch of t2 prod mods, it always peters out
+  -- Tested it with a bunch of t2 prod mods, it always peters out.
+  -- Previously used spoilage, now uses jelly, because I want to even
+  -- out the demands of yumako/jelly
   {
     type = "recipe",
     name = "light-oil-reforming",
@@ -88,7 +92,7 @@ data:extend{
     energy_required = 2,
     ingredients = {
       {type="fluid", name="petroleum-gas", amount=30},
-      {type="item", name="spoilage", amount=20},
+      {type="item", name="jelly", amount=10},
       {type="item", name="copper-bacteria", amount=1},
     },
     results = {{type="fluid", name="light-oil", amount=20}},
@@ -110,14 +114,14 @@ data:extend{
     name = "heavy-oil-reforming",
     category = "organic",
     subgroup = "agriculture-processes",
-    order = "e[bacteria]-z[new]-a[heavy-oil-reforming]",
+    order = "e[bacteria]-z[new]-c[heavy-oil-reforming]",
     enabled = false,
     allow_productivity = true,
     allow_decomposition = false,
     energy_required = 2,
     ingredients = {
       {type="fluid", name="light-oil", amount=40},
-      {type="item", name="spoilage", amount=30},
+      {type="item", name="jelly", amount=10},
       {type="item", name="copper-bacteria", amount=1},
     },
     results = {{type="fluid", name="heavy-oil", amount=30}},
@@ -166,7 +170,7 @@ data:extend{
     ),
     category = "organic",
     subgroup = "agriculture-products",
-    order = "a[organic-products]-z-b[anje-explosives]",
+    order = "a[organic-products]-z-b[anfo-explosives]",
     enabled = false,
     allow_productivity = true,
     energy_required = 4,
@@ -205,25 +209,6 @@ data:extend{
     }
   },
 }
--- just like the original prototype!
--- jellynt
--- This does mean jelly is used for even less :<
--- they'll figure it out
-local vanilla_gleba_rocketfuel = data.raw["recipe"]["rocket-fuel-from-jelly"]
-vanilla_gleba_rocketfuel.icon = nil
-vanilla_gleba_rocketfuel.icons = pglobals.icons.two_into_one(
-  "__space-age__/graphics/icons/bioflux.png",
-  "__petraspace__/graphics/icons/boompuff-propagule.png",
-  "__base__/graphics/icons/rocket-fuel.png"
-)
-vanilla_gleba_rocketfuel.ingredients[2] = {
-  type="item", name="boompuff-propagule", amount=5,
-}
--- ONI reference, and give you something to do with your boompuff hydrogen
-table.insert(
-  data.raw["recipe"]["bioplastic"].ingredients,
-  {type="fluid", name="hydrogen", amount=10}
-)
 
 pglobals.recipe.add("agricultural-science-pack",
   {type="fluid", name="nitric-acid", amount=20})
