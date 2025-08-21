@@ -244,3 +244,41 @@ data:extend{
     })
   }),
 }
+
+data:extend{
+  pglobals.copy_then(data.raw["item"]["steel-chest"], {
+    name = "tungsten-steel-strongbox",
+    default_import_location = "vulcanus",
+    order = "a[items]-cz",
+    place_result = "tungsten-steel-strongbox",
+    icon = "__petraspace__/graphics/entities/tungsten-steel-strongbox/base.png",
+    icon_size = 128,
+    weight = rocket_cap / 10,
+  }),
+  pglobals.copy_then(data.raw["container"]["steel-chest"], {
+    name = "tungsten-steel-strongbox",
+    order = "z-a[items]-cz",
+    default_import_location = "vulcanus",
+    minable = {mining_time=0.5, result="tungsten-steel-strongbox"},
+    collision_box = {{-0.8, -0.8}, {0.8, 0.8}},
+    selection_box = {{-1, -1}, {1, 1}},
+    inventory_size = 96,
+    inventory_type = "with_filters_and_bar",
+    picture = {
+      layers = {
+        {
+          filename = "__petraspace__/graphics/entities/tungsten-steel-strongbox/base.png",
+          width = 128, height = 128,
+          scale = 0.5,
+        },
+        {
+          filename = "__petraspace__/graphics/entities/tungsten-steel-strongbox/shadow.png",
+          width = 128, height = 128,
+          scale = 0.5,
+          draw_as_shadow = true,
+        },
+      },
+    },
+    -- TODO circuit connections ughhhhh
+  }),
+}
