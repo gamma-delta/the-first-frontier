@@ -94,4 +94,14 @@ data:extend{
     indent = 1,
     trigger = {type="build-entity", entity="lunar-rocket-silo"},
   },
+  {
+    type = "tips-and-tricks-item",
+    name = "ps-demolisher-squishing",
+    tag = "[entity=small-demolisher]",
+    category = "ps-misc",
+    is_title = false,
+    order = "c",
+    indent = 1,
+    trigger = {type="build-entity", entity="lunar-rocket-silo"},
+  },
 }

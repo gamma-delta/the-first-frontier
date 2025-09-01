@@ -401,6 +401,7 @@ table.insert(yellow_sci.unit.ingredients, {"space-science-pack", 1})
 -- Vulcanus I
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
 pglobals.tech.add_unlock("foundry", "lime-calcination")
+pglobals.tech.add_unlock("tungsten-steel", "tungsten-steel-strongbox")
 -- Intermediate: tungsten heat pipes
 data:extend{
   {
@@ -580,6 +581,24 @@ data:extend{
       recipe("bauxite-liquor-electrolysis"),
       recipe("casting-aluminum-plate"),
       recipe("casting-low-density-structure"),
+    },
+  }
+}
+
+-- TEMP
+data:extend{
+  {
+    type = "technology",
+    name = "superalloys",
+    -- TODO
+    icon = "__space-age__/graphics/technology/tungsten-steel.png",
+    unit = {
+      count = 4000,
+      ingredients = science("rgbp2MC"),
+      time = 60,
+    },
+    effects = {
+      recipe("magpie-alloy"),
     },
   }
 }

@@ -94,6 +94,8 @@ end
 
 pglobals.recipe.add("metallurgic-science-pack",
   {type="item", name="native-aluminum", amount=1})
+pglobals.recipe.add("casting-steel",
+  {type="item", name="carbon", amount=1})
 
 data:extend{
   {
@@ -118,5 +120,22 @@ data:extend{
     results = {
       {type="item", name="tungsten-heat-pipe", amount=1},
     },
+  },
+  {
+    type = "recipe",
+    name = "tungsten-steel-strongbox",
+    category = "metallurgy",
+    enabled = false,
+    -- TODO also does not recycle
+    allow_productivity = false,
+    allow_decomposition = true,
+    ingredients = {
+      {type="item", name="steel-chest", amount=4},
+      {type="item", name="tungsten-plate", amount=8},
+    },
+    energy_required = 4,
+    results = {
+      {type="item", name="tungsten-steel-strongbox", amount=1},
+    }
   }
 }

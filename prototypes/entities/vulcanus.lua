@@ -271,6 +271,7 @@ data:extend{
           width = 128, height = 128,
           scale = 0.5,
         },
+        -- TODO this only renders a small part of it
         {
           filename = "__petraspace__/graphics/entities/tungsten-steel-strongbox/shadow.png",
           width = 128, height = 128,

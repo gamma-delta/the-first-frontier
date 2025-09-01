@@ -1,6 +1,4 @@
 === Environmental Station ===
-(If I go thru with planet Chronos, this will be the Chronos/Gleba/Vulcanus
-research.)
 Acts as a bigger radar.
 Can read basically any information I can think it ought to:
 - Pollution levels
@@ -33,12 +31,38 @@ Everybody needs plastic!
 Perhaps make it out of wood in some way, so you actually have reason to create
 wood farms on Nauvis.
 
-=== Space Elevator ===
+=== Replacements for Prod Research ===
+They should be similarly resource-intensive and powerful.
+But less boring.
 
-What if it was just a bidirectional underground belt?
-Or secretly a train?
-(In fact, SE just has the space elevator be a train teleporter, somehow)
-A single train car would be a lot more interesting than a bidi belt.
+Mining prod: Fracking towers
+- Distribute special hyper-expensive fracking modules to nearby mining drills
+- Consumes lubricant or something using https://mods.factorio.com/mod/zzz-nonstandard-beacons?from=search
+- Mayhaps will introduce "drilling fluid" that's used on both tungsten ore and
+  to power this thing? That might just be adding a fluid for no reason, but
+  you would have to make a lot of it.
 
-It would need a "behind-the-scenes" area to hide the trains and stuff.
-However if I learned anything from FF's impl, that's going to be a pain.
+Ingredient prod: Doped recipes
+- Recipes that use a "trace amount" such that they don't show up in recycling
+- Vanilla has:
+  = Processing units -- Holmium
+  = Scrap Recycling -- just build more recyclers
+  = Steel plates -- hydrogen steel? just use carbon-steel with foundries?
+  = Plastic -- 
+  = LDS -- magpie alloy
+  = Rocket fuel -- not really used in this mod, you already get better
+    propellant recipes
+  = Rocket parts
+  = Asteroids (still need to figure out space)
+  = Lab prod (???)
+- These are in "t1" and "t2" I guess
+  = T1:
+	+ Carbon steel (Vulcanus -- but this doesn't require anything Vulc-specfiic)
+    + Ho-doped circuits (Fulgora). Problem is that plastic is an ingredient in
+	  circuits. Have this process only work on green circuits? Or the
+	  substrate? I already have tiers of substrate.
+	+ Bioplastic (Gleba)
+  = T2:
+    + LDS (Vulcanus -- magpie alloy)
+	+ POC (Gleba -- biophosphor?)
+	+ QP (Fulgora -- I'll figure out something to do with these. T4 modules?)

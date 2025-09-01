@@ -17,22 +17,24 @@ return {
 
       -- Map recipe names to successful craft counts
       local inv = evt.entity.get_inventory(defines.inventory.chest)
+      local chest_force = evt.entity.force
       for _,recipe in pairs(squishing_recipes) do
         -- game.print("attempting to squish " .. tostring(recipe))
         local limit_count = 99999999
-        for _,ingredient in ipairs(recipe.ingredients) do
-          local crafts = math.floor(inv.get_item_count(ingredient.name) / ingredient.amount)
-          limit_count = math.min(limit_count, crafts)
-        end
-        if limit_count ~= 0 then
-          -- game.print("we got crafts: " .. limit_count)
-          -- for SOME REASON it's called PRODUCTS OVER HERE?????
-          for _,result in ipairs(recipe.products) do
-            evt.loot.insert{name=result.name, count=result.amount * limit_count}
+        if chest_force.technologies[recipe.name.researched] then
+          for _,ingredient in ipairs(recipe.ingredients) do
+            local crafts = math.floor(inv.get_item_count(ingredient.name) / ingredient.amount)
+            limit_count = math.min(limit_count, crafts)
+          end
+          if limit_count ~= 0 then
+            -- game.print("we got crafts: " .. limit_count)
+            -- for SOME REASON it's called PRODUCTS OVER HERE?????
+            for _,result in ipairs(recipe.products) do
+              evt.loot.insert{name=result.name, count=result.amount * limit_count}
+            end
           end
         end
       end
-
     end
   }
 }
