@@ -269,6 +269,16 @@ pglobals.recipe.replace("flying-robot-frame", "steel-plate", "low-density-struct
 table.insert(data.raw["recipe"]["landfill"].ingredients, 
   {type="item", name="iron-stick", amount=2})
 
+-- SLEGT: Now on Nauvis!
+local slegt_recipe = data.raw["recipe"]["snouz_long_electric_gun_turret"]
+slegt_recipe.category = "crafting"
+slegt_recipe.energy = 5
+slegt_recipe.ingredients = {
+  {type="item", name="gun-turret", amount=2},
+  {type="item", name="precision-optical-component", amount=1},
+  {type="item", name="electronic-circuit", amount=2},
+}
+
 -- TIER 1 --
 data:extend{
   -- Same ratios as steel

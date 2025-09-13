@@ -138,6 +138,16 @@ heating_tower.effects = {
   recipe("steam-turbine"),
 }
 
+local slegt_tech = data.raw["technology"]["snouz_long_electric_gun_turret"]
+slegt_tech.prerequisites = {"military-3", "laser"}
+slegt_tech.unit = {
+  -- The military sciences are pretty cheap in the vanilla game,
+  -- presumably cause you want to do it fast if you're under biter attack.
+  count = 100,
+  ingredients = science("rgbm"),
+  time = 30,
+}
+
 data:extend{
 -- Push into space --
   {

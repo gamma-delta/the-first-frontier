@@ -10,9 +10,11 @@ local function add_qai_techs(force)
     "more-inserters-2",
   } do
     local tech = force.technologies[tech_name]
-    tech.researched = true
-    tech.enabled = false
-    tech.visible_when_disabled = false
+    if tech then
+      tech.researched = true
+      tech.enabled = false
+      tech.visible_when_disabled = false
+    end
   end
 end
 

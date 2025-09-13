@@ -6,11 +6,16 @@
   "factorio_version": "2.0",
   "dependencies": [
     "space-age >= 2.0.0",
-    "ch-concentrated-solar",
     "PlanetsLib >= 1.2.20",
+    "ch-concentrated-solar",
     "quick-adjustable-inserters >= 2.0.6",
+
+    "ArmouredBiters >= 1.2.0",
+    "better-asteroid-resistance >= 0.0.3",
+    "snouz_long_electric_gun_turret >= 1.0.3",
+
     "? tintable-centrifuges >= 0.1.1",
-    "ArmouredBiters >= 1.2.0"
+    "? fire-lights >= 0.13.3"
   ],
   "quality_required": true,
   "space_travel_required": true,

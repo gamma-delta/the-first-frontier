@@ -18,6 +18,8 @@ require "prototypes/entities/enemies/sapper"
 require "prototypes/entities/platforms"
 require "prototypes/tiles"
 
+require "prototypes/combat"
+
 require "prototypes/technologies"
 require "prototypes/entities/misc"
 

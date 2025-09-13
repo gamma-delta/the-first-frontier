@@ -15,7 +15,6 @@ return {
         return
       end
 
-      -- Map recipe names to successful craft counts
       local inv = evt.entity.get_inventory(defines.inventory.chest)
       local chest_force = evt.entity.force
       for _,recipe in pairs(squishing_recipes) do
