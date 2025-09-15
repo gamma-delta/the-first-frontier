@@ -5,6 +5,7 @@ data:extend{
     type = "recipe",
     name = "magpie-alloy",
     category = "demolisher-squishing",
+    hidden = true,
     enabled = false,
     ingredients = {
       {type="item", name="aluminum-plate", amount=12},

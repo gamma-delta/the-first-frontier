@@ -60,7 +60,7 @@ data:extend{
       scrapout("low-density-structure", 1 / 64),
       scrapout("car", 1 / 128),
       scrapout("holmium-ore", 1 / 256),
-      scrapout("tank", 1 / 512),
+      scrapout("flying-robot-frame", 1 / 512),
       scrapout("requester-chest", 1 / 1024),
       scrapout("personal-roboport-mk2-equipment", 1 / 2048),
       scrapout("battery-mk3-equipment", 1 / 2048),
@@ -121,52 +121,5 @@ data.raw["recipe"]["supercapacitor"].ingredients = {
   {type="item", name="aluminum-plate", amount=1},
   {type="fluid", name="electrolyte", amount=10},
 }
--- govt mandated additional ingredient
-data.raw["recipe"]["electromagnetic-science-pack"].ingredients = {
-  {type="item", name="accumulator", amount=1},
-  {type="item", name="supercapacitor", amount=1},
-  {type="item", name="substation", amount=1},
-  {type="fluid", name="electrolyte", amount=25},
-  {type="fluid", name="holmium-solution", amount=25},
-}
 
--- t2
-data:extend{
-  {
-    type = "recipe",
-    name = "antimatter-magnetic-bottle",
-    category = "particle-trap",
-    enabled = false,
-    energy_required = 1,
-    ingredients = {
-      { type="item", name="holmium-ore", amount=10, },
-      { type="item", name="supercapacitor", amount=5 },
-      { type="fluid", name="electrolyte", amount=100, fluidbox_index=1 },
-    },
-    results = {
-      { type="item", name="antimatter-magnetic-bottle", amount=1 }
-    },
-    auto_recycle = false,
-    allow_quality = false,
-    allow_productivity = false,
-  },
-  {
-    type = "recipe",
-    name = "refresh-magnetic-bottle",
-    category = "electromagnetics",
-    enabled = false,
-    icon = "__petraspace__/graphics/icons/refresh-magnetic-bottle.png",
-    energy_required = 0.5,
-    ingredients = {
-      { type="item", name="antimatter-magnetic-bottle", amount=1 },
-      { type="item", name="supercapacitor", amount=1 },
-      { type="fluid", name="electrolyte", amount=100 },
-    },
-    results = {
-      { type="item", name="antimatter-magnetic-bottle", amount=1, percent_spoiled=0 }
-    },
-    auto_recycle = false,
-    allow_quality = false,
-    allow_productivity = false,
-  },
-}
+data.raw["recipe"]["superconductor"].hidden = true

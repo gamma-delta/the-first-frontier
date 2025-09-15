@@ -27,7 +27,6 @@ data:extend{
   },
 }
 
--- Do I want to introduce viate skip? it would be funny.
 local spience = data.raw["recipe"]["space-science-pack"]
 -- Spience makes 5 of them
 -- you way overproduce iron on the moon, given that you have
@@ -67,3 +66,14 @@ table.insert(yellow_sci.results,
   {type="item", name="plutonium", amount=1, probability = 0.99,
     ignored_by_productivity = 9999, ignored_by_stats=1})
 yellow_sci.main_product = "utility-science-pack"
+
+-- Each planetary science pack has one additional item.
+-- Forces reliance on the old bauxite recipe
+pglobals.recipe.add("metallurgic-science-pack",
+  {type="item", name="native-aluminum", amount=1})
+-- this one is honestly a little half-baked
+pglobals.recipe.add("electromagnetic-science-pack",
+  {type="item", name="substation", amount=1})
+-- nitrification! force you to interact with more of the glebafied recipes.
+pglobals.recipe.add("agricultural-science-pack",
+  {type="fluid", name="nitric-acid", amount=20})

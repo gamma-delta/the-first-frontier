@@ -209,6 +209,3 @@ data:extend{
     }
   },
 }
-
-pglobals.recipe.add("agricultural-science-pack",
-  {type="fluid", name="nitric-acid", amount=20})

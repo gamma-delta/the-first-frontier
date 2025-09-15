@@ -442,6 +442,7 @@ recyc.research_trigger = {
   entity = "scrap",
 }
 table.insert(recyc.effects, recipe("archaeological-scrap-recycling"))
+table.insert(recyc.effects, recipe("fulgoran-sludge-refining"))
 
 local em_plant = data.raw["technology"]["electromagnetic-plant"]
 em_plant.research_trigger = {
@@ -457,7 +458,6 @@ em_plant.effects = {
 
 -- Intermediate tech: Lightning rods
 pglobals.tech.remove_unlock("planet-discovery-fulgora", "lightning-rod")
-pglobals.tech.add_unlock("planet-discovery-fulgora", "fulgoran-sludge-refining")
 data:extend{
   {
     type = "technology",
@@ -472,26 +472,12 @@ data:extend{
       time = 30
     }
   },
-  {
-    type = "technology",
-    name = "superconductor",
-    icon = "__petraspace__/graphics/technologies/superconductor.png",
-    icon_size = 256,
-    prerequisites = {"electromagnetic-science-pack"},
-    effects = {recipe("superconductor")},
-    -- TODDO
-    unit = {
-      count = 999999999,
-      ingredients = science("E"),
-      time = 30
-    }
-  },
+  -- Need to figure out how I can let players make supercons.
 }
 
 -- Gleba I
 -- Strike out coal synth and good sulfur
 pglobals.tech.remove_unlock("rocket-turret", "coal-synthesis")
-pglobals.tech.remove_unlock("bioflux-processing", "biosulfur")
 
 table.insert(data.raw["technology"]["bacteria-cultivation"].effects, 
   recipe("light-oil-reforming"))
@@ -537,6 +523,7 @@ data:extend{
   {
     type = "technology",
     name = "presto-fuel",
+    hidden = true,
     -- TODO
     icon = "__petraspace__/graphics/technologies/boompuff-agriculture.png",
     icon_size = 256,
@@ -604,6 +591,7 @@ data:extend{
   {
     type = "technology",
     name = "superalloys",
+    hidden = true,
     -- TODO
     icon = "__space-age__/graphics/technology/tungsten-steel.png",
     unit = {
@@ -616,3 +604,12 @@ data:extend{
     },
   }
 }
+
+-- Strike out ALL infinite upgrades!
+-- They're boring!
+for _,tech in data.raw["technology"] do
+  if tech.upgrade then
+    tech.hidden = true
+    tech.enabled = false
+  end
+end
