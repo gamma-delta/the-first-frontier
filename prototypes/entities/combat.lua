@@ -217,8 +217,8 @@ data:extend{
         }
       },
 
-    -- Based on the combat shotgun
-    -- (How do you have a non-combat shotgun? What else are shotguns for?)
+      -- Based on the combat shotgun
+      -- (How do you have a non-combat shotgun? What else are shotguns for?)
       attack_parameters = pglobals.copy_then(
         data.raw["gun"]["combat-shotgun"].attack_parameters,
         {
@@ -230,7 +230,7 @@ data:extend{
           prepare_range = 18,
           shoot_in_prepare_state = false,
           -- If they don't lead shots they can't hit strafers
-          lead_target_for_projectile_speed = 1
+          lead_target_for_projectile_speed = 1,
           use_shooter_direction = true,
           turn_range = 1 / 3,
           damage_modifier = 2,

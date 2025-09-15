@@ -167,7 +167,6 @@ data:extend{
       time = 60,
     },
     effects = { 
-      recipe("data-card-programmer"),
       recipe("orbital-data-card-high-pressure"),
       recipe("orbital-science-pack"),
     },
