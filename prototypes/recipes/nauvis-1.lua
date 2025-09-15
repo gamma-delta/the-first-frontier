@@ -278,6 +278,22 @@ slegt_recipe.ingredients = {
   {type="item", name="precision-optical-component", amount=1},
   {type="item", name="electronic-circuit", amount=2},
 }
+-- Make shotgun turrets autocraftable w/o Gleba
+pglobals.recipe.replace("combat-shotgun", "wood",
+  {type="item", name="aluminum-plate", amount=5})
+data:extend{{
+  type = "recipe",
+  name = "shotgun-turret",
+  category = "crafting",
+  enabled = false,
+  ingredients = {
+    -- Haha
+    {type="item", name="gun-turret", amount=1},
+    {type="item", name="combat-shotgun", amount=1},
+  },
+  energy = 10,
+  results = {{type="item", name="shotgun-turret", amount=1}}
+}}
 
 -- TIER 1 --
 data:extend{

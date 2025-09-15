@@ -102,6 +102,19 @@ data:extend{
   ),
 }
 
+-- Boom headshot
+data:extend{
+  pglobals.copy_then(
+    data.raw["item"]["gun-turret"],
+    {
+      name = "shotgun-turret",
+      order = "b[turret]-az[shotgun-turret]",
+      icon = "__petraspace__/graphics/icons/shotgun-turret.png",
+      place_result = "shotgun-turret",
+    }
+  )
+}
+
   -- === Aluminum === --
 data:extend{
   {

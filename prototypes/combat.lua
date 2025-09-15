@@ -96,12 +96,21 @@ local function projectileify(ammo_name, color, range, inaccuracy, pierce)
   }
 end
 
--- SLEGT have a range of 36!
 -- If we don't give some projectiles a silly long range,
--- it wastes shots.
+-- the SLEGT wastes shots shooting out of bounds.
 projectileify("firearm-magazine", {1, 1, 1}, 30, 1, 0)
 projectileify("piercing-rounds-magazine", {1, 0.5, 0.5}, 18, 1.5, 40)
 projectileify("uranium-rounds-magazine", {0.5, 1, 0.5}, 12, 1)
+
+-- Make shotgun pellets go over walls
+local shotgun_proj = data.raw["projectile"]["shotgun-pellet"]
+shotgun_proj.force_condition = "not-same"
+shotgun_proj.hit_collision_mask = {
+  layers = {object = true, player = true, trigger_target = true, train = true},
+  not_colliding_with_itself = true,
+}
+
+data.raw["ammo-turret"]["gun-turret"].attack_parameters.damage_modifier = 1.5
 
 -- Fiddle with SLEGT
 local slegt_item = data.raw["item"]["snouz_long_electric_gun_turret"]
@@ -111,10 +120,138 @@ slegt_item.default_import_location = "nauvis"
 local slegt_turret = data.raw["ammo-turret"]["snouz_long_electric_gun_turret"]
 -- The doc comment for this is wrong, this is important for non-leading shots too
 slegt_turret.attack_parameters.lead_target_for_projectile_speed = 1
-slegt_turret.attack_parameters.cooldown = 8
--- 36 is a LOT
-slegt_turret.range = 24
-slegt_turret.turret_base_has_rotation = true
--- Unsquare hitbox keeps it from Helpfully rotating itself, i think?
-slegt_turret.collision_box = {{-0.71, -0.7}, {0.71, 0.7}}
+-- Nerf SLEGT. In the original impl it's unlocked after Fulgora.
+-- Base cooldown=6
+slegt_turret.attack_parameters.cooldown = 5
+slegt_turret.attack_parameters.damage_modifier = 1.2 -- 0
+-- Base has 18. Lasers have 20. Flamethrowers have 30.
+slegt_turret.attack_parameters.range = 24
+-- Snouz fixed the rotation issue for me :] thx snouz
 -- Recipe and tech are in their respective files
+
+-- Shotgun turrets
+local function shotgun_top_gfx(cfg)
+  local flags
+  if cfg.mask then
+    flags = {"mask"}
+  else
+    flags = {}
+  end
+  -- Beats me
+  local size = cfg.mask and 128 or 192
+  local scale = cfg.mask and 0.75 or 0.5
+  return {
+    filename = "__petraspace__/graphics/entities/shotgun-turret/" .. cfg.file,
+    width = size, height = size,
+    scale = scale,
+    direction_count = 64,
+    -- It spins around, but each direction only has one frame
+    frame_count = 1,
+    line_length = 8,
+    axially_symmetrical = false,
+    run_mode = "forward",
+    shift = {0.25, -0.3},
+    flags = flags,
+    draw_as_shadow = cfg.shadow,
+    apply_runtime_tint = cfg.mask,
+  }
+end
+local function shotgun_base_gfx(cfg)
+  local flags
+  if cfg.mask then
+    flags = {"mask", "low-object"}
+  else
+    flags = {}
+  end
+  return {
+    filename = "__petraspace__/graphics/entities/shotgun-turret/" .. cfg.file,
+    width = 128, height = 128,
+    scale = 0.5,
+
+    frame_count = 1,
+    flags = flags,
+    apply_runtime_tint = cfg.mask,
+  }
+end
+
+local top_ani = {
+  layers = {
+    shotgun_top_gfx{file="top.png"},
+    shotgun_top_gfx{file="top-shadow.png", shadow=true},
+    shotgun_top_gfx{file="top-mask.png", mask=true},
+  }
+}
+local base_ani = {
+  layers = {
+    shotgun_base_gfx{file="base.png"},
+    shotgun_base_gfx{file="base-mask.png", mask=true},
+  }
+}
+local turret_circuit = circuit_connector_definitions["gun-turret"][1]
+data:extend{
+  pglobals.copy_then(
+    data.raw["ammo-turret"]["gun-turret"],
+    {
+      name = "shotgun-turret",
+      icon = "__petraspace__/graphics/icons/shotgun-turret.png",
+      icon_size = 64,
+      flags = {"placeable-player", "player-creation"},
+      minable = {mining_time=0.5, result="shotgun-turret"},
+      max_health = 600,
+      collision_box = {{-0.7, -0.71}, {0.7, 0.71}},
+      selection_box = {{-1, -1}, {1, 1}},
+      turret_base_has_direction = true,
+
+      circuit_connector = {turret_circuit, turret_circuit, turret_circuit, turret_circuit},
+      circuit_wire_max_distance = default_circuit_wire_max_distance,
+
+      -- Does not have a "get ready" animation
+      folded_animation = top_ani,
+      preparing_animation = top_ani,
+      prepared_animation = top_ani,
+      attacking_animation = top_ani,
+      folding_animation = top_ani,
+      graphics_set = {
+        base_visualization = {
+          animation = base_ani
+        }
+      },
+
+    -- Based on the combat shotgun
+    -- (How do you have a non-combat shotgun? What else are shotguns for?)
+      attack_parameters = pglobals.copy_then(
+        data.raw["gun"]["combat-shotgun"].attack_parameters,
+        {
+          -- default 30
+          cooldown = 30,
+          -- default 15. this makes them feel different than the gun turrets.
+          range = 15,
+          min_range = 4,
+          prepare_range = 18,
+          shoot_in_prepare_state = false,
+          -- If they don't lead shots they can't hit strafers
+          lead_target_for_projectile_speed = 1
+          use_shooter_direction = true,
+          turn_range = 1 / 3,
+          damage_modifier = 2,
+    
+          -- Based on the gfx
+          projectile_creation_distance = 1.5,
+          projectile_center = {0, 0.2},
+          -- looks like all guns use the same base particles
+          shell_particle = {
+            name = "shell-particle",
+            direction_deviation = 0.1,
+            speed = 0.1,
+            speed_deviation = 0.03,
+            center = {0, 0.2},
+            creation_distance = -1.925,
+            starting_frame_speed = 0.2,
+            starting_frame_speed_deviation = 0.1
+          },
+        }
+      )
+    }
+  )
+  -- The item is in items.lua
+}

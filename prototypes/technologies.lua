@@ -138,6 +138,7 @@ heating_tower.effects = {
   recipe("steam-turbine"),
 }
 
+-- Military stuff
 local slegt_tech = data.raw["technology"]["snouz_long_electric_gun_turret"]
 slegt_tech.prerequisites = {"military-3", "laser"}
 slegt_tech.unit = {
@@ -147,6 +148,10 @@ slegt_tech.unit = {
   ingredients = science("rgbm"),
   time = 30,
 }
+pglobals.tech.add_unlock("military-3", "shotgun-turret")
+-- Combat shotguns use Al instead of wood now
+table.insert(data.raw["technology"]["military-3"].prerequisites,
+  "simple-bauxite-extraction")
 
 data:extend{
 -- Push into space --
