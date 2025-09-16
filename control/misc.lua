@@ -3,17 +3,15 @@ local putil = require("__petraspace__/control/utils")
 
 local function add_qai_techs(force)
   for _,tech_name in ipairs{
-    "near-inserters",
-    "long-inserters-1",
-    "long-inserters-2",
-    "more-inserters-1",
-    "more-inserters-2",
+    "bob-near-inserters",
+    "bob-long-inserters-1",
+    "bob-long-inserters-2",
+    "bob-more-inserters-1",
+    "bob-more-inserters-2",
   } do
     local tech = force.technologies[tech_name]
     if tech then
       tech.researched = true
-      tech.enabled = false
-      tech.visible_when_disabled = false
     end
   end
 end

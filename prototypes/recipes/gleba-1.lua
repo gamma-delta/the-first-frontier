@@ -192,6 +192,7 @@ data:extend{
     subgroup = "agriculture-products",
     order = "a[organic-products]-z-d[presto-fuel]",
     enabled = false,
+    hidden = true,
     allow_productivity = true,
     energy_required = 25,
     ingredients = {

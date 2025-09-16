@@ -105,17 +105,6 @@ table.insert(laser.prerequisites, "lamp")
 table.insert(laser.prerequisites, "solar-energy")
 -- it doesn't have any effects by default. why include it??
 laser.effects = {{type="unlock-recipe", recipe="precision-optical-component-high-pressure"}}
-
--- So why the hell can you research laser upgrades BEFORE
--- laser turrets?
-table.insert(
-  data.raw["technology"]["laser-shooting-speed-1"].prerequisites,
-  "laser-turret"
-)
-table.insert(
-  data.raw["technology"]["laser-weapons-damage-1"].prerequisites,
-  "laser-turret"
-)
 table.insert(
   data.raw["technology"]["night-vision-equipment"].prerequisites,
   "laser-turret"
@@ -413,6 +402,7 @@ table.insert(yellow_sci.prerequisites, "exoskeleton-equipment")
 table.insert(yellow_sci.unit.ingredients, {"space-science-pack", 1})
 
 -- Vulcanus I
+pglobals.tech.add_unlock("planet-discovery-vulcanus", "geothermal-heat-exchanger")
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
 pglobals.tech.add_unlock("foundry", "lime-calcination")
 pglobals.tech.add_unlock("tungsten-steel", "tungsten-steel-strongbox")
@@ -607,9 +597,23 @@ data:extend{
 
 -- Strike out ALL infinite upgrades!
 -- They're boring!
-for _,tech in data.raw["technology"] do
+for _,tech in pairs(data.raw["technology"]) do
   if tech.upgrade then
+    log("hiding " .. tech.name)
     tech.hidden = true
     tech.enabled = false
+    tech.visible_when_disabled = false
+  end
+end
+for _,tech_name in ipairs{
+  "bob-near-inserters",
+  "bob-long-inserters-1",
+  "bob-long-inserters-2",
+  "bob-more-inserters-1",
+  "bob-more-inserters-2",
+} do
+  local tech = data.raw["technology"][tech_name]
+  if tech then
+    tech.hidden = true
   end
 end

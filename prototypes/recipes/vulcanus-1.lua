@@ -3,6 +3,20 @@ local pglobals = require "globals"
 data:extend{
   {
     type = "recipe",
+    name = "geothermal-heat-exchanger",
+    category = "crafting",
+    additional_categories = {"metallurgy"},
+    enabled = false,
+    ingredients = {
+      {type="item", name="heating-tower", amount=4},
+      {type="item", name="heat-pipe", amount=20},
+      {type="item", name="concrete", amount=50},
+    },
+    energy_required = 10,
+    results = {{type="item", name="geothermal-heat-exchanger", amount=1}},
+  },
+  {
+    type = "recipe",
     name = "lime-calcination",
     category = "metallurgy",
     enabled = false,
