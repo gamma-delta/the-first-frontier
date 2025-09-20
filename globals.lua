@@ -315,4 +315,32 @@ pglobals.icons = {
     end
 }
 
+pglobals.script_trigger = function(trigger_name)
+  return {
+    type = "direct",
+    action_delivery = {
+      type = "instant",
+      source_effects = {
+        type = "script",
+        effect_id = trigger_name
+      }
+    }
+  }
+end
+pglobals.with_place_trigger = function(proto)
+  local trigger = pglobals.script_trigger("place-" .. proto.name)
+
+  if proto.created_effect == nil then
+    proto.created_effect = trigger
+  elseif proto.created_effect[1] then
+    -- Then this is (likely) an array, so append the new trigger
+    table.insert(proto.created_effect, trigger)
+  else
+    -- It's a singleton trigger, so array-ify it
+    local existing_trig = proto.created_effect
+    proto.created_effect = {existing_trig, trigger}
+  end
+  return proto
+end
+
 return pglobals

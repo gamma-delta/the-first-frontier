@@ -16,7 +16,7 @@ local function add_qai_techs(force)
   end
 end
 
-local fill_up_rocket_juice = putil.on_any_built(function(evt)
+local fill_up_rocket_juice = function(evt)
   local entity = evt.entity
   local juice_name
   if entity.name == "platform-fuel-tank" then
@@ -30,7 +30,7 @@ local fill_up_rocket_juice = putil.on_any_built(function(evt)
     name = juice_name,
     amount = entity.fluidbox.get_capacity(1)
   }
-end)
+end
 
 -- Dust beacons are handled specially
 local COMPOUNDS = {
