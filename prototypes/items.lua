@@ -176,6 +176,18 @@ data:extend{
       pictures = make_pics("regolith", 4)
     }
   ),
+  pglobals.copy_then(
+    data.raw["item"]["space-platform-foundation"],
+    {
+      name = "space-platform-scaffolding",
+      place_as_tile = {
+        result = "space-platform-scaffolding",
+        condition_size = 1,
+        condition = {layers={empty_space=true}},
+        invert = true,
+      }
+    }
+  ),
 }
 
 -- Nauvis

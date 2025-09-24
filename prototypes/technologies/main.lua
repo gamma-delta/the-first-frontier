@@ -595,16 +595,7 @@ data:extend{
   }
 }
 
--- Strike out ALL infinite upgrades!
--- They're boring!
-for _,tech in pairs(data.raw["technology"]) do
-  if tech.upgrade then
-    log("hiding " .. tech.name)
-    tech.hidden = true
-    tech.enabled = false
-    tech.visible_when_disabled = false
-  end
-end
+-- These are automatically researched at runtime, for QAI
 for _,tech_name in ipairs{
   "bob-near-inserters",
   "bob-long-inserters-1",
@@ -617,3 +608,4 @@ for _,tech_name in ipairs{
     tech.hidden = true
   end
 end
+

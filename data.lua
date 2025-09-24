@@ -18,7 +18,8 @@ require "prototypes/entities/platforms"
 require "prototypes/recipes"
 require "prototypes/tiles"
 
-require "prototypes/technologies"
+require "prototypes/technologies/main"
+require "prototypes/technologies/no-infinites"
 require "prototypes/entities/misc"
 
 require "prototypes/dust-pollution"
