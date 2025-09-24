@@ -80,6 +80,15 @@ local function make_sps_transitions(path, count)
       x = 0,
       y = 3 * 64,
     },
+    -- LD, LU, RU, RD
+    outer_corner = {
+      spritesheet = "__petraspace__/graphics/tiles/" .. path,
+      count = count,
+      scale = 0.5,
+      tile_height = 1,
+      x = 0,
+      y = 7 * 64,
+    },
   }
 end
 
@@ -147,7 +156,7 @@ data:extend{
 
         -- These are completely invisible ????
         overlay_layout = pglobals.deepcopy(data.raw["tile"]["space-platform-foundation"].variants.transition.overlay_layout),
-        mask_layout = make_sps_transitions("space-scaffolding-mask.png", 8),
+        -- mask_layout = make_sps_transitions("space-scaffolding-mask.png", 8),
         background_layout = make_sps_transitions("space-scaffolding.png", 8),
       }
     },
