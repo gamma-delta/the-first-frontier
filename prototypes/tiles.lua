@@ -106,7 +106,8 @@ data:extend{
     max_health = 20,
     weight = 50,
     collision_mask = tile_collision_masks.ground(),
-    layer = 15,
+    -- normal foundation is 15; go over it.
+    layer = 16,
     -- layer_group = "ground-artificial" -- should space-platform-foundation be in the ground-artifical group?
 
     -- transitions = landfill_transitions,
