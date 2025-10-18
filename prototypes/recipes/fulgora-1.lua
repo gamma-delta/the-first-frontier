@@ -4,6 +4,8 @@ local pglobals = require "globals"
 -- The objective is to make iron much rarer.
 -- (although you really don't need that much Fe on Fulgora)
 -- Og probs: 20 7 6 5 4 4 4 3 3 2 1 1
+-- TODO: removing solid fuel means it's impossible to start from scratch
+-- on Fulgora. is this OK?
 local function scrapout(name, prob)
   return {
     type = "item",

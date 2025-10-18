@@ -30,12 +30,13 @@ data:extend{
     category = "crafting-with-fluid",
     subgroup = "raw-material",
     order = "c[chemistry]-zb",
+    additional_categories = {"centrifuging"},
     enabled = false,
     energy_required = 8,
     ingredients = {
       {type="item", name="regolith", amount=10},
       -- 1 ice = 20 water = 200 steam
-      {type="fluid", name="water", amount=200},
+      {type="fluid", name="water", amount=20},
     },
     allow_productivity = true,
     allow_decomposition = false,
@@ -53,6 +54,7 @@ data:extend{
     type = "recipe",
     name = "dissolving-regolith",
     category = "chemistry",
+    additional_categories = {"centrifuging"},
     subgroup = "raw-material",
     order = "c[chemistry]-zc",
     enabled = false,

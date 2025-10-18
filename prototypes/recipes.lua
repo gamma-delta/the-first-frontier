@@ -6,15 +6,6 @@ data:extend{
   },
   {
     type = "recipe-category",
-    name = "data-card-programming",
-  },
-  {
-    type = "recipe-category",
-    -- Chemmy plant or em plant
-    name = "electrochemistry",
-  },
-  {
-    type = "recipe-category",
     name = "dust-spraydown",
   },
   {

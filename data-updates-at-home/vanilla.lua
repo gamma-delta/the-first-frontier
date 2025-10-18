@@ -16,8 +16,6 @@ togas("fluorine", "d")
 togas("fusion-plasma", "e")
 
 -- Assign crafting categories
-table.insert(data.raw["assembling-machine"]["chemical-plant"].crafting_categories, "electrochemistry")
-table.insert(data.raw["assembling-machine"]["electromagnetic-plant"].crafting_categories, "electrochemistry")
 table.insert(data.raw["furnace"]["stone-furnace"].crafting_categories, "dirty-smelting")
 table.insert(data.raw["furnace"]["steel-furnace"].crafting_categories, "dirty-smelting")
 
@@ -205,4 +203,9 @@ for _,tech in ipairs{
   proto.hidden = true
   proto.enabled = false
   proto.visible_when_disabled = false
+end
+
+-- Make fulgoran sludge sludgier
+for _,slutch in ipairs{"oil-ocean-shallow", "oil-ocean-deep"} do
+  data.raw["tile"][slutch].fluid = "fulgoran-sludge"
 end

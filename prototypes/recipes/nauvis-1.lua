@@ -614,3 +614,13 @@ for _,tech in ipairs{"atomic-bomb", "captive-biter-spawner"} do
 end
 data.raw["technology"]["kovarex-enrichment-process"] = nil
 data.raw["recipe"]["kovarex-enrichment-process"] = nil
+
+-- Replace cryo with centrifuge for chemical recipes that are just
+-- whacking things together
+for _,recipename in ipairs{
+  "acid-neutralisation", "holmium-solution"
+} do
+  local recipe = data.raw["recipe"][recipename]
+  recipe.category = "chemistry"
+  recipe.additional_categories = {"centrifuging"}
+end
