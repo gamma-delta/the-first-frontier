@@ -224,8 +224,6 @@ data:extend{
     drop_sound = item_sounds.nuclear_inventory_move,
     random_tint_color = item_tints.iron_rust,
 
-    -- TODO: using spoilagelib, i could make this spoil faster,
-    -- but have a 50% chance to spoil back into itself, and spit out pollution
     spoil_result = "uranium-ore",
     spoil_ticks = 24 * hour,
 
@@ -403,55 +401,6 @@ data:extend {
     weight = rocket_cap / 20,
     random_tint_color = item_tints.iron_rust,
   }),
-}
-
--- Particle physics
-data:extend{
-  {
-    type = "item-subgroup",
-    name = "particle-accelerator",
-    group = "intermediate-products",
-    -- after uranium
-    order = "j",
-  },
-
-  {
-    -- gotta put it somewhere...
-    type = "ammo-category",
-    name = "subatomic-mishap",
-  },
-  {
-    type = "item",
-    name = "antimatter-magnetic-bottle",
-    stack_size = 1,
-    -- by all means, try to get this onto a rocket
-    weight = rocket_cap / 100,
-
-    icon = "__petraspace__/graphics/icons/antimatter-magnetic-bottle.png",
-    subgroup = "particle-accelerator",
-    order = "a",
-
-    spoil_ticks = 10*60,
-    spoil_to_trigger_result = { 
-      items_per_trigger = 1,
-      trigger = {
-        type = "direct",
-        action_delivery = {
-          type = "instant",
-          source_effects = {
-            type = "create-entity",
-            entity_name = "subatomic-mishap-explosion",
-            show_in_tooltip = true,
-          }
-        }
-      }
-    }
-  },
-  make_programmed_card(
-    "subatomic-data-card",
-    "__petraspace__/graphics/icons/orbital-data-card.png",
-    "be", 60*60*15
-  ),
 }
 
 --[[

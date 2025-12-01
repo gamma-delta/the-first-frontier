@@ -8,8 +8,6 @@ end
 
 -- Strike out ALL (most) infinite upgrades!
 -- They're boring!
--- TODO it turns out there are some things that are marked as upgrades
--- but aren't really, like modules
 local infinites = {
   -- Damage
   "artillery-shell-range",

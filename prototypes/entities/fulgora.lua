@@ -178,81 +178,8 @@ data:extend{
     inventory_move_sound = item_sounds.metal_large_inventory_move,
     pick_sound = item_sounds.metal_large_inventory_pickup,
     drop_sound = item_sounds.metal_large_inventory_move,
-    place_result = "dust-sprayer",
+    place_result = "electrostatic-funneler",
     stack_size = 5,
     weight = rocket_cap / 5
   },
 }
-
--- Particle physics
-data:extend{
-  {
-    type = "item-subgroup",
-    name = "particle-accelerator-machines",
-    group = "production",
-    -- after space
-    order = "h",
-  },
-  {
-    type = "assembling-machine",
-    name = "particle-trap",
-    flags = {"placeable-player", "placeable-neutral", "player-creation"},
-    icon = "__base__/graphics/icons/fluid/steam.png",
-    minable = {mining_time=2, result = "particle-trap"},
-    collision_box = {{-3.4, -3.4}, {3.4, 3.4}},
-    selection_box = {{-3.5, -3.5}, {3.5, 3.5}},
-    crafting_speed = 1,
-    crafting_categories = { "particle-trap" },
-    -- one lightning bolt has 1GJ in it, but collectors are 40% efficient.
-    energy_usage = "300MW",
-    allowed_effects = { "speed", "productivity", "pollution" },
-    energy_source = { type = "electric", usage_priority = "secondary-input" },
-
-    fluid_boxes = {
-      {
-        volume = 1000,
-        production_type = "input",
-        pipe_covers = pipecoverspictures(),
-        pipe_connections = { {
-          direction = defines.direction.west,
-          position = { -3, 2 },
-          flow_direction = "input",
-        } },
-      },
-      {
-        volume = 1000,
-        production_type = "input",
-        pipe_covers = pipecoverspictures(),
-        pipe_connections = { { 
-          direction = defines.direction.east,
-          position = { 3, -2 },
-          flow_direction = "input",
-        } },
-      },
-    },
-    
-    graphics_set = {
-      animation = {
-        north = {
-          filename = "__petraspace__/graphics/entities/particle-trap.png",
-          size = {448, 448},
-          scale = 0.5,
-        }
-      }
-    }
-  },
-  {
-    type = "item",
-    name = "particle-trap",
-    icon = "__base__/graphics/icons/fluid/steam.png",
-    subgroup = "particle-accelerator-machines",
-    order = "a",
-    inventory_move_sound = item_sounds.metal_large_inventory_move,
-    pick_sound = item_sounds.metal_large_inventory_pickup,
-    drop_sound = item_sounds.metal_large_inventory_move,
-    place_result = "particle-trap",
-    stack_size = 10,
-    weight = rocket_cap / 10
-  },
-}
-

@@ -98,7 +98,6 @@ data:extend{
     name = "space-platform-scaffolding",
     order = "a[artificial]-za",
     subgroup = "artificial-tiles",
-    -- TODO
     minable = {mining_time = 0.5, result = "space-platform-scaffolding"},
     -- mined_sound = base_sounds.deconstruct_bricks(0.8),
     is_foundation = true,

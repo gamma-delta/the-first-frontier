@@ -99,59 +99,9 @@ data.raw["recipe"]["advanced-thruster-oxidizer"].hidden = true
 -- of comets, so this is 100% alright (lies)
 data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "quicklime"
 
--- Greatly reduce the number of asteroids between the inner planets,
--- and somewhat reduce the amount in orbit.
-for _,planet in ipairs{"nauvis", "vulcanus", "fulgora", "gleba"} do
-  local planet_proto = data.raw["planet"][planet]
-  for _,asd in ipairs(planet_proto.asteroid_spawn_definitions) do
-    if asd.type == "entity" then
-      asd.probability = asd.probability * 0.1
-    end
-  end
-end
-for _,connection in ipairs{
-  "nauvis-vulcanus", "nauvis-gleba", "nauvis-fulgora",
-  "vulcanus-gleba", "gleba-fulgora",
-} do
-  local conn_proto = data.raw["space-connection"][connection]
-  conn_proto.length = conn_proto.length
-  for _,asd in ipairs(conn_proto.asteroid_spawn_definitions) do
-    if asd.type == "entity" then
-      asd.probability = asd.probability * 0.01
-    end
-  end
-end
-
 -- Remove drag in space. Why is there drag in space?
-local og_expression = [[
-  (thrust / (1 + weight / 10000000)
-    - ((1500 * speed * speed + 1500 * abs(speed)) * (width * 0.5) + 10000)
-      * sign(speed)
-  ) / weight / 60"
-]]
--- F = ma
--- ~> a = F/m
--- However to mock the tyranny of the rocket equation, I'm going to make
--- force affect it slightly less than linearly.
--- Unclear about the units here, either.
--- - Thrust is in N? 
--- - Weight is in g
--- - Speed is probably in km/s
--- - And I return km/s^2?
--- Guessing this because when the platform is still, the thrusters report
--- "0 N", but the speed reports "0 km/s"
--- However, if I just do thrust/weight then it SCREAMS OFF INTO THE SUNSET
--- so include a fudge factor.
-data.raw["utility-constants"]["default"].space_platform_acceleration_expression = 
-[[
-  ((thrust/1000)^0.99 * 1000) / (1 + weight)
-  / 1e4
-]]
--- And make thrusters sip up more juice
--- The thrust will be the same per unit, i think
-local thruster = data.raw["thruster"]["thruster"]
-thruster.min_performance.fluid_usage = thruster.min_performance.fluid_usage * 10
-thruster.max_performance.fluid_usage = thruster.max_performance.fluid_usage * 10
+-- this is based on oobanooba's eqn for TFMG
+data.raw["utility-constants"]["default"].space_platform_acceleration_expression =  "( thrust/(1 + weight) - max(speed^2/5 , 0.5) ) / 3600"
 
 -- Nuke cells have 10x the cost, give them ~10x the power
 data.raw["item"]["uranium-fuel-cell"].fuel_value = "50GJ"

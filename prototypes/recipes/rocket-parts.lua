@@ -101,7 +101,6 @@ data:extend{
     enabled = false,
     subgroup = "chemistry",
     order = "d[electro]-b",
-    -- TODO
     icons = pglobals.icons.one_into_two(
       "__space-age__/graphics/icons/fluid/electrolyte.png",
       "__petraspace__/graphics/icons/fluid/molecule-hydrogen.png",
@@ -113,8 +112,6 @@ data:extend{
 
   -- or you can do the one block vertical difficulty curve for the beef
   -- Phase 1: nitrogen compound oxidizers, ammonia or kerosene fuel
-  -- TODO: I should probably not unlock all of these with the LRS.
-  -- If I'm going to implement nitric acid I want it used all over the mod.
   {
     type = "recipe",
     name = "ammonia-synthesis",
