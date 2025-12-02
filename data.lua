@@ -6,7 +6,6 @@ require "prototypes/planets"
 require "prototypes/items"
 require "prototypes/fluids"
 require "prototypes/entities/machines"
-require "prototypes/entities/rockets"
 require "prototypes/entities/resources"
 require "prototypes/entities/combat"
 require "prototypes/entities/nauvis"
@@ -29,6 +28,7 @@ require "prototypes/tips-and-tricks"
 -- must do these here because otherwise quality can't make the recycling
 -- recipes correctly
 require "data-updates-at-home/vanilla"
+require "data-updates-at-home/rocket-silo"
 
 -- jansharp, you are the BEST
 local qai = require "__quick-adjustable-inserters__/data_api"

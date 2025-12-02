@@ -247,26 +247,7 @@ data:extend{
     energy_required = 10,
     results = {{type="item", name="rocket-control-unit", amount=1}},
     auto_recycle = false,
-  },
-  {
-    type = "recipe",
-    name = "lunar-rocket-silo",
-    category = "advanced-crafting",
-    enabled = false,
-    energy_required = 30,
-    ingredients = {
-      {type="item", name="concrete", amount=1000},
-      {type="item", name="electric-engine-unit", amount=200},
-      {type="item", name="pipe", amount=100},
-      {type="item", name="processing-unit", amount=200},
-      -- Split steel/aluminum 50-50
-      {type="item", name="steel-plate", amount=500},
-      {type="item", name="aluminum-plate", amount=500},
-    },
-    results = {{type="item", name="lunar-rocket-silo", amount=1}},
-    allow_productivity = true,
-    allow_quality = true,
-  },
+  }
 }
 
 -- Make things use POC

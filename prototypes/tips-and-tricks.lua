@@ -92,9 +92,10 @@ data:extend{
     is_title = false,
     order = "c",
     indent = 1,
-    trigger = {type="build-entity", entity="lunar-rocket-silo"},
+    trigger = {type="build-entity", entity="rocket-silo"},
   },
   {
+    -- TODO
     type = "tips-and-tricks-item",
     name = "ps-demolisher-squishing",
     tag = "[entity=small-demolisher]",
@@ -102,6 +103,5 @@ data:extend{
     is_title = false,
     order = "c",
     indent = 1,
-    trigger = {type="build-entity", entity="lunar-rocket-silo"},
   },
 }
