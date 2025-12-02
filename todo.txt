@@ -13,6 +13,7 @@ Gleeb is harder though.
 - Just don't have it? In this case I need to exclude some material required for rocket parts on each other planet
   - No crafting orbital data cards on Fulgora due to high lightning storms? Make it in orbit
   - whyyyyy is vulcanus so OP
+  - Oh, i can restrict ammonia! Making throxidizer harder to get
 
 [X] Fix space progression
 
