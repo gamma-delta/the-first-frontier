@@ -1,0 +1,19 @@
+Thanks Talandar for the suggestion for a todo list
+
+[X] Hide post-Aquilo content
+Probably do this with a script that goes in dff that I can enable or disable
+
+[ ] How to get aluminum on Gleba and Vulcanus
+On Vulc I can make up whatever I want basically
+- Lava extraction
+- Inclusions in tungsten
+- Byproduct of processing iron (with Mg byproduct of processing copper)
+Gleeb is harder though.
+- Al bacteria? it's been done, although it would be a nice pre-Aquilo boost
+- Just don't have it? In this case I need to exclude some material required for rocket parts on each other planet
+  - No crafting orbital data cards on Fulgora due to high lightning storms? Make it in orbit
+  - whyyyyy is vulcanus so OP
+
+[/] Fix space progression
+
+[X] Add scaffolding mask

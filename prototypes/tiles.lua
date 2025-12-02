@@ -93,6 +93,11 @@ local function make_sps_transitions(path, count)
 end
 
 data:extend{
+  -- Add new collision layer for things that can't go on the light scaffolding
+  {
+    type = "collision-layer",
+    name = "pk-space-platform-scaffolding"
+  },
   {
     type = "tile",
     name = "space-platform-scaffolding",
@@ -103,8 +108,13 @@ data:extend{
     is_foundation = true,
     allows_being_covered = true,
     max_health = 20,
-    weight = 50,
-    collision_mask = tile_collision_masks.ground(),
+    -- default is 200
+    weight = 10,
+    collision_mask = (function()
+      local ground = tile_collision_masks.ground()
+      ground.layers["pk-space-platform-scaffolding"] = true
+      return ground
+    end)(),
     -- normal foundation is 15; go over it.
     layer = 16,
     -- layer_group = "ground-artificial" -- should space-platform-foundation be in the ground-artifical group?

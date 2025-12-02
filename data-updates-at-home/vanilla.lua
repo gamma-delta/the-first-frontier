@@ -1,6 +1,8 @@
 local pglobals = require("__petraspace__/globals")
 local rocket_cap = 1000 * kg;
 
+local util_consts = data.raw["utility-constants"]["default"]
+
 -- Move gasses to be gasses
 local function togas(name, order)
   local gas = data.raw["fluid"][name]
@@ -101,7 +103,7 @@ data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "quickl
 
 -- Remove drag in space. Why is there drag in space?
 -- this is based on oobanooba's eqn for TFMG
-data.raw["utility-constants"]["default"].space_platform_acceleration_expression =  "( thrust/(1 + weight) - max(speed^2/5 , 0.5) ) / 3600"
+util_consts.space_platform_acceleration_expression =  "( thrust/(1 + weight) - max(speed^2/5 , 0.5) ) / 3600"
 
 -- Nuke cells have 10x the cost, give them ~10x the power
 data.raw["item"]["uranium-fuel-cell"].fuel_value = "50GJ"
@@ -159,3 +161,34 @@ end
 for _,slutch in ipairs{"oil-ocean-shallow", "oil-ocean-deep"} do
   data.raw["tile"][slutch].fluid = "fulgoran-sludge"
 end
+
+-- Blacklist a lot of entities from scaffolding
+local function no_scaffold(ty, names)
+  for _,name in ipairs(names) do
+    local proto = data.raw[ty][name]
+    if not proto.collision_mask then
+      proto.collision_mask = util.copy(util_consts.default_collision_masks[ty])
+    end
+    proto.collision_mask.layers["pk-space-platform-scaffolding"] = true
+  end
+end
+
+no_scaffold("assembling-machine", {
+  "assembling-machine-1", "assembling-machine-2", "assembling-machine-3", "chemical-plant", "crusher",
+  "foundry", "electromagnetic-plant", "cryogenic-plant"
+})
+-- Rockets are self-propelled
+no_scaffold("ammo-turret", {"gun-turret", "snouz_long_electric_gun_turret", "railgun-turret"})
+no_scaffold("asteroid-collector", {"asteroid-collector"})
+no_scaffold("cargo-bay", {"cargo-bay"})
+
+for name,_ in pairs(data.raw["inserter"]) do
+  no_scaffold("inserter", {name})
+end
+for _,ty in ipairs{"transport-belt", "underground-belt", "splitter"} do
+  for _,tier in ipairs{"",  "fast-", "express-", "turbo-"} do
+    no_scaffold(ty, {tier .. ty})
+  end
+end
+no_scaffold("artillery-turret", {"artillery-turret"})
+-- Notable allowed things: Combinators mostly
