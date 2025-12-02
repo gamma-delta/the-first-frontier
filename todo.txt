@@ -3,7 +3,7 @@ Thanks Talandar for the suggestion for a todo list
 [X] Hide post-Aquilo content
 Probably do this with a script that goes in dff that I can enable or disable
 
-[ ] How to get aluminum on Gleba and Vulcanus
+[X] How to get aluminum on Gleba and Vulcanus
 On Vulc I can make up whatever I want basically
 - Lava extraction
 - Inclusions in tungsten

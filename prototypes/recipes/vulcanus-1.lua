@@ -29,8 +29,13 @@ data:extend{
     },
     energy_required = 60,
     results = {
-      {type="item", name="quicklime", amount=40},
-      {type="item", name="magnesium-slag", amount_min=0, amount_max=4}
+      -- Low quicklime amount means
+      -- 1. you have to mine a lot of calcite
+      --    (in vanilla, calcite is less of a resource and more of a check)
+      -- 2. you need a lot of foundries
+      {type="item", name="quicklime", amount=10},
+      -- TODO: swap back to magslag once I implement post-Aquilo1
+      {type="item", name="native-aluminum", amount_min=0, amount_max=4}
     },
     main_product = "quicklime",
   },
@@ -90,11 +95,13 @@ data:extend{
 }
 
 for _,calcite2lime in ipairs{
-  -- Keep the basic planetside recipes using normal calcite.
-  -- This is metal from lava and simple liquefaction.
-  -- This way if you're a madman you can make use orbital quicklime to
-  -- run your foundaries, and it's still easier to get set up on Vulc.
-  "acid-neutralisation", "molten-iron", "molten-copper",
+  -- Switch most things to use quicklime, but leave a few calcite-only ones
+  -- Calcite is now Vulcanus-only! Quicklime can be obtained from space.
+  -- If I end up implementing glass, then calcite can be used for
+  -- more efficiency there too.
+  "molten-iron", "molten-copper",
+  "molten-iron-from-lava", "molten-copper-from-lava",
+  "acid-neutralisation",
   -- just like expanding grout!
   "cliff-explosives",
 } do
@@ -106,6 +113,8 @@ for _,calcite2lime in ipairs{
   end
 end
 
+pglobals.recipe.add("coal-liquefaction",
+  {type="item", name="calcite", amount=1})
 pglobals.recipe.add("casting-steel",
   {type="item", name="carbon", amount=1})
 

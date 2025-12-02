@@ -101,6 +101,9 @@ data.raw["recipe"]["advanced-thruster-oxidizer"].hidden = true
 -- of comets, so this is 100% alright (lies)
 data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "quicklime"
 
+-- Make acid-powered platforms feasible
+data.raw["recipe"]["acid-neutralisation"].surface_conditions = nil
+
 -- Remove drag in space. Why is there drag in space?
 -- this is based on oobanooba's eqn for TFMG
 util_consts.space_platform_acceleration_expression =  "( thrust/(1 + weight) - max(speed^2/5 , 0.5) ) / 3600"
