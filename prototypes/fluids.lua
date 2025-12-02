@@ -58,7 +58,7 @@ data:extend{
     heat_capacity = "0.01kJ",
     base_color = { 0.9, 0.9, 0.92 },
     flow_color = { 0.8, 0.8, 0.92 },
-    auto_barrel = false,
+    auto_barrel = true,
   },
   {
     type = "fluid",
@@ -72,7 +72,7 @@ data:extend{
     heat_capacity = "0.01kJ",
     base_color = { 0.9, 0.3, 0.35 },
     flow_color = { 0.9, 0.2, 0.2 },
-    auto_barrel = false,
+    auto_barrel = true,
   },
   {
     type = "fluid",
@@ -87,7 +87,7 @@ data:extend{
     -- Unpleasant toxic red-orange color like RFNA
     base_color = { 0.7, 0.1, 0.05 },
     flow_color = { 0.65, 0.2, 0.0 },
-    auto_barrel = false,
+    auto_barrel = true,
   },
   -- unused-renders does not actually have N204, so
   -- nitric acid to oxidizer directly it is

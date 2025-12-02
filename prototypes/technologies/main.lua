@@ -95,7 +95,7 @@ data:extend{
     },
     effects = {
       recipe("simple-bauxite-extraction"),
-      recipe("native-aluminum-to-plate"),
+      recipe("aluminum-plate"),
     },
   },
 }
@@ -142,8 +142,31 @@ pglobals.tech.add_unlock("military-3", "shotgun-turret")
 table.insert(data.raw["technology"]["military-3"].prerequisites,
   "simple-bauxite-extraction")
 
+-- Nitric acid
 data:extend{
--- Push into space --
+  {
+    type = "technology",
+    name = "ps-advanced-chemistry",
+    icon = "__petraspace__/graphics/technologies/electrolysis.png",
+    icon_size = 1024,
+    prerequisites = { "chemical-science-pack" },
+    unit = {
+      count = 250,
+      ingredients = science("rg2b"),
+      time = 60,
+    },
+    effects = {
+      recipe("water-electrolysis"),
+      recipe("ammonia-synthesis"),
+      recipe("nitric-acid"),
+      -- TODO: add dinitrogen tetroxide here?
+    }
+  }
+}
+table.insert(data.raw["technology"]["processing-unit"].prerequisites, "ps-advanced-chemistry")
+
+data:extend{
+-- Push into space
 -- There are three parts that are hard about going to the moon:
 -- - finding the moon (astrodynamic science)
 -- - making the propellant
@@ -166,52 +189,11 @@ data:extend{
   },
   {
     type = "technology",
-    name = "rocket-propellants",
-    icon = "__petraspace__/graphics/technologies/electrolysis.png",
-    icon_size = 1024,
-    prerequisites = { "orbital-science-pack" },
-    unit = {
-      count = 250,
-      ingredients = science("2r2g2bo"),
-      time = 60,
-    },
-    effects = {
-      recipe("water-electrolysis"),
-      recipe("thruster-fuel-from-hydrogen"),
-      recipe("thruster-oxidizer-from-oxygen"),
-      recipe("thruster-fuel-from-rocket-fuel"),
-      -- TODO: add dinitrogen tetroxide here?
-    }
-  },
-  {
-    type = "technology",
-    name = "nitric-propellants",
-    icon = "__petraspace__/graphics/technologies/nitric-propulsion.png",
-    icon_size = 1024,
-    prerequisites = { "rocket-propellants" },
-    unit = {
-      count = 100,
-      ingredients = science("rg4bo"),
-      time = 60,
-    },
-    effects = {
-      recipe("ammonia-synthesis"),
-      recipe("thruster-fuel-from-ammonia"),
-      recipe("nitric-acid"),
-      recipe("thruster-oxidizer-from-nitric-acid"),
-      -- recipe("n2o4-thruster-oxidizer"),
-    }
-  },
-  {
-    type = "technology",
     name = "discover-viate",
     icons = PlanetsLib.technology_icon_moon("__petraspace__/graphics/icons/space-location/viate.png", 2048),
     localised_description = {"space-location-description.viate"},
-    prerequisites = { 
+    prerequisites = {
       "orbital-science-pack",
-      "rocket-propellants", "electric-engine", "concrete",
-      "heating-tower", "construction-robotics"
-      -- robots are so you can remotely move items to your silo
     },
     unit = {
       count = 300,
@@ -232,7 +214,9 @@ data:extend{
 }
 
 local tech_vanilla_rocket = data.raw["technology"]["rocket-silo"]
-tech_vanilla_rocket.prerequisites = { "rocket-propellants" }
+tech_vanilla_rocket.prerequisites = {
+  "processing-unit", "concrete", "electric-engine"
+}
 tech_vanilla_rocket.unit = {
   count = 500,
   time = 60,
@@ -247,6 +231,11 @@ tech_vanilla_rocket.effects = {
   recipe("platform-fuel-tank"),
   recipe("platform-oxidizer-tank"),
   recipe("thruster"),
+  recipe("thruster-fuel-from-hydrogen"),
+  recipe("thruster-oxidizer-from-oxygen"),
+  recipe("thruster-fuel-from-rocket-fuel"),
+  recipe("thruster-fuel-from-ammonia"),
+  recipe("thruster-oxidizer-from-nitric-acid"),
 }
 
 -- Welcome to Viate

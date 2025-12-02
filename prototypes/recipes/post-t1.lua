@@ -17,8 +17,6 @@ data:extend{
     category = "metallurgy",
     subgroup = "chemistry",
     order = "c[aluminum]-b",
-    enabled = false,
-    allow_decomposition = false,
     ingredients = {
       { type="item", name="bauxite-ore", amount=100 },
       { type="item", name="calcite", amount=4 },
@@ -85,8 +83,12 @@ data:extend{
     results = {
       { type="item", name="aluminum-plate", amount=1 },
     },
+    icons = pglobals.icons.mini_over(
+      "__petraspace__/graphics/icons/fluid/molten-aluminum.png",
+      "__petraspace__/graphics/icons/aluminum-plate.png"
+    ),
     -- This way the tooltip shows the native aluminum, not liquid,
-    -- which will be relavent for longer
+    -- which will be relevant for longer
     allow_decomposition = false,
     allow_productivity = true,
   },

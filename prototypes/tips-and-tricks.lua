@@ -45,7 +45,7 @@ data:extend{
     order = "a[rocket-juice]-a",
     indent = 1,
     tag = "[item=thruster]",
-    trigger = {type="research", technology="rocket-propellants"},
+    trigger = {type="research", technology="rocket-silo"},
     simulation = rocket_juice.intro,
   },
   {
@@ -56,7 +56,7 @@ data:extend{
     order = "a[rocket-juice]-b",
     indent = 2,
     tag = "[item=rocket-fuel]",
-    trigger = {type="research", technology="rocket-propellants"},
+    trigger = {type="research", technology="rocket-silo"},
     simulation = rocket_juice.many_kinds
   },
   {

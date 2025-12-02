@@ -26,9 +26,9 @@ local function to_rocket_juice(result, iconator, order_stub)
 
     -- please don't do any funny business here
     local ingr_proto = data.raw[type][name]
-    local ingr_size = ingr_proto.icon_size or 64
+    -- local ingr_size = ingr_proto.icon_size or 64
     local juice_proto = data.raw["fluid"][result]
-    local juice_size = juice_proto.icon_size or 64
+    -- local juice_size = juice_proto.icon_size or 64
     return {
       type = "recipe",
       name = result .. "-from-" .. name,

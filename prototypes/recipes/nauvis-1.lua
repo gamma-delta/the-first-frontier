@@ -5,7 +5,7 @@ local pglobals = require("globals")
 data:extend{
   {
     type = "recipe",
-    name = "native-aluminum-to-plate",
+    name = "aluminum-plate",
     category = "smelting",
     order = "za[native-aluminum-to-plate]",
     enabled = false,
@@ -23,7 +23,6 @@ data:extend{
     subgroup = "chemistry",
     order = "c[aluminum]-a",
     enabled = false,
-    allow_decomposition = false,
     ingredients = {
       {type="item", name="bauxite-ore", amount=5},
       {type="item", name="stone", amount=10},

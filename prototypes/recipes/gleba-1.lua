@@ -60,6 +60,8 @@ data:extend{
       {type="item", name="jelly", amount=4},
       {type="fluid", name="ammonia", amount=30},
     },
+    reset_freshness_on_craft = true,
+    result_is_always_fresh = true,
     results = {
       -- Maybe you get more nitrogen out of the atmosphere idk
       {type="fluid", name="nitric-acid", amount=50},
