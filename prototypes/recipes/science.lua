@@ -35,9 +35,10 @@ local spience = data.raw["recipe"]["space-science-pack"]
 -- to ship in all of your steel.
 -- therefore I want spience to be a huge iron hog.
 spience.ingredients = {
-  {type="item", name="space-platform-foundation", amount=1},
-  {type="item", name="precision-optical-component", amount=1},
-  {type="item", name="storage-tank", amount=5},
+  {type="item", name="space-platform-scaffolding", amount=5},
+  {type="item", name="precision-optical-component", amount=5},
+  {type="item", name="long-handed-inserter", amount=5},
+  {type="item", name="storage-tank", amount=1},
 }
 spience.surface_conditions = {{ property="gravity", max=2.5 }}
 

@@ -17,7 +17,7 @@ local function science(s)
     C = "cryogenic-science-pack",
     P = "prometheum-science-pack",
   }
-  
+
   local unit = {}
   -- this is so dumb
   local count = 1
@@ -144,6 +144,10 @@ table.insert(data.raw["technology"]["military-3"].prerequisites,
 
 data:extend{
 -- Push into space --
+-- There are three parts that are hard about going to the moon:
+-- - finding the moon (astrodynamic science)
+-- - making the propellant
+-- - making the rocket (rocket silo)
   {
     type = "technology",
     name = "orbital-science-pack",
@@ -155,7 +159,7 @@ data:extend{
       ingredients = science("rgb"),
       time = 60,
     },
-    effects = { 
+    effects = {
       recipe("orbital-data-card-high-pressure"),
       recipe("orbital-science-pack"),
     },
@@ -176,6 +180,7 @@ data:extend{
       recipe("thruster-fuel-from-hydrogen"),
       recipe("thruster-oxidizer-from-oxygen"),
       recipe("thruster-fuel-from-rocket-fuel"),
+      -- TODO: add dinitrogen tetroxide here?
     }
   },
   {
@@ -220,15 +225,28 @@ data:extend{
         -- dunno what this does
         use_icon_overlay_constant = true,
       },
-      -- should i split this into LRS and Viate researches?
-      -- it would p be bloat
-      recipe("lunar-rocket-silo"),
-      recipe("rocket-control-unit"),
-      -- recipe("ice-melting"),
       recipe("orbital-data-card-low-pressure"),
       recipe("precision-optical-component-low-pressure"),
     }
   },
+}
+
+local tech_vanilla_rocket = data.raw["technology"]["rocket-silo"]
+tech_vanilla_rocket.prerequisites = { "rocket-propellants" }
+tech_vanilla_rocket.unit = {
+  count = 500,
+  time = 60,
+  ingredients = science("rbgo"),
+}
+tech_vanilla_rocket.effects = {
+  recipe("rocket-silo"),
+  recipe("cargo-landing-pad"),
+  recipe("space-platform-scaffolding"),
+  recipe("ps-space-platform-starter-pack-scaffolding"),
+  recipe("empty-platform-tank"),
+  recipe("platform-fuel-tank"),
+  recipe("platform-oxidizer-tank"),
+  recipe("thruster"),
 }
 
 -- Welcome to Viate
@@ -268,7 +286,7 @@ tech_cse.effects = {
 }
 
 local tech_vanilla_spience = data.raw["technology"]["space-science-pack"]
-tech_vanilla_spience.prerequisites = {"discover-viate"}
+tech_vanilla_spience.prerequisites = {"discover-viate", "rocket-silo"}
 tech_vanilla_spience.research_trigger = nil
 tech_vanilla_spience.unit = {
   count = 1000,
@@ -276,7 +294,7 @@ tech_vanilla_spience.unit = {
   ingredients = science("rgbo"),
 }
 tech_vanilla_spience.effects = { recipe("space-science-pack") }
--- SPACE AGE!
+-- SPACE AGE! here's your mini reward:
 data:extend{
   {
     type = "technology",
@@ -292,28 +310,23 @@ data:extend{
     },
   },
 }
-
-local tech_vanilla_rocket = data.raw["technology"]["rocket-silo"]
-tech_vanilla_rocket.prerequisites = { "space-science-pack" }
-tech_vanilla_rocket.unit = {
+-- this is what you get as a reward for figuring out space science!
+local tech_vanilla_splatform = data.raw["technology"]["space-platform"]
+tech_vanilla_splatform.prerequisites = {"space-science-pack"}
+tech_vanilla_splatform.unit = {
   count = 500,
   time = 60,
-  ingredients = science("2r2b2g2os"),
+  ingredients = science("rgbos")
 }
-tech_vanilla_rocket.effects = {
-  recipe("rocket-silo"),
-  recipe("cargo-landing-pad"),
-  recipe("space-platform-foundation"),
-  recipe("space-platform-starter-pack"),
-}
-local tech_vanilla_splatform = data.raw["technology"]["space-platform"]
+
 tech_vanilla_splatform.effects = {
+  recipe("space-platform-foundation"),
   recipe("cargo-bay"),
-  recipe("thruster"),
-  recipe("empty-platform-tank"),
-  recipe("platform-fuel-tank"),
-  recipe("platform-oxidizer-tank"),
+  recipe("crusher"),
+  recipe("asteroid-collector"),
 }
+tech_vanilla_splatform.research_trigger = nil
+
 for _,planet_tech in ipairs{"vulcanus", "fulgora", "gleba"} do
   local tech = data.raw["technology"]["planet-discovery-" .. planet_tech]
   tech.prerequisites[1] = "space-platform"
@@ -321,7 +334,7 @@ for _,planet_tech in ipairs{"vulcanus", "fulgora", "gleba"} do
 end
 local vanilla_thruster_tech = data.raw["technology"]["space-platform-thruster"]
 vanilla_thruster_tech.enabled = false
-vanilla_thruster_tech.visable_when_disabled = false
+vanilla_thruster_tech.visible_when_disabled = false
 
 -- TIER 1 --
 

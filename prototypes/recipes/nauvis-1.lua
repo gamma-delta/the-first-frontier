@@ -307,8 +307,35 @@ pglobals.recipe.replace("flying-robot-frame", "steel-plate", "low-density-struct
 -- but it means you can't compress stone 50->1 and need to
 -- actually handle it.
 -- Turn it into ourple science or make your walls thicker or something.
-table.insert(data.raw["recipe"]["landfill"].ingredients, 
+table.insert(data.raw["recipe"]["landfill"].ingredients,
   {type="item", name="iron-stick", amount=2})
+
+data:extend{
+  {
+    type = "recipe",
+    name = "space-platform-scaffolding",
+    enabled = false,
+    ingredients = {
+      {type="item", name="iron-stick", amount=20},
+      {type="item", name="aluminum-plate", amount=1},
+      {type="item", name="electric-engine-unit", amount=1},
+    },
+    energy_required = 5,
+    results = {{type="item", name="space-platform-scaffolding", amount=1}},
+  },
+  {
+    type = "recipe",
+    name = "ps-space-platform-starter-pack-scaffolding",
+    enabled = false,
+    ingredients = {
+      {type="item", name="space-platform-foundation", amount=60},
+      {type="item", name="aluminum-plate", amount=20},
+      {type="item", name="advanced-circuit", amount=20},
+    },
+    energy_required = 60,
+    results = {{type="item", name="ps-space-platform-starter-pack-scaffolding", amount=1}},
+  },
+}
 
 -- SLEGT: Now on Nauvis!
 local slegt_recipe = data.raw["recipe"]["snouz_long_electric_gun_turret"]

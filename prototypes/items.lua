@@ -162,6 +162,18 @@ data:extend{
     }
   ),
 }
+local spsp = pglobals.copy_then(
+  data.raw["space-platform-starter-pack"]["space-platform-starter-pack"],
+  {
+    name = "ps-space-platform-starter-pack-scaffolding",
+    order = "!!!first",
+    initial_items = {{name="space-platform-scaffolding", type="item", amount=10}}
+  }
+)
+for _,tile in ipairs(spsp.tiles) do
+  tile.tile = "space-platform-scaffolding"
+end
+data:extend{spsp}
 
 -- Viate
 data:extend{
