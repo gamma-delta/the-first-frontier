@@ -30,37 +30,37 @@ data:extend{
   {
     type = "noise-expression",
     -- Minimum radius
-    name = "lepton_radius",
+    name = "pktff_lepton_radius",
     expression = 40 -- or whatever
   },
   {
     type = "noise-expression",
     -- Minimum radius
-    name = "lepton_overhang_ok",
+    name = "pktff_lepton_overhang_ok",
     expression = 10 -- or whatever
   },
   {
     type = "noise-expression",
     -- Minimum radius
-    name = "lepton_overhang_bonus",
+    name = "pktff_lepton_overhang_bonus",
     expression = 0.9
   },
   {
     type = "noise-expression",
-    name = "lepton_clock",
+    name = "pktff_lepton_clock",
     expression = "atan2(y, x)",
   },
   pglobals.make_blobby_radius_expr{
-    name = "lepton_has_ground",
+    name = "pktff_lepton_has_ground",
     input_scale = "3",
-    radius = "lepton_radius",
-    overhang_ok = "lepton_overhang_ok",
-    overhang_bonus = "lepton_overhang_bonus",
+    radius = "pktff_lepton_radius",
+    overhang_ok = "pktff_lepton_overhang_ok",
+    overhang_bonus = "pktff_lepton_overhang_bonus",
     seed = '"lepton_has_ground"'
   },
   {
     type = "noise-expression",
-    name = "lepton_elevation",
+    name = "pktff_lepton_elevation",
     expression = "0"
   }
 }
@@ -71,26 +71,26 @@ local lepton_offset = 80
 data:extend{
   {
     type = "item-subgroup",
-    name = "lepton-tiles",
+    name = "pktff-lepton-tiles",
     group = "tiles",
     order = "f-b",
   },
   -- Place empty space *first*, then fill the hole
   pglobals.make_empty_space(
-    "lepton",
+    "pktff-lepton",
     {
       offset = lepton_offset,
       order = "![before-everything]",
       autoplace = {
-        probability_expression = "(lepton_has_ground == 0) * 999999",
+        probability_expression = "(pktff_lepton_has_ground == 0) * 999999",
       }
     }
   ),
   pglobals.copy_then(
     data.raw["tile"]["volcanic-cracks-hot"],
     {
-      name = "lepton-cracks-hot",
-      subgroup = "lepton-tiles",
+      name = "pktff-lepton-cracks-hot",
+      subgroup = "pktff-lepton-tiles",
       offset = lepton_offset + 1,
       autoplace = {
         probability_expression="1"
@@ -101,7 +101,7 @@ data:extend{
 
 PlanetsLib:extend{{
   type = "planet",
-  name = "lepton",
+  name = "pktff-lepton",
   icon = "__space-age__/graphics/icons/vulcanus.png",
   starmap_icon = "__space-age__/graphics/icons/starmap-planet-vulcanus.png",
   starmap_icon_size = 512,
@@ -140,7 +140,7 @@ PlanetsLib:extend{{
 
   map_gen_settings = {
     property_expression_names = {
-      elevation = "lepton_elevation",
+      elevation = "pktff_lepton_elevation",
       cliffiness = 0,
       -- it does not look like you can change this?
       cliff_elevation = 0,
@@ -154,8 +154,8 @@ PlanetsLib:extend{{
     },
     autoplace_settings = {
       tile = { settings = pglobals.set_with({}){
-        "lepton-empty-space",
-        "lepton-cracks-hot",
+        "pktff-lepton-empty-space",
+        "pktff-lepton-cracks-hot",
       } },
       decorative = { settings = {} },
       entity = { settings = {} },

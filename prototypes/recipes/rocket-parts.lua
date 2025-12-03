@@ -3,7 +3,7 @@ local pglobals = require("globals")
 data:extend{
   {
     type = "item-subgroup",
-    name = "rocket-juice",
+    name = "pktff-rocket-juice",
     group = "space",
     order = "zzz"
   }
@@ -31,16 +31,16 @@ local function to_rocket_juice(result, iconator, order_stub)
     -- local juice_size = juice_proto.icon_size or 64
     return {
       type = "recipe",
-      name = result .. "-from-" .. name,
+      name = "pktff-" .. result .. "-from-" .. name,
       category = "chemistry-or-cryogenics",
       enabled = false,
       ingredients = {{ type=type, name=name, amount=1*multiplier }},
       energy_required = 1,
       results = {{ type="fluid", name=result, amount=amount*multiplier }},
-      subgroup = "rocket-juice",
+      subgroup = "pktff-rocket-juice",
       order = "z[auto]-" .. order_stub,
       localised_name = {
-        "recipe-name." .. result .. "-from-whatever",
+        "recipe-name." .. "pktff-" .. result .. "-from-whatever",
         {type .. "-name." .. name},
       },
       icons = iconator(ingr_proto.icon),
@@ -63,64 +63,64 @@ data:extend{
   -- Phase 0: plain electrolysis
   {
     type = "recipe",
-    name = "water-electrolysis",
+    name = "pktff-water-electrolysis",
     category = "chemistry",
     ingredients = {
       {type="fluid", name="water", amount=100},
     },
     results = {
       -- Do it in mols, I guess? This is what GT does
-      {type="fluid", name="hydrogen", amount=200},
-      {type="fluid", name="oxygen", amount=100},
+      {type="fluid", name="pktff-hydrogen", amount=200},
+      {type="fluid", name="pktff-oxygen", amount=100},
     },
     -- So the play here is to just make a buttload of chemmy plants
     -- and use *efficiency* modules, not speed mods
     energy_required = 300,
     enabled = false,
-    subgroup = "chemistry",
+    subgroup = "intermediate-recipe",
     order = "d[electro]-a",
     icons = pglobals.icons.one_into_two(
       "__base__/graphics/icons/fluid/water.png",
-      "__petraspace__/graphics/icons/fluid/molecule-hydrogen.png",
-      "__petraspace__/graphics/icons/fluid/molecule-oxygen.png"
+      Asset"graphics/icons/fluid/molecule-hydrogen.png",
+      Asset"graphics/icons/fluid/molecule-oxygen.png"
     ),
   },
   {
     type = "recipe",
-    name = "the-cooler-water-electrolysis",
+    name = "pktff-the-cooler-water-electrolysis",
     category = "electromagnetics",
     ingredients = {
       {type="fluid", name="water", amount=100},
       {type="fluid", name="electrolyte", amount=10},
     },
     results = {
-      {type="fluid", name="hydrogen", amount=200},
-      {type="fluid", name="oxygen", amount=100},
+      {type="fluid", name="pktff-hydrogen", amount=200},
+      {type="fluid", name="pktff-oxygen", amount=100},
     },
     energy_required = 60,
     enabled = false,
-    subgroup = "chemistry",
+    subgroup = "intermediate-recipe",
     order = "d[electro]-b",
     icons = pglobals.icons.one_into_two(
       "__space-age__/graphics/icons/fluid/electrolyte.png",
-      "__petraspace__/graphics/icons/fluid/molecule-hydrogen.png",
-      "__petraspace__/graphics/icons/fluid/molecule-oxygen.png"
+      Asset"graphics/icons/fluid/molecule-hydrogen.png",
+      Asset"graphics/icons/fluid/molecule-oxygen.png"
     ),
   },
-  to_fuel("hydrogen", 0.5),
-  to_oxy("oxygen", 1),
+  to_fuel("pktff-hydrogen", 0.5),
+  to_oxy("pktff-oxygen", 1),
 
   -- or you can do the one block vertical difficulty curve for the beef
   -- Phase 1: nitrogen compound oxidizers, ammonia or kerosene fuel
   {
     type = "recipe",
-    name = "ammonia-synthesis",
+    name = "pktff-ammonia-synthesis",
     category = "chemistry-or-cryogenics",
     ingredients = {
       {type="fluid", name="petroleum-gas", amount=20},
       -- this way you have something to do with all that hydrogen,
       -- but you still have to juice some of it
-      {type="fluid", name="hydrogen", amount=10},
+      {type="fluid", name="pktff-hydrogen", amount=10},
       -- this is your "finely powdered iron".
       -- i am an iron stick truther. if the devs added it, it should
       -- be used for things
@@ -128,17 +128,17 @@ data:extend{
     },
     -- works on nauvis, gleba, and fulgora
     surface_conditions = {
-      {property="atmospheric-nitrogen", min=50}
+      {property="pktff-atmospheric-nitrogen", min=50}
     },
     energy_required = 5,
     enabled = false,
     results = {{type="fluid", name="ammonia", amount=10}},
-    subgroup = "chemistry",
+    subgroup = "intermediate-recipe",
     order = "e[synthesis]-a",
     -- Ignore the iron stick cause it's silly
     icons = pglobals.icons.two_into_one(
       "__base__/graphics/icons/fluid/petroleum-gas.png",
-      "__petraspace__/graphics/icons/fluid/molecule-hydrogen.png",
+      Asset"graphics/icons/fluid/molecule-hydrogen.png",
       "__space-age__/graphics/icons/fluid/ammonia.png"
     )
   },
@@ -146,34 +146,34 @@ data:extend{
   to_fuel("ammonia", 2),
   {
     type = "recipe",
-    name = "nitric-acid",
+    name = "pktff-nitric-acid",
     category = "oil-processing",
     additional_categories = {"cryogenics"},
     ingredients = {
       -- Friendship ended with ostwald process
       -- now this made up thing is my new friend
       {type="fluid", name="ammonia", amount=10},
-      {type="fluid", name="oxygen", amount=20},
+      {type="fluid", name="pktff-oxygen", amount=20},
       {type="item", name="sulfur", amount=1},
     },
     energy_required = 7,
     enabled = false,
     results = {
-      {type="fluid", name="nitric-acid", amount=10},
+      {type="fluid", name="pktff-nitric-acid", amount=10},
       -- half the efficiency of the normal recipe
       {type="fluid", name="sulfuric-acid", amount=5},
     },
-    main_product = "nitric-acid",
-    subgroup = "chemistry",
+    main_product = "pktff-nitric-acid",
+    subgroup = "intermediate-recipe",
     order = "e[synthesis]-b",
   },
-  to_oxy("nitric-acid", 2),
+  to_oxy("pktff-nitric-acid", 2),
   {
     type = "recipe",
-    name = "n2o4-thruster-oxidizer",
+    name = "pktff-n2o4-thruster-oxidizer",
     category = "chemistry-or-cryogenics",
     ingredients = {
-      {type="fluid", name="nitric-acid", amount=10},
+      {type="fluid", name="pktff-nitric-acid", amount=10},
       {type="fluid", name="steam", amount=100},
       {type="item", name="copper-plate", amount=1},
     },
@@ -182,10 +182,10 @@ data:extend{
     results = {
       {type="fluid", name="thruster-oxidizer", amount=300},
     },
-    subgroup = "rocket-juice",
+    subgroup = "pktff-rocket-juice",
     order = "b[oxy]-a",
     icons = pglobals.icons.two_into_one(
-      "__petraspace__/graphics/icons/fluid/molecule-nitric-acid.png",
+      Asset"graphics/icons/fluid/molecule-nitric-acid.png",
       "__base__/graphics/icons/copper-plate.png",
       "__space-age__/graphics/icons/fluid/thruster-oxidizer.png"
     ),
@@ -199,7 +199,7 @@ local function rocket_part_recipe(gravity)
   local real_fuel = default_fuel / 10 * gravity
   return {
     type = "recipe",
-    name = "ps-rocket-part-gravity-" .. gravity,
+    name = "pktff-rocket-part-gravity-" .. gravity,
     energy_required = 3,
     -- CBA to have the right technology unlock all of it.
     -- If you have a rocket silo you can craft it
@@ -213,9 +213,9 @@ local function rocket_part_recipe(gravity)
       -- Vulcanus
       {type = "item", name = "low-density-structure", amount = 1},
       -- Fulgora
-      {type = "item", name = "rocket-control-unit", amount = 1},
+      {type = "item", name = "pktff-rocket-control-unit", amount = 1},
       -- Gleba
-      {type = "item", name = "precision-optical-component", amount = 1},
+      {type = "item", name = "pktff-precision-optical-component", amount = 1},
       {type = "fluid", name = "thruster-fuel", amount = real_fuel, fluidbox_index = 1},
       {type = "fluid", name = "thruster-oxidizer", amount = real_fuel, fluidbox_index = 2},
     },

@@ -1,5 +1,5 @@
 local util = require "__core__/lualib/util"
-local putil = require("__petraspace__/control/utils")
+local putil = require("__pk-the-first-frontier__/control/utils")
 
 local function add_qai_techs(force)
   for _,tech_name in ipairs{
@@ -19,10 +19,10 @@ end
 local fill_up_rocket_juice = putil.on_any_built(function(evt)
   local entity = evt.entity
   local juice_name
-  if entity.name == "platform-fuel-tank" then
+  if entity.name == "pktff-platform-fuel-tank" then
     juice_name = "thruster-fuel"
   elseif entity.name == "platform-oxidizer-tank" then
-    juice_name = "thruster-oxidizer"
+    juice_name = "pktff-thruster-oxidizer"
   end
   if not juice_name then return end
 
@@ -82,7 +82,7 @@ return {
     fill_up_rocket_juice,
     kill_all_compounds,
     {
-      [defines.events.on_force_created] = function(evt) 
+      [defines.events.on_force_created] = function(evt)
         add_qai_techs(evt.force)
       end,
       [defines.events.on_research_finished] = tmp_you_win,

@@ -7,17 +7,17 @@ data:extend{
   pglobals.copy_then(
     data.raw["resource"]["stone"],
     {
-      name = "bauxite-ore",
+      name = "pktff-bauxite-ore",
       map_color = { 0.75, 0.50, 0.45 },
       mining_visualization_tint = { 0.75, 0.50, 0.45 },
-      icons = pglobals.icons.ore_deposit "__petraspace__/graphics/icons/bauxite/1.png",
+      icons = pglobals.icons.ore_deposit(Asset "graphics/icons/bauxite/1.png"),
       minable = {
         mining_particle = "stone-particle",
         mining_time = 1,
-        result = "bauxite-ore",
+        result = "pktff-bauxite-ore",
       },
       stages = { sheet = {
-        filename = "__petraspace__/graphics/entities/bauxite-ore.png",
+        filename = Asset"graphics/entities/bauxite-ore.png",
         priority = "extra-high",
         size = 128,
         frame_count = 8,
@@ -27,10 +27,10 @@ data:extend{
       -- Make it search farther in the hope that it covers the whole
       -- patch of stone or w/e
       resource_patch_search_radius = 8,
-      factoriopedia_description = { "factoriopedia-description.bauxite-ore" },
+      factoriopedia_description = { "factoriopedia-description.pktff-bauxite-ore" },
       -- TODO: probably need to make this stone with inclusions
       factoriopedia_simulation = {
-        init = make_resource("bauxite-ore"),
+        init = make_resource("pktff-bauxite-ore"),
       },
       -- Ore per cycle = yield% * 10
       infinite = true,
@@ -42,7 +42,7 @@ data:extend{
   pglobals.copy_then(
     data.raw["resource"]["stone"],
     {
-      name = "ice-deposit",
+      name = "pktff-ice-deposit",
       map_color = { 0.5, 0.7, 1.0 },
       mining_visualization_tint = { 0.75, 0.75, 0.1 },
       icons = pglobals.icons.ore_deposit "__space-age__/graphics/icons/ice.png",
@@ -52,7 +52,7 @@ data:extend{
         result = "ice",
       },
       stages = { sheet = {
-        filename = "__petraspace__/graphics/entities/ice-ore.png",
+        filename = Asset"graphics/entities/ice-ore.png",
         priority = "extra-high",
         size = 128,
         frame_count = 8,
@@ -86,18 +86,18 @@ data:extend{
   pglobals.copy_then(
     data.raw["resource"]["stone"],
     {
-      name = "regolith-deposit",
+      name = "pktff-regolith-deposit",
       -- dark brown?
       map_color = { 0.6, 0.2, 0.1 },
       -- mining_visualization_tint = { 0.75, 0.75, 0.1 },
-      icons = pglobals.icons.ore_deposit "__petraspace__/graphics/icons/regolith/1.png",
+      icons = pglobals.icons.ore_deposit(Asset"graphics/icons/regolith/1.png"),
       minable = {
         mining_particle = "stone-particle",
         mining_time = 2,
-        result = "regolith",
+        result = "pktff-regolith",
       },
       stages = { sheet = {
-        filename = "__petraspace__/graphics/entities/regolith-ore.png",
+        filename = Asset"graphics/entities/regolith-ore.png",
         priority = "extra-high",
         size = 128,
         frame_count = 8,
@@ -114,13 +114,13 @@ data:extend{
           } * 0.5 + 0.6 ]],
         },
         probability_expression = [[
-          (viate_above_basins * (viate_meteor_spot < 0.7))
-          * (viate_meteorness > max(5 - sqrt(distance / 100), 3.8))
+          (pktff_viate_above_basins * (pktff_viate_meteor_spot < 0.7))
+          * (pktff_viate_meteorness > max(5 - sqrt(distance / 100), 3.8))
         ]],
-        richness_expression = "viate_meteorness * (100 + sqrt(distance))",
+        richness_expression = "pktff_viate_meteorness * (100 + sqrt(distance))",
       },
       factoriopedia_simulation = {
-        init = make_resource("regolith-deposit"),
+        init = make_resource("pktff-regolith-deposit"),
       }
     }
   ),
@@ -128,7 +128,7 @@ data:extend{
 
 -- play with coal
 local anthracite = pglobals.copy_then(data.raw["resource"]["coal"], {
-  name = "anthracite-coal",
+  name = "pktff-anthracite-coal",
   map_color = { 0, 0, 0 },
   icons = pglobals.icons.ore_deposit "__base__/graphics/icons/coal.png",
   minable = {
@@ -142,7 +142,7 @@ local anthracite = pglobals.copy_then(data.raw["resource"]["coal"], {
     fluid_amount = 200,
   },
   stages = { sheet = {
-    filename = "__petraspace__/graphics/entities/anthracite-coal.png",
+    filename = Asset"graphics/entities/anthracite-coal.png",
     priority = "extra-high",
     size = 128,
     frame_count = 8,
@@ -151,14 +151,14 @@ local anthracite = pglobals.copy_then(data.raw["resource"]["coal"], {
   } },
 
   factoriopedia_simulation = {
-    init = make_resource("anthracite-coal"),
+    init = make_resource("pktff-anthracite-coal"),
   }
 })
 -- override coal
-anthracite.autoplace.probability_expression = 
+anthracite.autoplace.probability_expression =
   "(" .. anthracite.autoplace.richness_expression ..
   ") > sqrt(distance + 100) * 100 + distance"
-anthracite.autoplace.richness_expression = 
+anthracite.autoplace.richness_expression =
   "(" .. anthracite.autoplace.richness_expression .. ") * 1.7"
 data:extend{anthracite}
 
@@ -169,11 +169,11 @@ coal.map_color = {0.1, 0.1, 0.1}
 coal.autoplace.order = "ba"
 
 local nauvis_mgs = data.raw["planet"]["nauvis"].map_gen_settings
-nauvis_mgs.autoplace_settings.entity.settings["anthracite-coal"] = {}
+nauvis_mgs.autoplace_settings.entity.settings["pktff-anthracite-coal"] = {}
 local vulcanus_mgs = data.raw["planet"]["vulcanus"].map_gen_settings
-vulcanus_mgs.autoplace_settings.entity.settings["anthracite-coal"] = {}
+vulcanus_mgs.autoplace_settings.entity.settings["pktff-anthracite-coal"] = {}
 vulcanus_mgs.autoplace_settings.entity.settings["coal"] = nil
 vulcanus_mgs.property_expression_names["entity:coal:probability"] = nil
 vulcanus_mgs.property_expression_names["entity:coal:richness"] = nil
-vulcanus_mgs.property_expression_names["entity:anthracite-coal:probability"] = "vulcanus_coal_probability"
-vulcanus_mgs.property_expression_names["entity:anthracite-coal:richness"] = "vulcanus_coal_richness"
+vulcanus_mgs.property_expression_names["entity:pktff-anthracite-coal:probability"] = "vulcanus_coal_probability"
+vulcanus_mgs.property_expression_names["entity:pktff-anthracite-coal:richness"] = "vulcanus_coal_richness"

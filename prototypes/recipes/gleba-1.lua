@@ -6,9 +6,9 @@ data.raw["recipe"]["coal-synthesis"].hidden = true
 data:extend{
   {
     type = "recipe",
-    name = "boompuff-processing",
+    name = "pktff-boompuff-processing",
     icons = pglobals.icons.one_into_two(
-      "__petraspace__/graphics/icons/boompuff-propagule.png",
+      Asset"graphics/icons/boompuff-propagule.png",
       "__space-age__/graphics/icons/fluid/ammonia.png",
       "__base__/graphics/icons/fluid/petroleum-gas.png"
     ),
@@ -19,7 +19,7 @@ data:extend{
     allow_productivity = true,
     allow_decomposition = false,
     energy_required = 1,
-    ingredients = {{type="item", name="boompuff-propagule", amount=1}},
+    ingredients = {{type="item", name="pktff-boompuff-propagule", amount=1}},
     results = {
       {type="fluid", name="ammonia", amount=50},
       {type="fluid", name="petroleum-gas", amount=10},
@@ -34,12 +34,12 @@ data:extend{
   -- NITRIFICATION!!!!!!!!
   {
     type = "recipe",
-    name = "nitrogen-fixation",
+    name = "pktff-nitrogen-fixation",
     icons = pglobals.icons.three_into_one(
       "__space-age__/graphics/icons/fluid/ammonia.png",
       "__space-age__/graphics/icons/spoilage.png",
       "__space-age__/graphics/icons/iron-bacteria.png",
-      "__petraspace__/graphics/icons/fluid/molecule-nitric-acid.png"
+      Asset"graphics/icons/fluid/molecule-nitric-acid.png"
     ),
     category = "organic",
     subgroup = "agriculture-processes",
@@ -64,7 +64,7 @@ data:extend{
     result_is_always_fresh = true,
     results = {
       -- Maybe you get more nitrogen out of the atmosphere idk
-      {type="fluid", name="nitric-acid", amount=50},
+      {type="fluid", name="pktff-nitric-acid", amount=50},
       {type="item", name="iron-bacteria", amount_min=0, amount_max=2},
     },
     -- TODO
@@ -84,7 +84,7 @@ data:extend{
   -- out the demands of yumako/jelly
   {
     type = "recipe",
-    name = "light-oil-reforming",
+    name = "pktff-light-oil-reforming",
     category = "organic",
     subgroup = "agriculture-processes",
     order = "e[bacteria]-z[new]-b[light-oil-reforming]",
@@ -113,7 +113,7 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "heavy-oil-reforming",
+    name = "pktff-heavy-oil-reforming",
     category = "organic",
     subgroup = "agriculture-processes",
     order = "e[bacteria]-z[new]-c[heavy-oil-reforming]",
@@ -142,8 +142,8 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "fertilizer",
-    icon = "__petraspace__/graphics/icons/fertilizer/1.png",
+    name = "pktff-fertilizer",
+    icon = Asset"graphics/icons/fertilizer/1.png",
     category = "organic",
     subgroup = "agriculture-products",
     order = "c[nutrients]-z-a[fertilizer]",
@@ -152,10 +152,10 @@ data:extend{
     energy_required = 10,
     ingredients = {
       {type="fluid", name="ammonia", amount=50},
-      {type="fluid", name="nitric-acid", amount=50},
+      {type="fluid", name="pktff-nitric-acid", amount=50},
       {type="item", name="nutrients", amount=20},
     },
-    results = {{type="item", name="fertilizer", amount=10}},
+    results = {{type="item", name="pktff-fertilizer", amount=10}},
     -- TODO
     crafting_machine_tint = {
       primary = {r = 0.671, g = 0.518, b = 0.353, a = 1.000},
@@ -164,9 +164,9 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "anfo-explosives",
+    name = "pktff-anfo-explosives",
     icons = pglobals.icons.two_into_one(
-      "__petraspace__/graphics/icons/fertilizer/1.png",
+      Asset"graphics/icons/fertilizer/1.png",
       "__base__/graphics/icons/fluid/light-oil.png",
       "__base__/graphics/icons/explosives.png"
     ),
@@ -177,7 +177,7 @@ data:extend{
     allow_productivity = true,
     energy_required = 4,
     ingredients = {
-      {type="item", name="fertilizer", amount=2},
+      {type="item", name="pktff-fertilizer", amount=2},
       {type="fluid", name="light-oil", amount=20},
     },
     results = {{type="item", name="explosives", amount=5}},
@@ -189,7 +189,7 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "presto-fuel",
+    name = "pktff-presto-fuel",
     category = "chemistry-or-cryogenics",
     subgroup = "agriculture-products",
     order = "a[organic-products]-z-d[presto-fuel]",
@@ -200,11 +200,11 @@ data:extend{
     ingredients = {
       {type="item", name="wood", amount=5},
       {type="item", name="coal", amount=5},
-      {type="item", name="boompuff-propagule", amount=10},
+      {type="item", name="pktff-boompuff-propagule", amount=10},
       {type="fluid", name="thruster-fuel", amount=20},
-      {type="fluid", name="nitric-acid", amount=20},
+      {type="fluid", name="pktff-nitric-acid", amount=20},
     },
-    results = {{type="item", name="presto-fuel", amount=1}},
+    results = {{type="item", name="pktff-presto-fuel", amount=1}},
     -- TODO
     crafting_machine_tint = {
       primary = {r = 0.671, g = 0.518, b = 0.353, a = 1.000},

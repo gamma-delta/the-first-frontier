@@ -2,30 +2,26 @@ data:extend{
   {
     type = "recipe-category",
     -- Smelting done in fueled furnaces
-    name = "dirty-smelting",
+    name = "pktff-dirty-smelting",
   },
   {
     type = "recipe-category",
-    name = "dust-spraydown",
+    name = "pktff-dust-spraydown",
   },
   {
     type = "recipe-category",
-    name = "mystery-flesh-pit",
-  },
-  {
-    type = "recipe-category",
-    name = "particle-trap",
+    name = "pktff-mystery-flesh-pit",
   },
   {
     -- Cheating here
     -- https://github.com/danielmartin0/Cerys-Moon-of-Fulgora/blob/main/prototypes/recipe/recipe.lua#L190
     type = "recipe-category",
-    name = "demolisher-squishing",
+    name = "pktff-demolisher-squishing",
   },
   {
     type = "item-subgroup",
     group = "intermediate-products",
-    name = "chemistry",
+    name = "pktff-chemistry",
   },
 }
 

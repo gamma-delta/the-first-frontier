@@ -68,7 +68,7 @@ utils.on_type_by_tick = function(entity_name, ticks, fn)
   local events_tbl = utils.on_any_built(function(evt)
     -- This happens if someone places entities on tick 0,
     -- such as tips and tricks
-    if not storage.on_type_by_tick then 
+    if not storage.on_type_by_tick then
       storage.on_type_by_tick = {}
     end
     if not storage.on_type_by_tick[entity_name] then
@@ -106,7 +106,7 @@ utils.on_type_by_tick = function(entity_name, ticks, fn)
     end
 
     for _,entity in ipairs(to_remove) do
-      storage.on_type_by_tick[entity_name] = nil
+      storage.on_type_by_tick[entity_name][entity] = nil
     end
   end
   return events_tbl, {[ticks] = the_handler}

@@ -19,7 +19,7 @@ local function add_inclusions(evt)
             + (math.random() * 6 - 3)
 
           surface.create_entity{
-            name="bauxite-ore", position=res.position, amount=new_richness,
+            name="pktff-bauxite-ore", position=res.position, amount=new_richness,
           }
           res.destroy()
         end

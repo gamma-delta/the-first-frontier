@@ -5,8 +5,8 @@ local function hide(ty, names)
 end
 
 hide("item", {
-  "magpie-alloy"
+  "pktff-magpie-alloy"
 })
 
-hide("electric-energy-interface", {"electrostatic-funneler"})
-hide("planet", {"lepton"})
+hide("electric-energy-interface", {"pktff-electrostatic-funneler"})
+hide("planet", {"pktff-lepton"})

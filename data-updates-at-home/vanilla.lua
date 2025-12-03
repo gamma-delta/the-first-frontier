@@ -1,4 +1,4 @@
-local pglobals = require("__petraspace__/globals")
+local pglobals = require("globals")
 local rocket_cap = 1000 * kg;
 
 local util_consts = data.raw["utility-constants"]["default"]
@@ -6,7 +6,7 @@ local util_consts = data.raw["utility-constants"]["default"]
 -- Move gasses to be gasses
 local function togas(name, order)
   local gas = data.raw["fluid"][name]
-  gas.subgroup = "gasses"
+  gas.subgroup = "pktff-gasses"
   gas.order = "a[existing-gas]-" .. order
 end
 togas("steam", "a")
@@ -18,8 +18,8 @@ togas("fluorine", "d")
 togas("fusion-plasma", "e")
 
 -- Assign crafting categories
-table.insert(data.raw["furnace"]["stone-furnace"].crafting_categories, "dirty-smelting")
-table.insert(data.raw["furnace"]["steel-furnace"].crafting_categories, "dirty-smelting")
+table.insert(data.raw["furnace"]["stone-furnace"].crafting_categories, "pktff-dirty-smelting")
+table.insert(data.raw["furnace"]["steel-furnace"].crafting_categories, "pktff-dirty-smelting")
 
 -- Make flamethrower turrets have Consequences
 -- It looks like each individual blob of flame in a stream is a separate object.
@@ -99,7 +99,7 @@ data.raw["recipe"]["advanced-thruster-oxidizer"].hidden = true
 -- Make oxide asteroids drop quicklime
 -- It turns out that we don't actually know very much about the makeup
 -- of comets, so this is 100% alright (lies)
-data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "quicklime"
+data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "pktff-quicklime"
 
 -- Make acid-powered platforms feasible
 data.raw["recipe"]["acid-neutralisation"].surface_conditions = nil
@@ -162,7 +162,7 @@ end
 
 -- Make fulgoran sludge sludgier
 for _,slutch in ipairs{"oil-ocean-shallow", "oil-ocean-deep"} do
-  data.raw["tile"][slutch].fluid = "fulgoran-sludge"
+  data.raw["tile"][slutch].fluid = "pktff-fulgoran-sludge"
 end
 
 -- Blacklist a lot of entities from scaffolding
@@ -172,7 +172,7 @@ local function no_scaffold(ty, names)
     if not proto.collision_mask then
       proto.collision_mask = util.copy(util_consts.default_collision_masks[ty])
     end
-    proto.collision_mask.layers["pk-space-platform-scaffolding"] = true
+    proto.collision_mask.layers["pktff-space-platform-scaffolding"] = true
   end
 end
 

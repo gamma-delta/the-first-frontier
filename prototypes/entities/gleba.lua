@@ -22,12 +22,12 @@ vanilla_boompuff.minable.results = {
   -- chance to get another seed out.
   -- LordMiguel had a really smart idea here -- you can't count on every
   -- harvest giving you a propagule! but you also can't buffer the seeds.
-  {type="item", name="boompuff-propagule", amount_min=0, amount_max=10},
+  {type="item", name="pktff-boompuff-propagule", amount_min=0, amount_max=10},
   {type="item", name="wood", amount=4},
 }
 
 local boompuff_plant = pglobals.copy_then(vanilla_boompuff, {
-  name = "boompuff-plant",
+  name = "pktff-boompuff-plant",
   type = "plant",
   -- Same as yumako and jellynut
   growth_ticks = 5 * minute,
@@ -49,8 +49,7 @@ boompuff_plant.created_effect = nil
 -- The autoplace restriction is binding for some reason?
 -- Make them also plantable on yumako soil, idfk,
 -- I don't want to add special new yellow soil
-boompuff_plant.autoplace.tile_restriction = util.merge{
-  -- todo this doesn't work? probably messed up a key somewhere
+boompuff_plant.autoplace.tile_restriction = pglobals.concat{
   data.raw["plant"]["yumako-tree"].autoplace.tile_restriction,
   {"midland-yellow-crust", "midland-yellow-crust-2", "midland-yellow-crust-3", "midland-yellow-crust-4"},
 }
@@ -62,7 +61,7 @@ data:extend{boompuff_plant}
 -- Show the little spores the boompuffs puff
 local boompuff_boom = data.raw["projectile"]["boompuff-seed"]
 local seed_shot = {
-  filename = "__petraspace__/graphics/icons/boompuff-propagule-sheet.png",
+  filename = Asset"graphics/icons/boompuff-propagule-sheet.png",
   draw_as_glow = true,
   size = 64,
   x = 0, y = 0,
@@ -98,7 +97,7 @@ end
 data:extend{
   {
     type = "furnace",
-    name = "mystery-flesh-pit",
+    name = "pktff-mystery-flesh-pit",
     flags = {
       "placeable-neutral", "not-deconstructable", "not-blueprintable",
       "not-repairable", "not-upgradable"
@@ -117,7 +116,7 @@ data:extend{
     order = "gleba-z",
 
     crafting_speed = 1,
-    crafting_categories = {"mystery-flesh-pit"},
+    crafting_categories = {"pktff-mystery-flesh-pit"},
     source_inventory_size = 1,
     result_inventory_size = 12,
     circuit_connector = nil,
@@ -126,12 +125,12 @@ data:extend{
     energy_source = {
       type = "burner",
       fuel_inventory_size = 1,
-      burner_usage = "mfp-scouts",
-      fuel_categories = {"mfp-scouts"},
+      burner_usage = "pktff-mfp-scouts",
+      fuel_categories = {"pktff-mfp-scouts"},
     },
 
     integration_patch = {
-      filename = "__petraspace__/graphics/entities/mystery-flesh-pit/mystery-flesh-pit.png",
+      filename = Asset"graphics/entities/mystery-flesh-pit/mystery-flesh-pit.png",
       width = 960, height = 675, scale = 0.5,
       surface = "gleba",
     },

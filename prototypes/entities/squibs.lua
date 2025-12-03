@@ -43,6 +43,6 @@ local function pollution_squib(name, pollutant, amount, color_inner, color_outer
 end
 
 data:extend{
-  pollution_squib("dust-squib-white", "dust", 20, {0.7, 0.72, 0.8, 0.2}),
-  pollution_squib("dust-squib-reddish", "dust", 20, {0.9, 0.65, 0.6, 0.2}),
+  pollution_squib("pktff-dust-squib-white", "pktff-dust", 20, {0.7, 0.72, 0.8, 0.2}),
+  pollution_squib("pktff-dust-squib-reddish", "pktff-dust", 20, {0.9, 0.65, 0.6, 0.2}),
 }

@@ -51,7 +51,7 @@ small_rod.range_elongation = 10
 
 -- Make the vault an accumulator
 local brightlines = {
-  filename = "__petraspace__/graphics/entities/fulgoran/vault-accumulator-light.png",
+  filename = Asset"graphics/entities/fulgoran/vault-accumulator-light.png",
   width = 960, height = 640,
   scale = 0.5,
   shift = util.by_pixel(18.5/2, -6/2), -- from vanilla
@@ -91,7 +91,7 @@ local vault = pglobals.copy_then(data.raw["simple-entity"]["fulgoran-ruin-vault"
     charge_animation = {
       layers = {
         pglobals.copy_then(brightlines, {
-          filename = "__petraspace__/graphics/entities/fulgoran/vault-accumulator-dark.png",
+          filename = Asset"graphics/entities/fulgoran/vault-accumulator-dark.png",
           animation_speed = 0.11,
         }),
       }
@@ -115,16 +115,16 @@ for _,ruin in ipairs{
   local area = (proto.collision_box[2][1] - proto.collision_box[1][1]) 
     * (proto.collision_box[2][2] - proto.collision_box[1][2])
   table.insert(proto.minable.results, {
-    type = "item", name = "archaeological-scrap",
+    type = "item", name = "pktff-archaeological-scrap",
     amount_min = math.ceil(area/4), amount_max = math.ceil(area/2)
   })
 end
 table.insert(data.raw["accumulator"]["fulgoran-ruin-vault"].minable.results, {
-  type = "item", name = "archaeological-scrap",
+  type = "item", name = "pktff-archaeological-scrap",
   amount = 100,
 })
 table.insert(data.raw["lightning-attractor"]["fulgoran-ruin-attractor"].minable.results, {
-  type = "item", name = "archaeological-scrap",
+  type = "item", name = "pktff-archaeological-scrap",
   amount = 20,
 })
 
@@ -133,17 +133,17 @@ data:extend{
   {
     -- this is deranged
     type = "electric-energy-interface",
-    name = "electrostatic-funneler",
+    name = "pktff-electrostatic-funneler",
     icon = "__space-age__/graphics/icons/lightning-collector.png",
     gui_mode = "none",
     energy_usage = "10MW",
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
-      emissions_per_minute = { dust = -300 },
+      emissions_per_minute = { ["pktff-dust"] = -300 },
       buffer = "10MJ",
     },
-    minable = {mining_time=1, result = "electrostatic-funneler"},
+    minable = {mining_time=1, result = "pktff-electrostatic-funneler"},
     flags = {"placeable-player", "placeable-neutral", "player-creation"},
     max_health = 200,
     picture = {
@@ -171,14 +171,14 @@ data:extend{
   },
   {
     type = "item",
-    name = "electrostatic-funneler",
+    name = "pktff-electrostatic-funneler",
     icon = "__base__/graphics/icons/fluid/steam.png",
     subgroup = "production-machine",
     order = "wa[electrostatic]",
     inventory_move_sound = item_sounds.metal_large_inventory_move,
     pick_sound = item_sounds.metal_large_inventory_pickup,
     drop_sound = item_sounds.metal_large_inventory_move,
-    place_result = "electrostatic-funneler",
+    place_result = "pktff-electrostatic-funneler",
     stack_size = 5,
     weight = rocket_cap / 5
   },

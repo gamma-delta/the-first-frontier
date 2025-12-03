@@ -119,7 +119,7 @@ local function make_sapper(
       },
       animation = {
         layers = {
-          util.sprite_load("__petraspace__/graphics/entities/sapper/body",
+          util.sprite_load(Asset"graphics/entities/sapper/body",
           {
             scale=0.5*sapper_head_size*sapper_scale,
             direction_count=64,
@@ -130,7 +130,7 @@ local function make_sapper(
             surface = "gleba",
             usage = "enemy"
           }),
-          util.sprite_load("__petraspace__/graphics/entities/sapper/body-mask",
+          util.sprite_load(Asset"graphics/entities/sapper/body-mask",
           {
             scale=0.5*sapper_head_size*sapper_scale*0.5,
             direction_count=64,
@@ -141,7 +141,7 @@ local function make_sapper(
             surface = "gleba",
             usage = "enemy"
           }),
-          util.sprite_load("__petraspace__/graphics/entities/sapper/lights",
+          util.sprite_load(Asset"graphics/entities/sapper/lights",
           {
             scale=0.5*sapper_head_size*sapper_scale,
             direction_count=64,
@@ -319,7 +319,7 @@ local function make_sapper(
   data:extend{
     {
       type = "electric-energy-interface",
-      name = prefix .. "sapper-egg",
+      name = "pktff-" .. prefix .. "sapper-egg",
       icon = sapper_graphics_definitions.icon,
       hidden = true,
       is_military_target = true,
@@ -349,7 +349,7 @@ local function make_sapper(
         height = 32,
       }
     },
-    make_leg(prefix .. "sapper-pentapod-leg", sapper_scale, sapper_leg_thickness, sapper_speed, sapper_graphics_definitions, sounds,
+    make_leg("pktff-" .. prefix .. "sapper-pentapod-leg", sapper_scale, sapper_leg_thickness, sapper_speed, sapper_graphics_definitions, sounds,
     {
       hip_flexibility = sapper_hip_flexibility,
       knee_height = sapper_knee_height, -- tiles, in screen space, above the ground that the knee naturally rests at
@@ -362,7 +362,7 @@ local function make_sapper(
 
     {
       type = "spider-unit",
-      name = prefix .. "sapper-pentapod",
+      name = "pktff-" .. prefix .. "sapper-pentapod",
       icon = sapper_graphics_definitions.icon,
       collision_box = {{-1 * scale, -1 * scale}, {1 * scale, 1 * scale}},
       sticker_box = {{-1.0 * scale, -1.0 * scale}, {1.0 * scale , 1.0 * scale}},
@@ -400,7 +400,7 @@ local function make_sapper(
               target_effects = {
                 {
                   type = "create-entity",
-                  entity_name = prefix .. "sapper-egg",
+                  entity_name = "pktff-" .. prefix .. "sapper-egg",
                   check_buildability = true,
                   find_non_colliding_position = true
                 },
@@ -460,35 +460,35 @@ local function make_sapper(
         walking_group_overlap = 0.8,
         legs = {
           {
-            leg = prefix .. "sapper-pentapod-leg",
+            leg = "pktff-" .. prefix .. "sapper-pentapod-leg",
             mount_position = util.rotate_position(sapper_leg_mount_position, sapper_leg_orientations[1]),
             ground_position = util.rotate_position(sapper_leg_ground_position, sapper_leg_orientations[1]),
             walking_group = 1,
             leg_hit_the_ground_trigger = get_leg_hit_the_ground_trigger()
           },
           {
-            leg = prefix .. "sapper-pentapod-leg",
+            leg = "pktff-" ..  prefix .. "sapper-pentapod-leg",
             mount_position = util.rotate_position(sapper_leg_mount_position, sapper_leg_orientations[2]),
             ground_position = util.rotate_position(sapper_leg_ground_position, sapper_leg_orientations[2]),
             walking_group = 3,
             leg_hit_the_ground_trigger = get_leg_hit_the_ground_trigger()
           },
           {
-            leg = prefix .. "sapper-pentapod-leg",
+            leg = "pktff-" .. prefix .. "sapper-pentapod-leg",
             mount_position = util.rotate_position(sapper_leg_mount_position, sapper_leg_orientations[3]),
             ground_position = util.rotate_position(sapper_leg_ground_position, sapper_leg_orientations[3]),
             walking_group = 5,
             leg_hit_the_ground_trigger = get_leg_hit_the_ground_trigger()
           },
           {
-            leg = prefix .. "sapper-pentapod-leg",
+            leg = "pktff-" .. prefix .. "sapper-pentapod-leg",
             mount_position = util.rotate_position(sapper_leg_mount_position, sapper_leg_orientations[4]),
             ground_position = util.rotate_position(sapper_leg_ground_position, sapper_leg_orientations[4]),
             walking_group = 2,
             leg_hit_the_ground_trigger = get_leg_hit_the_ground_trigger()
           },
           {
-            leg = prefix .. "sapper-pentapod-leg",
+            leg = "pktff-" .. prefix .. "sapper-pentapod-leg",
             mount_position = util.rotate_position(sapper_leg_mount_position, sapper_leg_orientations[5]),
             ground_position = util.rotate_position(sapper_leg_ground_position, sapper_leg_orientations[5]),
             walking_group = 4,
@@ -499,7 +499,7 @@ local function make_sapper(
     },
     {
       type = "corpse",
-      name = prefix .. "sapper-corpse",
+      name = "pktff-" .. prefix .. "sapper-corpse",
       icon = sapper_graphics_definitions.icon,
       flags = {"placeable-neutral", "not-on-map"},
       hidden_in_factoriopedia = true,
@@ -575,11 +575,11 @@ make_sapper("big-", 1.1, 800, 1.85, "3MW", "8MJ", {
 
 local spawner_units = data.raw["unit-spawner"]["gleba-spawner"].result_units
 -- evo, prob
-table.insert(spawner_units, {"small-sapper-pentapod",
+table.insert(spawner_units, {"pktff-small-sapper-pentapod",
   {{0.0, 0.2}, {0.1, 0.2}, {0.6, 0.0}}})
-table.insert(spawner_units, {"medium-sapper-pentapod",
+table.insert(spawner_units, {"pktff-medium-sapper-pentapod",
   {{0.1, 0.0}, {0.6, 0.35}, {0.9, 0.0}}})
-table.insert(spawner_units, {"big-sapper-pentapod",
+table.insert(spawner_units, {"pktff-big-sapper-pentapod",
   {{0.6, 0.0}, {0.7, 0.2}, {0.95, 0.25}}})
 
 -- While i'm here, push back stompers

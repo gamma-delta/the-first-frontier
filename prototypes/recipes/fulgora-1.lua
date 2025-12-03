@@ -23,23 +23,23 @@ scrapping.results = {
   scrapout("steel-plate", 0.05),
   scrapout("iron-gear-wheel", 0.04),
   scrapout("battery", 0.04),
-  scrapout("precision-optical-component", 0.04),
+  scrapout("pktff-precision-optical-component", 0.04),
   scrapout("copper-cable", 0.03),
   scrapout("processing-unit", 0.03),
-  scrapout("archaeological-scrap", 0.02),
+  scrapout("pktff-archaeological-scrap", 0.02),
   scrapout("low-density-structure", 0.01),
   scrapout("holmium-ore", 0.01),
 }
 data:extend{
   {
     type = "recipe",
-    name = "archaeological-scrap-recycling",
+    name = "pktff-archaeological-scrap-recycling",
     icons = {
       {
         icon = "__quality__/graphics/icons/recycling.png"
       },
       {
-        icon = "__petraspace__/graphics/icons/archaeological-scrap/1.png",
+        icon = Asset"graphics/icons/archaeological-scrap/1.png",
         scale = 0.4
       },
       {
@@ -52,13 +52,13 @@ data:extend{
     auto_recycle = false,
     enabled = false,
     energy_required = 0.2,
-    ingredients = {{type="item", name="archaeological-scrap", amount=1}},
+    ingredients = {{type="item", name="pktff-archaeological-scrap", amount=1}},
     results = {
       scrapout("selector-combinator", 1 / 2),
       scrapout("superconductor", 1 / 4), -- the money shot
       scrapout("programmable-speaker", 1 / 8),
       scrapout("display-panel", 1 / 16),
-      scrapout("aluminum-plate", 1 / 32),
+      scrapout("pktff-aluminum-plate", 1 / 32),
       scrapout("low-density-structure", 1 / 64),
       scrapout("car", 1 / 128),
       scrapout("holmium-ore", 1 / 256),
@@ -70,8 +70,8 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "fulgoran-sludge-refining",
-    icon = "__petraspace__/graphics/icons/fluid/fulgoran-sludge.png",
+    name = "pktff-fulgoran-sludge-refining",
+    icon = Asset"graphics/icons/fluid/fulgoran-sludge.png",
     category = "oil-processing",
     subgroup = "fulgora-processes",
     order = "az[after-trash]-a",
@@ -80,7 +80,7 @@ data:extend{
     allow_productivity = true,
     energy_required = 5,
     ingredients = {
-      {type="fluid", name="fulgoran-sludge", amount=100},
+      {type="fluid", name="pktff-fulgoran-sludge", amount=100},
       {type="fluid", name="water", amount=50},
       -- a filter?
       {type="item", name="stone", amount=1},
@@ -99,7 +99,7 @@ data:extend{
 data.raw["recipe"]["holmium-solution"].ingredients = {
   {type="item", name="holmium-ore", amount=2},
   {type="item", name="stone", amount=1},
-  {type="fluid", name="nitric-acid", amount=10},
+  {type="fluid", name="pktff-nitric-acid", amount=10},
 }
 data.raw["recipe"]["electrolyte"].ingredients = {
   {type="item", name="stone", amount=1},
@@ -120,7 +120,7 @@ data.raw["recipe"]["supercapacitor"].ingredients = {
   -- but there is no way to get it on Fulgora at the moment.
   -- carbon fiber would be even better!
   -- perhaps save it for the sconductor
-  {type="item", name="aluminum-plate", amount=1},
+  {type="item", name="pktff-aluminum-plate", amount=1},
   {type="fluid", name="electrolyte", amount=10},
 }
 

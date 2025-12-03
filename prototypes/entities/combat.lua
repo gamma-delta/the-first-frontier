@@ -141,7 +141,7 @@ local function shotgun_top_gfx(cfg)
   local size = cfg.mask and 128 or 192
   local scale = cfg.mask and 0.75 or 0.5
   return {
-    filename = "__petraspace__/graphics/entities/shotgun-turret/" .. cfg.file,
+    filename = Asset"graphics/entities/shotgun-turret/" .. cfg.file,
     width = size, height = size,
     scale = scale,
     direction_count = 64,
@@ -164,7 +164,7 @@ local function shotgun_base_gfx(cfg)
     flags = {}
   end
   return {
-    filename = "__petraspace__/graphics/entities/shotgun-turret/" .. cfg.file,
+    filename = Asset"graphics/entities/shotgun-turret/" .. cfg.file,
     width = 128, height = 128,
     scale = 0.5,
 
@@ -192,11 +192,11 @@ data:extend{
   pglobals.copy_then(
     data.raw["ammo-turret"]["gun-turret"],
     {
-      name = "shotgun-turret",
-      icon = "__petraspace__/graphics/icons/shotgun-turret.png",
+      name = "pktff-shotgun-turret",
+      icon = Asset"graphics/icons/shotgun-turret.png",
       icon_size = 64,
       flags = {"placeable-player", "player-creation"},
-      minable = {mining_time=0.5, result="shotgun-turret"},
+      minable = {mining_time=0.5, result="pktff-shotgun-turret"},
       max_health = 600,
       collision_box = {{-0.7, -0.71}, {0.7, 0.71}},
       selection_box = {{-1, -1}, {1, 1}},
@@ -234,7 +234,7 @@ data:extend{
           use_shooter_direction = true,
           turn_range = 1 / 3,
           damage_modifier = 2,
-    
+
           -- Based on the gfx
           projectile_creation_distance = 1.5,
           projectile_center = {0, 0.2},

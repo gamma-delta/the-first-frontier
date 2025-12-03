@@ -11,7 +11,7 @@ local intro = {
       string=bp, position={0, 0}
     }
     local lrs = game.surfaces[1].find_entity("rocket-silo", {0, 0})
-    lrs.set_recipe("ps-rocket-part-gravity-10")
+    lrs.set_recipe("pktff-rocket-part-gravity-10")
   ]]
 }
 local many_kinds = {

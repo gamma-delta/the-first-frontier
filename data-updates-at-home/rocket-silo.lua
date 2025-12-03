@@ -33,10 +33,10 @@ vanilla_rs.fluid_boxes = {
 -- Update it via script later
 vanilla_rs.fixed_recipe = nil
 -- Add my blue-tinted light overlays to suggest oxidizer
-vanilla_rs.hole_light_sprite.filename = "__petraspace__/graphics/entities/rocket-silo/hole-light.png"
-vanilla_rs.rocket_glow_overlay_sprite.filename = "__petraspace__/graphics/entities/rocket-silo/over-glow.png"
+vanilla_rs.hole_light_sprite.filename = Asset"graphics/entities/rocket-silo/hole-light.png"
+vanilla_rs.rocket_glow_overlay_sprite.filename = Asset"graphics/entities/rocket-silo/over-glow.png"
 -- and same for the rocket
 local vanilla_rocket = data.raw["rocket-silo-rocket"]["rocket-silo-rocket"]
-vanilla_rocket.rocket_glare_overlay_sprite.filename = "__petraspace__/graphics/entities/rocket-silo/over-glare.png"
-vanilla_rocket.rocket_flame_animation.filename = "__petraspace__/graphics/entities/rocket-silo/jet.png"
-vanilla_rocket.rocket_sprite.layers[2].filename = "__petraspace__/graphics/entities/rocket-silo/static-emission.png"
+vanilla_rocket.rocket_glare_overlay_sprite.filename = Asset"graphics/entities/rocket-silo/over-glare.png"
+vanilla_rocket.rocket_flame_animation.filename = Asset"graphics/entities/rocket-silo/jet.png"
+vanilla_rocket.rocket_sprite.layers[2].filename = Asset"graphics/entities/rocket-silo/static-emission.png"

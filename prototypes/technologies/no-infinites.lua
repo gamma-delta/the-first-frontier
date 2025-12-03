@@ -70,11 +70,11 @@ end
 local function tech_braking(tier, count, bonus)
   local prereq = "railway"
   if tier > 1 then
-    prereq = "ps-braking-force-" .. (tier - 1)
+    prereq = "pktff-braking-force-" .. (tier - 1)
   end
   return {
     type = "technology",
-    name = "ps-braking-force-" .. tier,
+    name = "pktff-braking-force-" .. tier,
     icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
     prerequisites = {prereq},
     upgrade = true,
@@ -104,11 +104,11 @@ local function tech_inserter_cap(tier, count, bulk_stack, main_stack)
   end
   local prereq = "bulk-inserter"
   if tier > 1 then
-    prereq = "ps-inserter-capacity-bonus-" .. (tier - 1)
+    prereq = "pktff-inserter-capacity-bonus-" .. (tier - 1)
   end
   return {
     type = "technology",
-    name = "ps-inserter-capacity-bonus-" .. tier,
+    name = "pktff-inserter-capacity-bonus-" .. tier,
     icons = util.technology_icon_constant_stack_size("__base__/graphics/technology/inserter-capacity.png"),
     prerequisites = {prereq},
     upgrade = true,

@@ -5,39 +5,39 @@ local pglobals = require("globals")
 data:extend{
   {
     type = "recipe",
-    name = "aluminum-plate",
+    name = "pktff-aluminum-plate",
     category = "smelting",
     order = "za[native-aluminum-to-plate]",
     enabled = false,
     energy_required = 3.2,
     allow_productivity = true,
-    ingredients = {{ type="item", name="native-aluminum", amount=2 }},
-    results = {{ type="item", name="aluminum-plate", amount=1 }},
+    ingredients = {{ type="item", name="pktff-native-aluminum", amount=2 }},
+    results = {{ type="item", name="pktff-aluminum-plate", amount=1 }},
   },
   {
     -- This recipe should mega suck
     type = "recipe",
-    name = "simple-bauxite-extraction",
+    name = "pktff-simple-bauxite-extraction",
     category = "chemistry",
     additional_categories = {"centrifuging"},
-    subgroup = "chemistry",
+    subgroup = "pktff-aluminum-processes",
     order = "c[aluminum]-a",
     enabled = false,
     ingredients = {
-      {type="item", name="bauxite-ore", amount=5},
+      {type="item", name="pktff-bauxite-ore", amount=5},
       {type="item", name="stone", amount=10},
       {type="fluid", name="sulfuric-acid", amount=200},
       {type="fluid", name="steam", amount=500},
     },
     energy_required = 30,
-    results = {{type="item", name="native-aluminum", amount=1}},
+    results = {{type="item", name="pktff-native-aluminum", amount=1}},
     auto_recycle = false,
     allow_productivity = true,
     allow_decomposition = false,
     icons = pglobals.icons.two_into_one(
       "__base__/graphics/icons/fluid/sulfuric-acid.png",
       "__base__/graphics/icons/fluid/steam.png",
-      "__petraspace__/graphics/icons/bauxite/1.png"
+      Asset"graphics/icons/bauxite/1.png"
     )
   },
 }
@@ -49,7 +49,7 @@ data:extend{
 data:extend{
   {
     type = "recipe",
-    name = "circuit-substrate-stone",
+    name = "pktff-circuit-substrate-stone",
     subgroup = "intermediate-product",
     order = "b[circuits]-![circuit-substrate]-a",
     category = "crafting",
@@ -59,19 +59,19 @@ data:extend{
       {type="item", name="copper-plate", amount=1},
     },
     energy_required = 0.5,
-    results = {{type="item", name="circuit-substrate", amount=1}},
+    results = {{type="item", name="pktff-circuit-substrate", amount=1}},
     allow_productivity = true,
     auto_recycle = false,
     -- the "default" i suppose
     allow_decomposition = true,
     icons = pglobals.icons.mini_over(
       "__base__/graphics/icons/stone-brick.png",
-      "__petraspace__/graphics/icons/circuit-substrate.png"
+      Asset"graphics/icons/circuit-substrate.png"
     )
   },
   {
     type = "recipe",
-    name = "circuit-substrate-wood",
+    name = "pktff-circuit-substrate-wood",
     subgroup = "intermediate-product",
     order = "b[circuits]-![circuit-substrate]-b",
     category = "crafting",
@@ -82,18 +82,18 @@ data:extend{
       {type="item", name="copper-plate", amount=1},
     },
     energy_required = 1.0,
-    results = {{type="item", name="circuit-substrate", amount=2}},
+    results = {{type="item", name="pktff-circuit-substrate", amount=2}},
     allow_productivity = true,
     auto_recycle = false,
     allow_decomposition = false,
     icons = pglobals.icons.mini_over(
       "__base__/graphics/icons/wood.png",
-      "__petraspace__/graphics/icons/circuit-substrate.png"
+      Asset"graphics/icons/circuit-substrate.png"
     )
   },
   {
     type = "recipe",
-    name = "circuit-substrate-plastic",
+    name = "pktff-circuit-substrate-plastic",
     subgroup = "intermediate-product",
     order = "b[circuits]-![circuit-substrate]-c",
     category = "electronics",
@@ -104,35 +104,35 @@ data:extend{
       {type="item", name="copper-cable", amount=15},
     },
     energy_required = 10.0,
-    results = {{type="item", name="circuit-substrate", amount=20}},
+    results = {{type="item", name="pktff-circuit-substrate", amount=20}},
     allow_productivity = true,
     auto_recycle = false,
     allow_decomposition = false,
     icons = pglobals.icons.mini_over(
       "__base__/graphics/icons/plastic-bar.png",
-      "__petraspace__/graphics/icons/circuit-substrate.png"
+      Asset"graphics/icons/circuit-substrate.png"
     )
   },
 }
-pglobals.recipe.replace("electronic-circuit", "iron-plate", "circuit-substrate")
+pglobals.recipe.replace("electronic-circuit", "iron-plate", "pktff-circuit-substrate")
 -- they are very tall
 table.insert(data.raw["recipe"]["advanced-circuit"].ingredients,
-  {type="item", name="circuit-substrate", amount=2})
+  {type="item", name="pktff-circuit-substrate", amount=2})
 data.raw["recipe"]["processing-unit"].ingredients = {
   {type="item", name="advanced-circuit", amount=2},
   {type="item", name="electronic-circuit", amount=20},
-  {type="item", name="circuit-substrate", amount=5},
+  {type="item", name="pktff-circuit-substrate", amount=5},
   -- more properly, nitric acid is used for this IRL
   -- however, i want sulfuric and acid to have seperate identities.
   -- Sulfuric is used for grungy mechanical processes
   -- Nitric is used for clean futuristic processes
-  {type="fluid", name="sulfuric-acid", amount=20},
+  {type="fluid", name="pktff-nitric-acid", amount=20},
 }
 
 -- Steel needs nasty fuel
 -- Apparently there are only 4 smelting recipes in vanilla:
 -- iron, copper, steel, and bricks
-data.raw["recipe"]["steel-plate"].category = "dirty-smelting"
+data.raw["recipe"]["steel-plate"].category = "pktff-dirty-smelting"
 
 -- Sulfur can be produced with only petro gas,
 -- so cracking can require sulfuric acid.
@@ -154,11 +154,11 @@ local function poc_recipe(hi_pressure)
   local pressure_bound = hi_pressure and "min" or "max"
   local icon_under = hi_pressure 
     and "__base__/graphics/icons/nauvis.png"
-    or "__space-age__/graphics/icons/solar-system-edge.png" 
+    or "__space-age__/graphics/icons/solar-system-edge.png"
 
   return {
     type = "recipe",
-    name = "precision-optical-component-" .. name,
+    name = "pktff-precision-optical-component-" .. name,
     -- it would probably just be bloat to add a "vacuum craftinginator"
     category = "advanced-crafting",
     enabled = false,
@@ -174,7 +174,7 @@ local function poc_recipe(hi_pressure)
       hi_pressure and { type="fluid", name="heavy-oil", amount=50 } or nil,
     },
     results = {
-      { type="item", name="precision-optical-component", amount=4 },
+      { type="item", name="pktff-precision-optical-component", amount=4 },
     },
     allow_productivity = true,
     allow_quality = true,
@@ -182,7 +182,7 @@ local function poc_recipe(hi_pressure)
     surface_conditions = {{property="pressure", [pressure_bound]=500}},
     icons = {
       { icon = icon_under },
-      { icon = "__petraspace__/graphics/icons/precision-optical-component.png" },
+      { icon = Asset"graphics/icons/precision-optical-component.png" },
     }
   }
 end
@@ -194,57 +194,57 @@ data:extend{
 data:extend{
   {
     type = "recipe",
-    name = "orbital-data-card-high-pressure",
+    name = "pktff-orbital-data-card-high-pressure",
     category = "crafting",
     enabled = false,
     ingredients = {
-      { type="item", name="precision-optical-component", amount=1 },
+      { type="item", name="pktff-precision-optical-component", amount=1 },
       { type="item", name="processing-unit", amount=1 },
     },
     energy_required = 2,
     results = {{
-      type="item", name="orbital-data-card", amount=1,
+      type="item", name="pktff-orbital-data-card", amount=1,
     }},
     surface_conditions = {{ property="pressure", min=500 }},
     auto_recycle = false,
     icons = {
       { icon = "__base__/graphics/icons/nauvis.png" },
-      { icon = "__petraspace__/graphics/icons/orbital-data-card.png" },
+      { icon = Asset"graphics/icons/orbital-data-card.png" },
     }
   },
   {
     type = "recipe",
-    name = "orbital-data-card-low-pressure",
+    name = "pktff-orbital-data-card-low-pressure",
     category = "crafting",
     enabled = false,
     ingredients = {
-      { type="item", name="precision-optical-component", amount=1 },
+      { type="item", name="pktff-precision-optical-component", amount=1 },
       { type="item", name="electronic-circuit", amount=2 },
     },
     energy_required = 1,
     results = {{
-      type="item", name="orbital-data-card", amount=1,
+      type="item", name="pktff-orbital-data-card", amount=1,
     }},
     -- this means you can do it in space, Viate, and Aquilo, but not Fulgora
     surface_conditions = {{ property="pressure", max=500 }},
     auto_recycle = false,
     icons = {
       { icon = "__space-age__/graphics/icons/solar-system-edge.png" },
-      { icon = "__petraspace__/graphics/icons/orbital-data-card.png" },
+      { icon = Asset"graphics/icons/orbital-data-card.png" },
     }
   },
   {
     type = "recipe",
-    name = "rocket-control-unit",
+    name = "pktff-rocket-control-unit",
     category = "crafting",
     enabled = false,
     ingredients = {
-      {type="item", name="orbital-data-card", amount=1},
+      {type="item", name="pktff-orbital-data-card", amount=1},
       {type="item", name="processing-unit", amount=1},
       {type="item", name="electric-engine-unit", amount=1},
     },
     energy_required = 10,
-    results = {{type="item", name="rocket-control-unit", amount=1}},
+    results = {{type="item", name="pktff-rocket-control-unit", amount=1}},
     auto_recycle = false,
   }
 }
@@ -253,13 +253,13 @@ data:extend{
 data.raw["recipe"]["laser-turret"].ingredients = {
   -- vanilla is 20 grurcuits
   {type="item", name="advanced-circuit", amount=10},
-  {type="item", name="precision-optical-component", amount=20},
+  {type="item", name="pktff-precision-optical-component", amount=20},
   {type="item", name="steel-plate", amount=20},
   {type="item", name="battery", amount=20},
 }
 table.insert(
   data.raw["recipe"]["night-vision-equipment"].ingredients,
-  {type="item", name="precision-optical-component", amount=20}
+  {type="item", name="pktff-precision-optical-component", amount=20}
 )
 
 -- These things are SO expensive. Why?
@@ -277,7 +277,7 @@ heat_pipe_recipe.allow_decomposition = true
 data.raw["recipe"]["low-density-structure"].ingredients = {
   { type="item", name="steel-plate", amount=2 },
   { type="item", name="copper-plate", amount=10 },
-  { type="item", name="aluminum-plate", amount=1 },
+  { type="item", name="pktff-aluminum-plate", amount=1 },
   { type="item", name="plastic-bar", amount=5 },
 }
 pglobals.recipe.replace("flying-robot-frame", "steel-plate", "low-density-structure")
@@ -293,27 +293,27 @@ table.insert(data.raw["recipe"]["landfill"].ingredients,
 data:extend{
   {
     type = "recipe",
-    name = "space-platform-scaffolding",
+    name = "pktff-space-platform-scaffolding",
     enabled = false,
     ingredients = {
       {type="item", name="iron-stick", amount=20},
-      {type="item", name="aluminum-plate", amount=1},
+      {type="item", name="pktff-aluminum-plate", amount=1},
       {type="item", name="electric-engine-unit", amount=1},
     },
     energy_required = 5,
-    results = {{type="item", name="space-platform-scaffolding", amount=1}},
+    results = {{type="item", name="pktff-space-platform-scaffolding", amount=1}},
   },
   {
     type = "recipe",
-    name = "ps-space-platform-starter-pack-scaffolding",
+    name = "pktff-space-platform-starter-pack-scaffolding",
     enabled = false,
     ingredients = {
-      {type="item", name="space-platform-foundation", amount=60},
-      {type="item", name="aluminum-plate", amount=20},
+      {type="item", name="pktff-space-platform-scaffolding", amount=60},
+      {type="item", name="pktff-aluminum-plate", amount=20},
       {type="item", name="advanced-circuit", amount=20},
     },
     energy_required = 60,
-    results = {{type="item", name="ps-space-platform-starter-pack-scaffolding", amount=1}},
+    results = {{type="item", name="pktff-space-platform-starter-pack-scaffolding", amount=1}},
   },
 }
 
@@ -323,12 +323,12 @@ slegt_recipe.category = "crafting"
 slegt_recipe.energy = 5
 slegt_recipe.ingredients = {
   {type="item", name="gun-turret", amount=2},
-  {type="item", name="precision-optical-component", amount=1},
+  {type="item", name="pktff-precision-optical-component", amount=1},
   {type="item", name="electronic-circuit", amount=2},
 }
 -- Make shotgun turrets autocraftable w/o Gleba
 pglobals.recipe.replace("combat-shotgun", "wood",
-  {type="item", name="aluminum-plate", amount=5})
+  {type="item", name="pktff-aluminum-plate", amount=5})
 data:extend{{
   type = "recipe",
   name = "shotgun-turret",
@@ -339,8 +339,8 @@ data:extend{{
     {type="item", name="gun-turret", amount=1},
     {type="item", name="combat-shotgun", amount=1},
   },
-  energy = 10,
-  results = {{type="item", name="shotgun-turret", amount=1}}
+  energy_required = 10,
+  results = {{type="item", name="pktff-shotgun-turret", amount=1}}
 }}
 
 -- TIER 1 --
@@ -348,7 +348,7 @@ data:extend{
   -- Same ratios as steel
   {
     type = "recipe",
-    name = "depleted-uranium",
+    name = "pktff-depleted-uranium",
     category = "smelting",
     ingredients = {{type="item", name="uranium-ore", amount=5}},
     energy_required = 16,
@@ -364,7 +364,7 @@ local nuke_colors = {
 }
 local function nuke_waste(count)
   return {
-    type = "item", name = "nuclear-waste", amount = count,
+    type = "item", name = "pktff-nuclear-waste", amount = count,
     percent_spoiled = 0, ignored_by_productivity = 9999,
   }
 end
@@ -423,29 +423,29 @@ cell_reproc.ingredients[1].amount = 1
 cell_reproc.results = {
   -- 1/4 input U
   {type="item", name="uranium-238", amount=1, probability = 0.5},
-  {type="item", name="plutonium", amount=1, probability = 0.8},
+  {type="item", name="pktff-plutonium", amount=1, probability = 0.8},
   nuke_waste(5),
 }
 
 data:extend{
   {
     type = "recipe",
-    name = "mox-fuel-cell",
+    name = "pktff-mox-fuel-cell",
     enabled = false,
     allow_productivity = true,
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
-      {type="item", name="plutonium", amount=10},
+      {type="item", name="pktff-plutonium", amount=10},
       {type="item", name="steel-plate", amount=10},
       {type="item", name="uranium-238", amount=20},
     },
     energy_required = 20,
     results = {
-      {type="item", name="mox-fuel-cell", amount=10},
+      {type="item", name="pktff-mox-fuel-cell", amount=10},
       nuke_waste(1),
     },
-    main_product = "mox-fuel-cell",
+    main_product = "pktff-mox-fuel-cell",
     crafting_machine_tint = {
       primary = {0.8, 0.4, 0},
       secondary = {0.8, 0.8, 0},
@@ -455,22 +455,22 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "breeder-fuel-cell",
+    name = "pktff-breeder-fuel-cell",
     enabled = false,
     allow_productivity = true,
     category = "centrifuging",
     ingredients = {
       {type="item", name="uranium-235", amount=2},
-      {type="item", name="plutonium", amount=20},
+      {type="item", name="pktff-plutonium", amount=20},
       {type="item", name="steel-plate", amount=10},
       {type="item", name="uranium-238", amount=20},
     },
     energy_required = 30,
     results = {
-      {type="item", name="breeder-fuel-cell", amount=10},
+      {type="item", name="pktff-breeder-fuel-cell", amount=10},
       nuke_waste(1),
     },
-    main_product = "breeder-fuel-cell",
+    main_product = "pktff-breeder-fuel-cell",
     crafting_machine_tint = {
       primary = {0.8, 0.4, 0},
       secondary = {0.8, 0.8, 0},
@@ -480,7 +480,7 @@ data:extend{
   },
   {
     type = "recipe",
-    name = "breeder-fuel-cell-reprocessing",
+    name = "pktff-breeder-fuel-cell-reprocessing",
     enabled = false,
     allow_productivity = true,
     category = "centrifuging",
@@ -488,16 +488,16 @@ data:extend{
     order = "b[uranium-products]-za",
     -- TODO
     icons = pglobals.icons.mini_over(
-      "__petraspace__/graphics/icons/plutonium.png",
-      "__petraspace__/graphics/icons/depleted-breeder-fuel-cell.png"
+      Asset"graphics/icons/plutonium.png",
+      Asset"graphics/icons/depleted-breeder-fuel-cell.png"
     ),
     ingredients = {
-      {type="item", name="depleted-breeder-fuel-cell", amount=1},
+      {type="item", name="pktff-depleted-breeder-fuel-cell", amount=1},
     },
     energy_required = 60,
     -- 20 -> 30
     results = {
-      {type="item", name="plutonium", amount=3},
+      {type="item", name="pktff-plutonium", amount=3},
       nuke_waste(10),
     },
     allow_decomposition = false,
@@ -520,18 +520,18 @@ data:extend{
   -- 30 CS/W
   {
     type = "recipe",
-    name = "nuclear-waste-reprocessing",
+    name = "pktff-nuclear-waste-reprocessing",
     enabled = false,
     category = "centrifuging",
     subgroup = "uranium-processing",
     icons = pglobals.icons.mini_over(
       "__base__/graphics/icons/arrows/signal-shuffle.png",
-      "__petraspace__/graphics/icons/nuclear-waste.png"
+      Asset"graphics/icons/nuclear-waste.png"
     ),
     order = "z-a",
     ingredients = {
-      {type="item", name="nuclear-waste", amount=10},
-      {type="fluid", name="nitric-acid", amount=20},
+      {type="item", name="pktff-nuclear-waste", amount=10},
+      {type="fluid", name="pktff-nitric-acid", amount=20},
     },
     energy_required = 300,
     results = {
@@ -555,18 +555,18 @@ data:extend{
   -- 2 CS/W
   {
     type = "recipe",
-    name = "barreled-nuclear-waste",
+    name = "pktff-barreled-nuclear-waste",
     enabled = false,
     category = "centrifuging",
     subgroup = "uranium-processing",
     order = "z-b",
     ingredients = {
-      {type="item", name="nuclear-waste", amount=10},
+      {type="item", name="pktff-nuclear-waste", amount=10},
       {type="item", name="barrel", amount=1},
       {type="fluid", name="water", amount=100},
     },
     energy_required = 5,
-    results = {{type="item", name="barreled-nuclear-waste", amount=1}},
+    results = {{type="item", name="pktff-barreled-nuclear-waste", amount=1}},
     allow_decomposition = true,
     allow_productivity = false,
     auto_recycle = false,
@@ -581,16 +581,16 @@ data:extend{
   -- 1 CS/W
   {
     type = "recipe",
-    name = "nuclear-waste-dumping",
+    name = "pktff-nuclear-waste-dumping",
     enabled = false,
     category = "centrifuging",
     subgroup = "uranium-processing",
     order = "z-c",
     icons = pglobals.icons.mini_over(
       "__base__/graphics/icons/signal/signal-trash-bin.png",
-      "__petraspace__/graphics/icons/nuclear-waste.png"
+      Asset"graphics/icons/nuclear-waste.png"
     ),
-    ingredients = {{type="item", name="nuclear-waste", amount=1}},
+    ingredients = {{type="item", name="pktff-nuclear-waste", amount=1}},
     energy_required = 1,
     results = {},
     allow_decomposition = false,

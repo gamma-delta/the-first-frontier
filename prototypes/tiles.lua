@@ -8,7 +8,7 @@ local space_age_tile_sounds = require("__space-age__/prototypes/tile/tile-sounds
 data:extend{
   {
     type = "tile",
-    name = "fulgoran-scaffolding",
+    name = "pktff-fulgoran-scaffolding",
     order = "a[artificial]-za",
     subgroup = "artificial-tiles",
     -- minable = {mining_time = 0.5, result = "space-platform-foundation"},
@@ -40,7 +40,7 @@ data:extend{
       -- TODO idfc
       main = {
         {
-          picture = "__petraspace__/graphics/tiles/fulgoran-scaffolding/main.png",
+          picture = Asset"graphics/tiles/fulgoran-scaffolding/main.png",
           size = 1,
           scale = 0.5,
           count = 16,
@@ -49,7 +49,7 @@ data:extend{
           y = 0,
         },
         {
-          picture = "__petraspace__/graphics/tiles/fulgoran-scaffolding/main.png",
+          picture = Asset"graphics/tiles/fulgoran-scaffolding/main.png",
           size = 2,
           scale = 0.5,
           count = 8,
@@ -73,7 +73,7 @@ local function make_sps_transitions(path, count)
   return {
     -- bottom, left, top, right
     side = {
-      spritesheet = "__petraspace__/graphics/tiles/" .. path,
+      spritesheet = Asset"graphics/tiles/" .. path,
       count = count,
       scale = 0.5,
       tile_height = 1,
@@ -82,7 +82,7 @@ local function make_sps_transitions(path, count)
     },
     -- LD, LU, RU, RD
     outer_corner = {
-      spritesheet = "__petraspace__/graphics/tiles/" .. path,
+      spritesheet = Asset"graphics/tiles/" .. path,
       count = count,
       scale = 0.5,
       tile_height = 1,
@@ -96,14 +96,14 @@ data:extend{
   -- Add new collision layer for things that can't go on the light scaffolding
   {
     type = "collision-layer",
-    name = "pk-space-platform-scaffolding"
+    name = "pktff-space-platform-scaffolding"
   },
   {
     type = "tile",
-    name = "space-platform-scaffolding",
+    name = "pktff-space-platform-scaffolding",
     order = "a[artificial]-za",
     subgroup = "artificial-tiles",
-    minable = {mining_time = 0.5, result = "space-platform-scaffolding"},
+    minable = {mining_time = 0.5, result = "pktff-space-platform-scaffolding"},
     -- mined_sound = base_sounds.deconstruct_bricks(0.8),
     is_foundation = true,
     allows_being_covered = true,
@@ -112,7 +112,7 @@ data:extend{
     weight = 10,
     collision_mask = (function()
       local ground = tile_collision_masks.ground()
-      ground.layers["pk-space-platform-scaffolding"] = true
+      ground.layers["pktff-space-platform-scaffolding"] = true
       return ground
     end)(),
     -- normal foundation is 15; go over it.
@@ -139,7 +139,7 @@ data:extend{
       -- TODO idfc
       main = {
         {
-          picture = "__petraspace__/graphics/tiles/space-scaffolding.png",
+          picture = Asset"graphics/tiles/space-scaffolding.png",
           size = 1,
           scale = 0.5,
           count = 8,
@@ -148,7 +148,7 @@ data:extend{
           y = 0,
         },
         {
-          picture = "__petraspace__/graphics/tiles/space-scaffolding.png",
+          picture = Asset"graphics/tiles/space-scaffolding.png",
           size = 2,
           scale = 0.5,
           count = 4,

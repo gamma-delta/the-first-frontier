@@ -29,7 +29,7 @@ local function make_dust_sprayer_layer(dir)
   return {
     layers = {
       {
-        filename = "__petraspace__/graphics/entities/dust-sprayer/" .. dir .. ".png",
+        filename = Asset"graphics/entities/dust-sprayer/" .. dir .. ".png",
         width = 202,
         height = 444,
         shift = util.by_pixel(0, -70 + dy),
@@ -42,23 +42,23 @@ end
 data:extend{
   {
     type = "furnace",
-    name = "dust-sprayer",
+    name = "pktff-dust-sprayer",
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
 
     -- a pump uses 30
     energy_usage = "70kW",
     crafting_speed = 1,
-    crafting_categories = {"dust-spraydown"},
+    crafting_categories = {"pktff-dust-spraydown"},
     energy_source = {
       type = "electric",
       usage_priority = "secondary-input",
       -- I think this is at passive? Don't consume energy just to stay awake
       -- so that it doesn't passively remove dust
       drain = "0W",
-      emissions_per_minute = { dust = -40 },
+      emissions_per_minute = { ["pktff-dust"] = -40 },
     },
-    minable = {mining_time=0.25, result = "dust-sprayer"},
+    minable = {mining_time=0.25, result = "pktff-dust-sprayer"},
 
     graphics_set = {
       always_draw_idle_animation = true,
@@ -86,14 +86,14 @@ data:extend{
   },
   {
     type = "item",
-    name = "dust-sprayer",
+    name = "pktff-dust-sprayer",
     icon = "__base__/graphics/icons/fluid/steam.png",
     subgroup = "production-machine",
     order = "w[dust-sprayer]",
     inventory_move_sound = item_sounds.metal_large_inventory_move,
     pick_sound = item_sounds.metal_large_inventory_pickup,
     drop_sound = item_sounds.metal_large_inventory_move,
-    place_result = "dust-sprayer",
+    place_result = "pktff-dust-sprayer",
     stack_size = 10,
     weight = rocket_cap / 10
   },
@@ -113,9 +113,9 @@ data:extend{
   pglobals.copy_then(
     data.raw["inserter"]["bulk-inserter"],
     {
-      name = "tentacle-inserter",
+      name = "pktff-tentacle-inserter",
       allow_custom_vectors = true,
-      minable = {mining_time=0.25, result = "tentacle-inserter"},
+      minable = {mining_time=0.25, result = "pktff-tentacle-inserter"},
       -- TODO: do i make this require nutrients?
       -- i think that would be. evil
       energy_source = {
@@ -136,13 +136,13 @@ data:extend{
       -- make it extend a *little* faster cause it's going to be spending
       -- a lot of time doing so
       extension_speed = 0.15,
-      
+
       fast_replaceable_group = nil,
 
       -- TODO other parts of the inserter
       platform_picture = {
         sheet = {
-          filename = "__petraspace__/graphics/entities/tentacle-inserter/platform.png",
+          filename = Asset"graphics/entities/tentacle-inserter/platform.png",
           priority = "extra-high",
           -- Standard scale here is 0.5
           scale = 0.5,
@@ -159,9 +159,9 @@ data:extend{
   ),
   pglobals.copy_then(
     data.raw["item"]["bulk-inserter"], {
-      name = "tentacle-inserter",
+      name = "pktff-tentacle-inserter",
       order = "z-za[tentacle-inserter]",
-      place_result = "tentacle-inserter",
+      place_result = "pktff-tentacle-inserter",
     }
   ),
 }

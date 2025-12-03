@@ -1,14 +1,16 @@
+local pglobals = require("globals")
+
 data:extend{
   {
     type = "item-subgroup",
-    name = "gasses",
+    name = "pktff-gasses",
     group = "fluids",
     order = "b",
   },
   {
     type = "fluid",
-    name = "bauxite-liquor",
-    icon = "__petraspace__/graphics/icons/fluid/red-mud.png",
+    name = "pktff-bauxite-liquor",
+    icon = Asset"graphics/icons/fluid/red-mud.png",
     subgroup = "fluid",
     order = "b[new-fluid]-e[petraspace]-a[bauxite-liquor]",
     default_temperature = 1500,
@@ -20,8 +22,8 @@ data:extend{
   },
   {
     type = "fluid",
-    name = "molten-aluminum",
-    icon = "__petraspace__/graphics/icons/fluid/molten-aluminum.png",
+    name = "pktff-molten-aluminum",
+    icon = Asset"graphics/icons/fluid/molten-aluminum.png",
     subgroup = "fluid",
     order = "b[new-fluid]-e[petraspace]-b[molten-aluminum]",
     default_temperature = 1500,
@@ -33,8 +35,8 @@ data:extend{
   },
   {
     type = "fluid",
-    name = "fulgoran-sludge",
-    icon = "__petraspace__/graphics/icons/fluid/fulgoran-sludge.png",
+    name = "pktff-fulgoran-sludge",
+    icon = Asset"graphics/icons/fluid/fulgoran-sludge.png",
     subgroup = "fluid",
     order = "b[new-fluid]-e[petraspace]-c[fulgoran-sludge]",
     default_temperature = 80,
@@ -46,9 +48,9 @@ data:extend{
   },
   {
     type = "fluid",
-    name = "hydrogen",
-    icon = "__petraspace__/graphics/icons/fluid/molecule-hydrogen.png",
-    subgroup = "gasses",
+    name = "pktff-hydrogen",
+    icon = Asset"graphics/icons/fluid/molecule-hydrogen.png",
+    subgroup = "pktff-gasses",
     order = "b[new-gas]-a[elemental]-a[hydrogen]",
     -- room temperature idfc
     default_temperature = 300,
@@ -62,9 +64,9 @@ data:extend{
   },
   {
     type = "fluid",
-    name = "oxygen",
-    icon = "__petraspace__/graphics/icons/fluid/molecule-oxygen.png",
-    subgroup = "gasses",
+    name = "pktff-oxygen",
+    icon = Asset"graphics/icons/fluid/molecule-oxygen.png",
+    subgroup = "pktff-gasses",
     order = "b[new-gas]-a[elemental]-b[oxygen]",
     default_temperature = 300,
     max_temperature = 300,
@@ -76,9 +78,9 @@ data:extend{
   },
   {
     type = "fluid",
-    name = "nitric-acid",
-    icon = "__petraspace__/graphics/icons/fluid/molecule-nitric-acid.png",
-    subgroup = "gasses",
+    name = "pktff-nitric-acid",
+    icon = Asset"graphics/icons/fluid/molecule-nitric-acid.png",
+    subgroup = "pktff-gasses",
     order = "b[new-gas]-b[chemical]-a[nitric-acid]",
     default_temperature = 300,
     max_temperature = 300,

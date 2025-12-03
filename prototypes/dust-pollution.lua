@@ -4,7 +4,7 @@
 data:extend{
   {
     type = "airborne-pollutant",
-    name = "dust",
+    name = "pktff-dust",
     icon = {
       filename = "__core__/graphics/icons/mip/side-map-menu-buttons.png",
       priority = "high",
@@ -22,12 +22,12 @@ data:extend{
   -- beacon on top of every entity
   {
     type = "module-category",
-    name = "dust-secret-module",
+    name = "pktff-dust-secret-module",
   },
   {
     type = "module",
-    name = "dust-secret-module",
-    category = "dust-secret-module",
+    name = "pktff-dust-secret-module",
+    category = "pktff-dust-secret-module",
     hidden = true,
     effect = {
       speed = -0.01,
@@ -41,7 +41,7 @@ data:extend{
   },
   {
     type = "beacon",
-    name = "dust-secret-beacon",
+    name = "pktff-dust-secret-beacon",
     -- needs to be more than 1, apparently,
     -- even though there's the reaganomics power gen
     energy_usage = "1W",
@@ -52,7 +52,7 @@ data:extend{
     -- don't nerf other beacons
     profile = {1},
     module_slots = 100,
-    allowed_module_categories = { "dust-secret-module" },
+    allowed_module_categories = { "pktff-dust-secret-module" },
     allowed_effects = { "speed" },
 
     pictures = util.empty_sprite(),
@@ -69,7 +69,7 @@ data:extend{
 }
 
 -- Make things dusty
-data.raw.planet["fulgora"].pollutant_type = "dust"
+data.raw.planet["fulgora"].pollutant_type = "pktff-dust"
 
 -- Unfortunately inserters ignore their pollution on their power source,
 -- and it would not be easy to make them or belts only emit when moving.
@@ -78,13 +78,13 @@ local function energy_dust(energy, amount)
   if energy.emissions_per_minute == nil then
     energy.emissions_per_minute = {}
   end
-  energy.emissions_per_minute["dust"] = amount
+  energy.emissions_per_minute["pktff-dust"] = amount
 end
 local function passive_dust(entity, amount)
   if entity.emissions_per_second == nil then
     entity.emissions_per_second = {}
   end
-  entity.emissions_per_second["dust"] = amount / 60
+  entity.emissions_per_second["pktff-dust"] = amount / 60
 end
 
 -- Burner mining drills emit (toxic) pollution at 12/minute
@@ -131,7 +131,7 @@ local function make_tile_undusty(tile, amount_per_minute_per_chunk)
   if tileobj.absorptions_per_second == nil then
     tileobj.absorptions_per_second  = {}
   end
-  tileobj.absorptions_per_second["dust"] = amount_per_minute_per_chunk 
+  tileobj.absorptions_per_second["pktff-dust"] = amount_per_minute_per_chunk 
     / 60 / (32 * 32)
 end
 make_tile_undusty("stone-path", 0.3)

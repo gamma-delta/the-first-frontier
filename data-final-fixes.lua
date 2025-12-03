@@ -41,7 +41,7 @@ for _,sp in ipairs{
   "logistic-science-pack",
   "military-science-pack",
   "chemical-science-pack",
-  "orbital-science-pack",
+  "pktff-orbital-science-pack",
   "production-science-pack",
   "utility-science-pack",
   -- "space-science-pack",

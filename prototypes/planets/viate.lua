@@ -17,17 +17,17 @@ local hit_itself = {
 
 local viate_crust_decal = pglobals.copy_then(
   data.raw["optimized-decorative"]["sand-decal"],
-  {name="viate-crust"}
+  {name="pktff-viate-crust"}
 )
 viate_crust_decal.autoplace.probability_expression = [[
-  (viate_elevation >= 20)
-  * (viate_meteorness < 1) / (1-viate_meteorness) * 0.01
+  (pktff_viate_elevation >= 20)
+  * (pktff_viate_meteorness < 1) / (1-pktff_viate_meteorness) * 0.01
 ]]
 -- Intersect with itself, but appear under other rocks and stuff
 viate_crust_decal.collision_mask = hit_itself
 for i,tbl in ipairs(viate_crust_decal.pictures) do
   tbl.filename = string.format(
-    "__petraspace__/graphics/decorations/viate/crust-decal-%i.png", i
+    Asset"graphics/decorations/viate/crust-decal-%i.png", i
   )
 end
 data:extend{ viate_crust_decal }
@@ -39,7 +39,7 @@ local function viate_maria_edge_pebble(cfg)
     order = "a[doodad]-a[rock]-c[maria]-" .. cfg.order,
     local_expressions = { prob = cfg.prob } ,
     probability_expression = [[
-      ((3 - abs(viate_elevation-10) + (viate_elevation<10)) * prob)
+      ((3 - abs(pktff_viate_elevation-10) + (pktff_viate_elevation<10)) * prob)
         + (prob * 0.2)
     ]],
     -- control = "rocks",
@@ -49,19 +49,19 @@ local function viate_maria_edge_pebble(cfg)
 end
 viate_maria_edge_pebble{
   src = "medium-volcanic-rock",
-  name = "viate-medium-maria-rock",
+  name = "pktff-viate-medium-maria-rock",
   order = "a",
   prob = 0.05,
 }
 viate_maria_edge_pebble{
   src = "small-volcanic-rock",
-  name = "viate-small-maria-rock",
+  name = "pktff-viate-small-maria-rock",
   order = "b",
   prob = 0.07,
 }
 viate_maria_edge_pebble{
   src = "tiny-volcanic-rock",
-  name = "viate-tiny-maria-rock",
+  name = "pktff-viate-tiny-maria-rock",
   order = "c",
   prob = 0.1,
 }
@@ -74,10 +74,10 @@ local function viate_crater_lining_pebble(cfg)
     local_expressions = { 
       prob = cfg.prob,
       p = "1.3", -- period of trongle
-      triangle = "1 / p * abs((viate_meteorness - p/4) % p)"
+      triangle = "1 / p * abs((pktff_viate_meteorness - p/4) % p)"
     },
     probability_expression = [[
-      viate_above_basins * (viate_meteorness > 1.5) * (triangle > 0.95) * prob
+      pktff_viate_above_basins * (pktff_viate_meteorness > 1.5) * (triangle > 0.95) * prob
     ]],
     -- control = "rocks",
   }
@@ -87,19 +87,19 @@ end
 viate_crater_lining_pebble{
   -- TODO: lighter rocks
   src = "medium-volcanic-rock",
-  name = "viate-medium-crater-rock",
+  name = "pktff-viate-medium-crater-rock",
   order = "a",
   prob = 0.3,
 }
 viate_crater_lining_pebble{
   src = "small-volcanic-rock",
-  name = "viate-small-crater-rock",
+  name = "pktff-viate-small-crater-rock",
   order = "b",
   prob = 0.5,
 }
 viate_crater_lining_pebble{
   src = "tiny-volcanic-rock",
-  name = "viate-tiny-crater-rock",
+  name = "pktff-viate-tiny-crater-rock",
   order = "c",
   prob = 0.6,
 }
@@ -112,7 +112,7 @@ local function viate_maria_flavor(cfg)
     order = "a[doodad]-z[maria-flavor]-" .. cfg.order,
     local_expressions = {prob = cfg.prob},
     probability_expression = [[
-      (viate_elevation < -5) * prob * 0.02
+      (pktff_viate_elevation < -5) * prob * 0.02
     ]],
   }
   deco.collision_mask = hit_itself
@@ -120,19 +120,19 @@ local function viate_maria_flavor(cfg)
 end
 viate_maria_flavor{
   src="waves-decal",
-  name="viate-maria-waves",
+  name="pktff-viate-maria-waves",
   order="a",
   prob=0.03
 }
 viate_maria_flavor{
   src="pumice-relief-decal",
-  name="viate-maria-pumice",
+  name="pktff-viate-maria-pumice",
   order="b",
   prob=0.20
 }
 viate_maria_flavor{
   src="nuclear-ground-patch",
-  name="viate-maria-dirt",
+  name="pktff-viate-maria-dirt",
   order="c",
   prob=0.05
 }
@@ -145,7 +145,7 @@ local function viate_random_crater(cfg)
     order = "a[doodad]-b[crater]-" .. cfg.order,
     local_expressions = {prob = cfg.prob},
     probability_expression = [[
-      (viate_above_basins) * prob * 0.3
+      (pktff_viate_above_basins) * prob * 0.3
     ]],
   }
   deco.collision_mask = hit_itself
@@ -153,19 +153,19 @@ local function viate_random_crater(cfg)
 end
 viate_random_crater{
   src="calcite-stain-small",
-  name="viate-white-stain",
+  name="pktff-viate-white-stain",
   order="a",
   prob=0.017
 }
 viate_random_crater{
   src="crater-large",
-  name="viate-crater-large",
+  name="pktff-viate-crater-large",
   order="b",
   prob=0.01
 }
 viate_random_crater{
   src="crater-small",
-  name="viate-crater-small",
+  name="pktff-viate-crater-small",
   order="c",
   prob=0.015
 }
@@ -175,9 +175,9 @@ data:extend(
     pglobals.copy_then(
       data.raw["simple-entity"]["huge-volcanic-rock"],
       {
-        name = "viate-meteorite",
+        name = "pktff-viate-meteorite",
         autoplace = {
-          probability_expression = "viate_meteor_spot > 0"
+          probability_expression = "pktff_viate_meteor_spot > 0"
         },
         -- This way, more than one doesn't try to generate in each crater
         map_generator_bounding_box = {{-20, -20}, {20, 20}},
@@ -185,10 +185,10 @@ data:extend(
           mining_particle = "stone-particle",
           mining_time = 3,
           results = {
-           {type = "item", name = "regolith", amount_min = 10, amount_max = 20},
+           {type = "item", name = "pktff-regolith", amount_min = 10, amount_max = 20},
            {type = "item", name = "iron-ore", amount_min = 5, amount_max = 15},
            {type = "item", name = "stone", amount_min = 5, amount_max = 30},
-           {type = "item", name = "native-aluminum", amount_min = 20, amount_max = 30},
+           {type = "item", name = "pktff-native-aluminum", amount_min = 20, amount_max = 30},
         } },
         -- dying_trigger_effect = {
         --   type = "create-entity",
@@ -201,7 +201,7 @@ data:extend(
 
 data:extend{
   pglobals.make_blobby_radius_expr{
-    name = "viate_has_ground",
+    name = "pktff_viate_has_ground",
     input_scale = "150",
     radius = "1200",
     overhang_ok = "70",
@@ -211,36 +211,36 @@ data:extend{
   },
   {
     type = "noise-expression",
-    name = "viate_starting_area_radius",
+    name = "pktff_viate_starting_area_radius",
     expression = "0.15",
   },
   {
     type = "autoplace-control",
     -- size = 0 value
     -- frequency = noise scale
-    name = "viate_basin",
+    name = "pktff_viate_basin",
     category = "terrain",
   },
   {
     type = "autoplace-control",
-    name = "viate_spotness",
+    name = "pktff_viate_spotness",
     category = "terrain",
   },
   {
     type = "autoplace-control",
-    name = "viate_meteors",
+    name = "pktff_viate_meteors",
     category = "terrain",
   },
   -- Cliffs won't spawn at y=0, so make a HUGE difference in height
   -- and just make the basins really really deep.
   {
     type = "noise-expression",
-    name = "viate_above_basins",
-    expression = "viate_elevation >= 10"
+    name = "pktff_viate_above_basins",
+    expression = "pktff_viate_elevation >= 10"
   },
   {
     type = "noise-expression",
-    name = "viate_elevation",
+    name = "pktff_viate_elevation",
     local_expressions = {
       -- so "coverage" in the GUI is actually `size`,
       -- and "scale" is `frequency`??
@@ -251,9 +251,9 @@ data:extend{
         clamp(
           basis_noise{
             x=x, y=y, seed0=map_seed, seed1="viate_basin_spots",
-            input_scale = 0.002 * control:viate_spotness:frequency
+            input_scale = 0.002 * control:pktff_viate_spotness:frequency
           }
-          * slider_to_linear(control:viate_spotness:size, 0.7, 2)
+          * slider_to_linear(control:pktff_viate_spotness:size, 0.7, 2)
           * 2,
         0, 1)
       ]],
@@ -261,11 +261,11 @@ data:extend{
         max(0, multioctave_noise{
           x=x, y=y,
           seed0=map_seed, seed1="viate_basin_noise",
-          input_scale = 0.01 * control:viate_basin:frequency,
+          input_scale = 0.01 * control:pktff_viate_basin:frequency,
           persistence = 0.7, octaves = 4
         } - 0.1)
       ]],
-      basin_required = "(0.7 / slider_rescale(control:viate_basin:size, 12)) * 0.1",
+      basin_required = "(0.7 / slider_rescale(control:pktff_viate_basin:size, 12)) * 0.1",
       -- make the bottoms of the basins REALLY DEEP
       -- to make sure that ice doesn't spawn in the middle
       basins = [[
@@ -298,7 +298,7 @@ data:extend{
   },
   {
     type = "noise-expression",
-    name = "viate_meteor_size_noise",
+    name = "pktff_viate_meteor_size_noise",
     expression = [[ basis_noise{
       x=x, y=y, seed0=map_seed, seed1="viate_meteor_size",
       input_scale=0.03
@@ -306,13 +306,13 @@ data:extend{
   },
   {
     type = "noise-function",
-    name = "viate_meteor_spot_noise",
+    name = "pktff_viate_meteor_spot_noise",
     parameters = { "radius" },
     expression = [[
       spot_noise{
         x=x, y=y, seed0=map_seed, seed1=12345,
         density_expression = 10000000,
-        spot_quantity_expression = viate_meteor_size_noise^2
+        spot_quantity_expression = pktff_viate_meteor_size_noise^2
           * 7000,
         spot_radius_expression = radius,
         spot_favorability_expression = 1,
@@ -326,11 +326,11 @@ data:extend{
   },
   {
     type = "noise-expression",
-    name = "viate_meteorness",
+    name = "pktff_viate_meteorness",
     local_expressions = {
       -- spot_noise::seed1 does not accept strings
-      raw_spots = [[ viate_meteor_spot_noise(
-        70 * viate_meteor_size_noise
+      raw_spots = [[ pktff_viate_meteor_spot_noise(
+        70 * pktff_viate_meteor_size_noise
       ) ]],
       flavor = [[
         multioctave_noise{
@@ -348,11 +348,11 @@ data:extend{
     type = "noise-expression",
     -- For things like the tile rings around the meteors so they don't look
     -- too artificial
-    name = "viate_meteorness_deco",
+    name = "pktff_viate_meteorness_deco",
     local_expressions = {
       -- spot_noise::seed1 does not accept strings
-      raw_spots = [[ viate_meteor_spot_noise(
-        70 * viate_meteor_size_noise
+      raw_spots = [[ pktff_viate_meteor_spot_noise(
+        70 * pktff_viate_meteor_size_noise
       ) ]],
       flavor = [[
         multioctave_noise{
@@ -362,28 +362,28 @@ data:extend{
       ]]
     },
     expression = [[
-      viate_meteorness * (flavor / 3 + 1)
+      pktff_viate_meteorness * (flavor / 3 + 1)
     ]]
   },
   {
     type = "noise-expression",
-    name = "viate_meteor_spot",
+    name = "pktff_viate_meteor_spot",
     -- Use same config as meteors but have a tiny radius,
     -- so that they're spotlike
     expression = [[
-      viate_meteor_spot_noise(1)
+      pktff_viate_meteor_spot_noise(1)
       >
-      slider_to_linear(control:viate_meteors:size, 0, 3)
+      slider_to_linear(control:pktff_viate_meteors:size, 0, 3)
     ]],
   }
 }
 PlanetsLib:extend{
   {
     type = "planet",
-    name = "viate",
-    icon = "__petraspace__/graphics/icons/space-location/viate.png",
+    name = "pktff-viate",
+    icon = Asset"graphics/icons/space-location/viate.png",
     icon_size = 2048,
-    starmap_icon = "__petraspace__/graphics/icons/space-location/viate.png",
+    starmap_icon = Asset"graphics/icons/space-location/viate.png",
     starmap_icon_size = 2048,
     orbit = {
       parent={type="planet", name="nauvis"},
@@ -396,7 +396,7 @@ PlanetsLib:extend{
     gravity_pull = 10,
     order = "a[nauvis]-a",
     subgroup = "planets",
-    pollutant_type = "dust",
+    pollutant_type = "pktff-dust",
     solar_power_in_space = 300,
     platform_procession_set =
     {
@@ -439,14 +439,14 @@ PlanetsLib:extend{
         -- power cut off looks really weird
         -- TODO steal cerys' dynamic thing
         { 0.30, "identity" },
-        { 0.45, "__petraspace__/graphics/luts/viate-night.png" },
-        { 0.65, "__petraspace__/graphics/luts/viate-night.png" },
+        { 0.45, Asset"graphics/luts/viate-night.png" },
+        { 0.65, Asset"graphics/luts/viate-night.png" },
         { 0.75, "identity" },
       }
     },
     map_gen_settings = {
       property_expression_names = {
-        elevation = "viate_elevation",
+        elevation = "pktff_viate_elevation",
 
         cliffiness = "cliffiness_basic",
         -- it does not look like you can change this?
@@ -455,42 +455,42 @@ PlanetsLib:extend{
         richness = 3.5,
       },
       cliff_settings = {
-        name = "cliff-viate",
+        name = "pktff-cliff-viate",
         cliff_elevation_interval = 60,
         cliff_elevation_0 = 10,
       },
       autoplace_controls = {
-        ["viate_basin"]={},
-        ["viate_spotness"]={},
-        ["viate_meteors"]={},
+        ["pktff_viate_basin"]={},
+        ["pktff_viate_spotness"]={},
+        ["pktff_viate_meteors"]={},
       },
       autoplace_settings = {
         tile = { settings = {
-          ["viate-empty-space"] = {},
-          ["viate-smooth-basalt"] = {},
-          ["viate-dust-crests"] = {},
-          ["viate-dust-lumpy"] = {},
-          ["viate-dust-patchy"] = {},
+          ["pktff-viate-empty-space"] = {},
+          ["pktff-viate-smooth-basalt"] = {},
+          ["pktff-viate-dust-crests"] = {},
+          ["pktff-viate-dust-lumpy"] = {},
+          ["pktff-viate-dust-patchy"] = {},
         } },
         decorative = { settings = {
-          ["viate-crust"] = {},
-          ["viate-medium-maria-rock"] = {},
-          ["viate-small-maria-rock"] = {},
-          ["viate-tiny-maria-rock"] = {},
-          ["viate-maria-waves"] = {},
-          ["viate-maria-pumice"] = {},
-          ["viate-maria-dirt"] = {},
-          ["viate-medium-crater-rock"] = {},
-          ["viate-small-crater-rock"] = {},
-          ["viate-tiny-crater-rock"] = {},
-          ["viate-white-stain"] = {},
-          ["viate-crater-large"] = {},
-          ["viate-crater-small"] = {},
+          ["pktff-viate-crust"] = {},
+          ["pktff-viate-medium-maria-rock"] = {},
+          ["pktff-viate-small-maria-rock"] = {},
+          ["pktff-viate-tiny-maria-rock"] = {},
+          ["pktff-viate-maria-waves"] = {},
+          ["pktff-viate-maria-pumice"] = {},
+          ["pktff-viate-maria-dirt"] = {},
+          ["pktff-viate-medium-crater-rock"] = {},
+          ["pktff-viate-small-crater-rock"] = {},
+          ["pktff-viate-tiny-crater-rock"] = {},
+          ["pktff-viate-white-stain"] = {},
+          ["pktff-viate-crater-large"] = {},
+          ["pktff-viate-crater-small"] = {},
         } },
         entity = { settings = {
-          ["ice-deposit"] = {},
-          ["regolith-deposit"] = {},
-          ["viate-meteorite"] = {},
+          ["pktff-ice-deposit"] = {},
+          ["pktff-regolith-deposit"] = {},
+          ["pktff-viate-meteorite"] = {},
         } },
       }
     },
@@ -516,7 +516,7 @@ local viate_transitions = {
   {
     -- stolen from vanilla dirt->water
     -- i think this makes the basalt appear "sunken"?
-    to_tiles = {"viate-smooth-basalt"},
+    to_tiles = {"pktff-viate-smooth-basalt"},
     transition_group = water_transition_group_id,
     -- dark enough
     -- aquilo uses the ice transition even when it's dust, which I guess
@@ -533,7 +533,7 @@ local function viate_tile(cfg)
       type = "tile",
       name = cfg.name,
       order = "b[natural]-j[viate]-" .. cfg.order,
-      subgroup = "viate-tiles",
+      subgroup = "pktff-viate-tiles",
 
       collision_mask = tile_collision_masks.ground(),
       autoplace = cfg.autoplace,
@@ -560,46 +560,46 @@ local function viate_tile(cfg)
 end
 
 local dusty_absorb = {
-  dust = 0.1 / 60 / (32*32)
+  ["pktff-dust"] = 0.1 / 60 / (32*32)
 }
 
 data:extend{
   {
     type = "item-subgroup",
-    name = "viate-tiles",
+    name = "pktff-viate-tiles",
     group = "tiles",
     order = "f-a",
   },
   -- Place empty space *first*, then fill the hole
   pglobals.make_empty_space(
-    "viate",
+    "pktff-viate",
     {
       offset = viate_offset,
       order = "![before-everything]",
       autoplace = {
-        probability_expression = "(viate_has_ground == 0) * 999999",
+        probability_expression = "(pktff_viate_has_ground == 0) * 999999",
       }
     }
   ),
   viate_tile{
-    name = "viate-smooth-basalt",
+    name = "pktff-viate-smooth-basalt",
     order = "a",
     offset = 0,
-    absorptions_per_second = { dust = 2 / 60 / (32*32) },
-    autoplace = {probability_expression="viate_above_basins==0"},
-    texture = "__petraspace__/graphics/tiles/viate/smooth-basalt.png",
+    absorptions_per_second = { ["pktff-dust"] = 2 / 60 / (32*32) },
+    autoplace = {probability_expression="pktff_viate_above_basins==0"},
+    texture = Asset"graphics/tiles/viate/smooth-basalt.png",
     map_color = { 0.2, 0.21, 0.25 },
     walking_sound = sa_tile_sounds.walking.rocky_stone({}),
     etc = {walking_speed_modifier = 1.2}
   },
   viate_tile{
-    name = "viate-dust-crests",
+    name = "pktff-viate-dust-crests",
     order = "zzz",
     offset = 1,
     absorptions_per_second = dusty_absorb,
     autoplace = {
       probability_expression=[[
-        (viate_above_basins) * 0.01
+        (pktff_viate_above_basins) * 0.01
       ]]
     },
     texture = "__space-age__/graphics/terrain/aquilo/dust-crests.png",
@@ -608,13 +608,13 @@ data:extend{
     etc = { transitions=viate_transitions },
   },
   viate_tile{
-    name = "viate-dust-lumpy",
+    name = "pktff-viate-dust-lumpy",
     order = "bb",
     offset = 2,
     absorptions_per_second = dusty_absorb,
     autoplace = {
       probability_expression=[[
-        (viate_above_basins) * (viate_meteorness_deco / 50)
+        (pktff_viate_above_basins) * (pktff_viate_meteorness_deco / 50)
       ]]
     },
     texture = "__space-age__/graphics/terrain/aquilo/dust-lumpy.png",
@@ -623,13 +623,13 @@ data:extend{
     etc = { transitions=viate_transitions },
   },
   viate_tile{
-    name = "viate-dust-patchy",
+    name = "pktff-viate-dust-patchy",
     order = "ba",
     offset = 3,
     absorptions_per_second = dusty_absorb,
     autoplace = {
       probability_expression=[[
-        (viate_above_basins) * (viate_meteorness > 5)
+        (pktff_viate_above_basins) * (pktff_viate_meteorness > 5)
       ]]
     },
     texture = "__space-age__/graphics/terrain/aquilo/dust-patchy.png",

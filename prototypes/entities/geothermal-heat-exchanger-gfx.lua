@@ -4,7 +4,7 @@ local DOWN = 8
 local SHEET_WIDTH = 5900
 local SHEET_HEIGHT = 5120
 
-local PATH = "__petraspace__/graphics/entities/geothermal-heat-exchanger/"
+local PATH = Asset"graphics/entities/geothermal-heat-exchanger/"
 
 local width = SHEET_WIDTH / ACROSS
 local height = SHEET_HEIGHT / DOWN

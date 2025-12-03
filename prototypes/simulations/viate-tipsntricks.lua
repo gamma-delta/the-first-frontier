@@ -1,8 +1,8 @@
 local out = {}
 out.welcome = {
-  planet = "viate",
-  generate_map = true,
-  mods = {"petraspace"},
+  planet = "pktff-viate",
+  -- generate_map = true,
+  mods = {"pk-the-first-frontier"},
 
   -- Instead of manually placing things (cringe!) just generate a map.
   -- I scouted this location ahead of time.
@@ -14,19 +14,19 @@ out.welcome = {
 
     for cx = -2,3 do
       for cy = -2,3 do
-        game.surfaces[1].delete_chunk{x=cx, y=cy}
-        game.surfaces[1].request_to_generate_chunks{x=cx*32, y=cy*32}
+        -- game.surfaces[1].delete_chunk{x=cx, y=cy}
+        -- game.surfaces[1].request_to_generate_chunks{x=cx*32, y=cy*32}
       end
     end
   ]]
 }
 
 out.dust = {
-  planet = "viate",
+  planet = "pktff-viate",
   generate_map = false,
   checkerboard = true,
   -- This is the secret sauce to get scripts to run
-  mods = {"petraspace"},
+  mods = {"pk-the-first-frontier"},
 
   -- default size is 22 across, 11 tall
   init = [[
@@ -34,7 +34,7 @@ out.dust = {
     for dx = -11,-1 do
       for dy = -5,7 do
         game.surfaces[1].create_entity{
-          name="ice-deposit", position={dx, dy},
+          name="pktff-ice-deposit", position={dx, dy},
           amount=9999999999999
         }
       end

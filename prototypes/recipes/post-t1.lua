@@ -13,20 +13,20 @@ pglobals.recipe.add("turbo-splitter", {type="item", name="carbon-fiber", amount=
 data:extend{
   {
     type = "recipe",
-    name = "bauxite-liquor",
+    name = "pktff-bauxite-liquor",
     category = "metallurgy",
-    subgroup = "chemistry",
+    subgroup = "pktff-aluminum-processes",
     order = "c[aluminum]-b",
     ingredients = {
-      { type="item", name="bauxite-ore", amount=100 },
+      { type="item", name="pktff-bauxite-ore", amount=100 },
       { type="item", name="calcite", amount=4 },
       { type="fluid", name="sulfuric-acid", amount=200 },
     },
     energy_required = 64,
     results = {
-      { type="fluid", name="bauxite-liquor", amount=500 },
+      { type="fluid", name="pktff-bauxite-liquor", amount=500 },
     },
-    main_product = "bauxite-liquor",
+    main_product = "pktff-bauxite-liquor",
     auto_recycle = false,
     enabled = false,
     unlock_results = true,
@@ -35,20 +35,20 @@ data:extend{
     icons = pglobals.icons.three_into_one(
       "__base__/graphics/icons/fluid/sulfuric-acid.png",
       "__space-age__/graphics/icons/calcite.png",
-      "__petraspace__/graphics/icons/bauxite/1.png",
-      "__petraspace__/graphics/icons/fluid/red-mud.png"
+      Asset"graphics/icons/bauxite/1.png",
+      Asset"graphics/icons/fluid/red-mud.png"
     )
   },
   {
     type = "recipe",
-    name = "bauxite-liquor-electrolysis",
+    name = "pktff-bauxite-liquor-electrolysis",
     category = "electromagnetics",
-    subgroup = "chemistry",
+    subgroup = "pktff-aluminum-processes",
     order = "c[aluminum]-c",
     enabled = false,
     allow_decomposition = false,
     ingredients = {
-      { type="fluid", name="bauxite-liquor", amount=100 },
+      { type="fluid", name="pktff-bauxite-liquor", amount=100 },
       -- two electrodes, two items
       { type="item", name="carbon-fiber", amount=2 },
     },
@@ -57,35 +57,35 @@ data:extend{
     -- because it makes the setups look more interesting
     energy_required = 130,
     results = {
-      { type="fluid", name="molten-aluminum", amount=50 },
+      { type="fluid", name="pktff-molten-aluminum", amount=50 },
       { type="item", name="iron-ore", amount_min = 0, amount_max = 20 },
     },
-    main_product = "molten-aluminum",
+    main_product = "pktff-molten-aluminum",
     allow_productivity = true,
     -- This should probably involve some kind of zapping
     icons = pglobals.icons.two_into_one(
       "__space-age__/graphics/icons/carbon-fiber.png",
-      "__petraspace__/graphics/icons/fluid/red-mud.png",
-      "__petraspace__/graphics/icons/fluid/molten-aluminum.png"
+      Asset"graphics/icons/fluid/red-mud.png",
+      Asset"graphics/icons/fluid/molten-aluminum.png"
     ),
   },
   {
     type = "recipe",
-    name = "casting-aluminum-plate",
+    name = "pktff-casting-aluminum-plate",
     category = "metallurgy",
-    subgroup = "aluminum-processes",
+    subgroup = "pktff-aluminum-processes",
     order = "zd[casting-aluminum-plate]",
     enabled = false,
     ingredients = {
-      { type="fluid", name="molten-aluminum", amount=10 },
+      { type="fluid", name="pktff-molten-aluminum", amount=10 },
     },
     energy_required = 3.2,
     results = {
-      { type="item", name="aluminum-plate", amount=1 },
+      { type="item", name="pktff-aluminum-plate", amount=1 },
     },
     icons = pglobals.icons.mini_over(
-      "__petraspace__/graphics/icons/fluid/molten-aluminum.png",
-      "__petraspace__/graphics/icons/aluminum-plate.png"
+      Asset"graphics/icons/fluid/molten-aluminum.png",
+      Asset"graphics/icons/aluminum-plate.png"
     ),
     -- This way the tooltip shows the native aluminum, not liquid,
     -- which will be relevant for longer
@@ -97,7 +97,7 @@ data:extend{
 -- Foundries only allow 2 fluids :<
 data.raw["recipe"]["casting-low-density-structure"].ingredients = {
   { type="fluid", name="molten-copper", amount=250 },
-  { type="fluid", name="molten-aluminum", amount=8 },
+  { type="fluid", name="pktff-molten-aluminum", amount=8 },
   { type="item", name="steel-plate", amount=2 },
   { type="item", name="plastic-bar", amount=5 },
 }

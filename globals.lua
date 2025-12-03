@@ -62,6 +62,16 @@ function pglobals.merge1(tables)
   return ret
 end
 
+function pglobals.concat(tables)
+  local ret = {}
+  for _,tab in ipairs(tables) do
+    for _,v in ipairs(tab) do
+      table.insert(ret, v)
+    end
+  end
+  return ret
+end
+
 function pglobals.copy_then(tbl, ...)
   local table2 = util.copy(tbl)
   -- So PIL just lies to me and i have to use `...` and not `arg`
@@ -139,7 +149,7 @@ function pglobals.make_blobby_radius_expr(cfg)
         | (multioctave_noise{
             x=x*is, y=y*is, seed0=map_seed, seed1=%s,
             persistence=persistence, octaves=octaves
-          }/2+0.5 > (hang/lepton_overhang_ok*lepton_overhang_bonus))
+          }/2+0.5 > (hang/overhang_ok*overhang_bonus))
     ]], cfg.seed)
   }
   return pglobals.copy_then(out, cfg.etc or {})
@@ -314,5 +324,7 @@ pglobals.icons = {
       }
     end
 }
+
+Asset = function(rest) return "__pk-the-first-frontier__/" .. rest end
 
 return pglobals

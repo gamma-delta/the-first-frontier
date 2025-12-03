@@ -7,7 +7,7 @@ local function science(s)
     g = "logistic-science-pack",
     b = "chemical-science-pack",
     m = "military-science-pack",
-    o = "orbital-science-pack",
+    o = "pktff-orbital-science-pack",
     p = "production-science-pack",
     y = "utility-science-pack",
     s = "space-science-pack",
@@ -41,12 +41,12 @@ end
 
 -- Make sure that the labs can actually take all of this stuff
 for _,lab in pairs(data.raw["lab"]) do
-  table.insert(lab.inputs, "orbital-science-pack")
+  table.insert(lab.inputs, "pktff-orbital-science-pack")
 end
 
 -- Move fluid mining all the way to the beginning of the game
 local fluid_mining = data.raw["technology"]["uranium-mining"]
-fluid_mining.icon = "__petraspace__/graphics/technologies/fluid-mining.png"
+fluid_mining.icon = Asset"graphics/technologies/fluid-mining.png"
 fluid_mining.prerequisites = {"electric-mining-drill"}
 fluid_mining.unit = {
   count = 30,
@@ -58,9 +58,12 @@ data.raw["technology"]["uranium-processing"].prerequisites = {
   "chemical-science-pack",
 }
 
-table.insert(data.raw["technology"]["electronics"].effects, recipe("circuit-substrate-stone"))
-table.insert(data.raw["technology"]["electronics"].effects, recipe("circuit-substrate-wood"))
-table.insert(data.raw["technology"]["plastics"].effects, recipe("circuit-substrate-plastic"))
+table.insert(data.raw["technology"]["electronics"].effects,
+  recipe("pktff-circuit-substrate-stone"))
+table.insert(data.raw["technology"]["electronics"].effects,
+  recipe("pktff-circuit-substrate-wood"))
+table.insert(data.raw["technology"]["plastics"].effects,
+  recipe("pktff-circuit-substrate-plastic"))
 
 table.insert(
   data.raw["technology"]["logistic-science-pack"].prerequisites,
@@ -71,31 +74,31 @@ data:extend{
   -- Should I do this as a tip and trick?
   {
     type = "technology",
-    name = "bauxite-hint",
-    icon = "__petraspace__/graphics/icons/bauxite/1.png",
+    name = "pktff-bauxite-hint",
+    icon = Asset"graphics/icons/bauxite/1.png",
     icon_size = 64,
     prerequisites = { "electric-mining-drill" },
     effects = {},
     research_trigger = {
       type = "mine-entity",
-      entity = "bauxite-ore",
+      entity = "pktff-bauxite-ore",
     },
   },
   {
     type = "technology",
-    name = "simple-bauxite-extraction",
+    name = "pktff-simple-bauxite-extraction",
     -- TODO
-    icon = "__petraspace__/graphics/icons/bauxite/1.png",
+    icon = Asset"graphics/icons/bauxite/1.png",
     icon_size = 64,
-    prerequisites = {"sulfur-processing", "bauxite-hint"},
+    prerequisites = {"sulfur-processing", "pktff-bauxite-hint"},
     unit = {
       count = 150,
       ingredients = science("rgb"),
       time = 30,
     },
     effects = {
-      recipe("simple-bauxite-extraction"),
-      recipe("aluminum-plate"),
+      recipe("pktff-simple-bauxite-extraction"),
+      recipe("pktff-aluminum-plate"),
     },
   },
 }
@@ -104,13 +107,13 @@ local laser = data.raw["technology"]["laser"]
 table.insert(laser.prerequisites, "lamp")
 table.insert(laser.prerequisites, "solar-energy")
 -- it doesn't have any effects by default. why include it??
-laser.effects = {{type="unlock-recipe", recipe="precision-optical-component-high-pressure"}}
+laser.effects = {{type="unlock-recipe", recipe="pktff-precision-optical-component-high-pressure"}}
 table.insert(
   data.raw["technology"]["night-vision-equipment"].prerequisites,
-  "laser-turret"
+  "laser"
 )
 
-table.insert(data.raw["technology"]["low-density-structure"].prerequisites, "simple-bauxite-extraction")
+table.insert(data.raw["technology"]["low-density-structure"].prerequisites, "pktff-simple-bauxite-extraction")
 
 local heating_tower = data.raw["technology"]["heating-tower"]
 heating_tower.prerequisites = {"chemical-science-pack"}
@@ -140,14 +143,14 @@ slegt_tech.unit = {
 pglobals.tech.add_unlock("military-3", "shotgun-turret")
 -- Combat shotguns use Al instead of wood now
 table.insert(data.raw["technology"]["military-3"].prerequisites,
-  "simple-bauxite-extraction")
+  "pktff-simple-bauxite-extraction")
 
 -- Nitric acid
 data:extend{
   {
     type = "technology",
-    name = "ps-advanced-chemistry",
-    icon = "__petraspace__/graphics/technologies/electrolysis.png",
+    name = "pktff-advanced-chemistry",
+    icon = Asset"graphics/technologies/electrolysis.png",
     icon_size = 1024,
     prerequisites = { "chemical-science-pack" },
     unit = {
@@ -156,14 +159,14 @@ data:extend{
       time = 60,
     },
     effects = {
-      recipe("water-electrolysis"),
-      recipe("ammonia-synthesis"),
-      recipe("nitric-acid"),
+      recipe("pktff-water-electrolysis"),
+      recipe("pktff-ammonia-synthesis"),
+      recipe("pktff-nitric-acid"),
       -- TODO: add dinitrogen tetroxide here?
     }
   }
 }
-table.insert(data.raw["technology"]["processing-unit"].prerequisites, "ps-advanced-chemistry")
+table.insert(data.raw["technology"]["processing-unit"].prerequisites, "pktff-advanced-chemistry")
 
 data:extend{
 -- Push into space
@@ -173,8 +176,8 @@ data:extend{
 -- - making the rocket (rocket silo)
   {
     type = "technology",
-    name = "orbital-science-pack",
-    icon = "__petraspace__/graphics/technologies/orbital-science-pack.png",
+    name = "pktff-orbital-science-pack",
+    icon = Asset"graphics/technologies/orbital-science-pack.png",
     icon_size = 256,
     prerequisites = { "low-density-structure", "laser", "processing-unit" },
     unit = {
@@ -183,17 +186,17 @@ data:extend{
       time = 60,
     },
     effects = {
-      recipe("orbital-data-card-high-pressure"),
-      recipe("orbital-science-pack"),
+      recipe("pktff-orbital-data-card-high-pressure"),
+      recipe("pktff-orbital-science-pack"),
     },
   },
   {
     type = "technology",
-    name = "discover-viate",
-    icons = PlanetsLib.technology_icon_moon("__petraspace__/graphics/icons/space-location/viate.png", 2048),
-    localised_description = {"space-location-description.viate"},
+    name = "pktff-discover-viate",
+    icons = PlanetsLib.technology_icon_moon(Asset"graphics/icons/space-location/viate.png", 2048),
+    localised_description = {"space-location-description.pktff-viate"},
     prerequisites = {
-      "orbital-science-pack",
+      "pktff-orbital-science-pack",
     },
     unit = {
       count = 300,
@@ -203,12 +206,12 @@ data:extend{
     effects = {
       {
         type = "unlock-space-location",
-        space_location = "viate",
+        space_location = "pktff-viate",
         -- dunno what this does
         use_icon_overlay_constant = true,
       },
-      recipe("orbital-data-card-low-pressure"),
-      recipe("precision-optical-component-low-pressure"),
+      recipe("pktff-orbital-data-card-low-pressure"),
+      recipe("pktff-precision-optical-component-low-pressure"),
     }
   },
 }
@@ -225,35 +228,35 @@ tech_vanilla_rocket.unit = {
 tech_vanilla_rocket.effects = {
   recipe("rocket-silo"),
   recipe("cargo-landing-pad"),
-  recipe("space-platform-scaffolding"),
-  recipe("ps-space-platform-starter-pack-scaffolding"),
-  recipe("empty-platform-tank"),
-  recipe("platform-fuel-tank"),
-  recipe("platform-oxidizer-tank"),
+  recipe("pktff-space-platform-scaffolding"),
+  recipe("pktff-space-platform-starter-pack-scaffolding"),
+  recipe("pktff-empty-platform-tank"),
+  recipe("pktff-platform-fuel-tank"),
+  recipe("pktff-platform-oxidizer-tank"),
   recipe("thruster"),
-  recipe("thruster-fuel-from-hydrogen"),
-  recipe("thruster-oxidizer-from-oxygen"),
-  recipe("thruster-fuel-from-rocket-fuel"),
-  recipe("thruster-fuel-from-ammonia"),
-  recipe("thruster-oxidizer-from-nitric-acid"),
+  recipe("pktff-thruster-fuel-from-pktff-hydrogen"),
+  recipe("pktff-thruster-oxidizer-from-pktff-oxygen"),
+  recipe("pktff-thruster-fuel-from-rocket-fuel"),
+  recipe("pktff-thruster-fuel-from-ammonia"),
+  recipe("pktff-thruster-oxidizer-from-pktff-nitric-acid"),
 }
 
 -- Welcome to Viate
 data:extend{
   {
     type = "technology",
-    name = "discover-regolith",
-    icon = "__petraspace__/graphics/technologies/discover-regolith.png",
+    name = "pktff-discover-regolith",
+    icon = Asset"graphics/technologies/discover-regolith.png",
     icon_size = 256,
-    prerequisites = { "discover-viate" },
+    prerequisites = { "pktff-discover-viate" },
     research_trigger = {
       type = "mine-entity",
-      entity = "regolith-deposit",
+      entity = "pktff-regolith-deposit",
     },
     effects = { 
-      recipe("washing-regolith"),
-      recipe("dissolving-regolith"),
-      recipe("stone-bricks-from-regolith"),
+      recipe("pktff-washing-regolith"),
+      recipe("pktff-dissolving-regolith"),
+      recipe("pktff-stone-bricks-from-regolith"),
     },
   }
 }
@@ -262,11 +265,11 @@ data:extend{
 -- I'd rather have it be "melt or mine N ice", but these are both not
 -- possible in the trigger system due to WOKE
 local tech_cse = data.raw["technology"]["chcs-concentrated-solar-energy"]
-tech_cse.prerequisites = {"discover-viate"}
+tech_cse.prerequisites = {"pktff-discover-viate"}
 tech_cse.unit = nil
 tech_cse.research_trigger = {
   type = "mine-entity",
-  entity = "ice-deposit",
+  entity = "pktff-ice-deposit",
 }
 tech_cse.effects = {
   recipe("chcs-solar-power-tower"),
@@ -275,7 +278,7 @@ tech_cse.effects = {
 }
 
 local tech_vanilla_spience = data.raw["technology"]["space-science-pack"]
-tech_vanilla_spience.prerequisites = {"discover-viate", "rocket-silo"}
+tech_vanilla_spience.prerequisites = {"pktff-discover-viate", "rocket-silo"}
 tech_vanilla_spience.research_trigger = nil
 tech_vanilla_spience.unit = {
   count = 1000,
@@ -287,15 +290,15 @@ tech_vanilla_spience.effects = { recipe("space-science-pack") }
 data:extend{
   {
     type = "technology",
-    name = "dust-spraydown",
+    name = "pktff-dust-spraydown",
     -- TODO
     icon = "__base__/graphics/technology/fluid-handling.png",
     icon_size = 256,
     prerequisites = { "space-science-pack" },
     unit = { count = 50, time = 10, ingredients = science("s") },
     effects = {
-      recipe("dust-sprayer"),
-      recipe("dust-spraydown-water"),
+      recipe("pktff-dust-sprayer"),
+      recipe("pktff-dust-spraydown-water"),
     },
   },
 }
@@ -319,7 +322,7 @@ tech_vanilla_splatform.research_trigger = nil
 for _,planet_tech in ipairs{"vulcanus", "fulgora", "gleba"} do
   local tech = data.raw["technology"]["planet-discovery-" .. planet_tech]
   tech.prerequisites[1] = "space-platform"
-  table.insert(tech.unit.ingredients, {"orbital-science-pack", 1})
+  table.insert(tech.unit.ingredients, {"pktff-orbital-science-pack", 1})
 end
 local vanilla_thruster_tech = data.raw["technology"]["space-platform-thruster"]
 vanilla_thruster_tech.enabled = false
@@ -331,14 +334,14 @@ vanilla_thruster_tech.visible_when_disabled = false
 data:extend{
   {
     type = "technology",
-    name = "basic-uranium-processing",
-    icon = "__petraspace__/graphics/technologies/basic-uranium-processing.png",
+    name = "pktff-basic-uranium-processing",
+    icon = Asset"graphics/technologies/basic-uranium-processing.png",
     icon_size = 256,
     -- "uranium mining" == fracking
     -- There's no real reason for it to require splatform
     -- other than symmetry
     prerequisites = {"space-platform", "uranium-mining"},
-    effects = {recipe("depleted-uranium")},
+    effects = {recipe("pktff-depleted-uranium")},
     unit = {
       count = 1000,
       time = 60,
@@ -347,7 +350,7 @@ data:extend{
   },
 }
 local vanilla_u = data.raw["technology"]["uranium-processing"]
-vanilla_u.prerequisites = {"basic-uranium-processing"}
+vanilla_u.prerequisites = {"pktff-basic-uranium-processing"}
 vanilla_u.unit = nil
 vanilla_u.research_trigger = {
   type = "craft-item",
@@ -361,63 +364,63 @@ vanilla_upower.effects = {recipe("nuclear-reactor"), recipe("uranium-fuel-cell")
 data:extend{
   {
     type = "technology",
-    name = "nuclear-waste-processing",
-    icon = "__petraspace__/graphics/technologies/nuclear-waste-processing.png",
+    name = "pktff-nuclear-waste-processing",
+    icon = Asset"graphics/technologies/nuclear-waste-processing.png",
     icon_size = 256,
     prerequisites = {"uranium-processing"},
     effects = {
-      recipe("nuclear-waste-reprocessing"),
-      recipe("barreled-nuclear-waste"),
-      recipe("nuclear-waste-dumping"),
+      recipe("pktff-nuclear-waste-reprocessing"),
+      recipe("pktff-barreled-nuclear-waste"),
+      recipe("pktff-nuclear-waste-dumping"),
     },
     research_trigger = {
       type = "craft-item",
-      item = "nuclear-waste",
+      item = "pktff-nuclear-waste",
       -- enough for it to get annoying
       count = 100,
     }
   },
   {
     type = "technology",
-    name = "plutonium-processing",
-    icon = "__petraspace__/graphics/technologies/plutonium-processing.png",
+    name = "pktff-plutonium-processing",
+    icon = Asset"graphics/technologies/plutonium-processing.png",
     icon_size = 256,
     prerequisites = {"nuclear-power"},
     effects = {
-      recipe("mox-fuel-cell"),
-      recipe("breeder-fuel-cell"),
-      recipe("breeder-fuel-cell-reprocessing"),
+      recipe("pktff-mox-fuel-cell"),
+      recipe("pktff-breeder-fuel-cell"),
+      recipe("pktff-breeder-fuel-cell-reprocessing"),
     },
     research_trigger = {
       type = "craft-item",
-      item = "plutonium",
+      item = "pktff-plutonium",
       count = 1,
     },
   },
 }
 local purple_sci = data.raw["technology"]["production-science-pack"]
-table.insert(purple_sci.prerequisites, "nuclear-waste-processing")
+table.insert(purple_sci.prerequisites, "pktff-nuclear-waste-processing")
 table.insert(purple_sci.unit.ingredients, {"space-science-pack", 1})
 local yellow_sci = data.raw["technology"]["utility-science-pack"]
-table.insert(yellow_sci.prerequisites, "plutonium-processing")
+table.insert(yellow_sci.prerequisites, "pktff-plutonium-processing")
 table.insert(yellow_sci.prerequisites, "exoskeleton-equipment")
 table.insert(yellow_sci.unit.ingredients, {"space-science-pack", 1})
 
 -- Vulcanus I
-pglobals.tech.add_unlock("planet-discovery-vulcanus", "geothermal-heat-exchanger")
+pglobals.tech.add_unlock("planet-discovery-vulcanus", "pktff-geothermal-heat-exchanger")
 pglobals.tech.remove_unlock("foundry", "casting-low-density-structure")
-pglobals.tech.add_unlock("foundry", "lime-calcination")
-pglobals.tech.add_unlock("tungsten-steel", "tungsten-steel-strongbox")
+pglobals.tech.add_unlock("foundry", "pktff-lime-calcination")
+pglobals.tech.add_unlock("tungsten-steel", "pktff-tungsten-steel-strongbox")
 -- Intermediate: tungsten heat pipes
 data:extend{
   {
     type = "technology",
-    name = "tungsten-heat-pipe",
+    name = "pktff-tungsten-heat-pipe",
     -- TODO
-    icon = "__petraspace__/graphics/technologies/geothermal-heat-exchanger.png",
+    icon = Asset"graphics/technologies/geothermal-heat-exchanger.png",
     icon_size = 256,
     prerequisites = {"metallurgic-science-pack"},
-    effects = {recipe("tungsten-heat-pipe")},
+    effects = {recipe("pktff-tungsten-heat-pipe")},
     unit = {
       count = 100,
       ingredients = science("M"),
@@ -433,8 +436,8 @@ recyc.research_trigger = {
   type = "mine-entity",
   entity = "scrap",
 }
-table.insert(recyc.effects, recipe("archaeological-scrap-recycling"))
-table.insert(recyc.effects, recipe("fulgoran-sludge-refining"))
+table.insert(recyc.effects, recipe("pktff-archaeological-scrap-recycling"))
+table.insert(recyc.effects, recipe("pktff-fulgoran-sludge-refining"))
 
 local em_plant = data.raw["technology"]["electromagnetic-plant"]
 em_plant.research_trigger = {
@@ -453,8 +456,8 @@ pglobals.tech.remove_unlock("planet-discovery-fulgora", "lightning-rod")
 data:extend{
   {
     type = "technology",
-    name = "lightning-rod",
-    icon = "__petraspace__/graphics/technologies/lightning-rod.png",
+    name = "pktff-lightning-rod",
+    icon = Asset"graphics/technologies/lightning-rod.png",
     icon_size = 256,
     prerequisites = {"electromagnetic-science-pack"},
     effects = {recipe("lightning-rod")},
@@ -472,9 +475,9 @@ data:extend{
 pglobals.tech.remove_unlock("rocket-turret", "coal-synthesis")
 
 table.insert(data.raw["technology"]["bacteria-cultivation"].effects, 
-  recipe("light-oil-reforming"))
+  recipe("pktff-light-oil-reforming"))
 table.insert(data.raw["technology"]["bacteria-cultivation"].effects, 
-  recipe("heavy-oil-reforming"))
+  recipe("pktff-heavy-oil-reforming"))
 -- With oil reformation, all the special bio-recipes are no longer
 -- necessary. (Plastic, rocket fuel, sulfur, and jelly.)
 data.raw["technology"]["bioflux-processing"].hidden = true
@@ -483,11 +486,11 @@ pglobals.tech.remove_prereq("agricultural-science-pack", "bioflux-processing")
 data:extend{
   {
     type = "technology",
-    name = "boompuff",
-    icon = "__petraspace__/graphics/technologies/boompuff-agriculture.png",
+    name = "pktff-boompuff",
+    icon = Asset"graphics/technologies/boompuff-agriculture.png",
     icon_size = 256,
     effects = {
-      { type="unlock-recipe", recipe="boompuff-processing" },
+      { type="unlock-recipe", recipe="pktff-boompuff-processing" },
     },
     prerequisites = {"agriculture"},
     research_trigger = {
@@ -497,13 +500,13 @@ data:extend{
   },
   {
     type = "technology",
-    name = "fertilizer",
+    name = "pktff-fertilizer",
     -- TODO
-    icon = "__petraspace__/graphics/technologies/boompuff-agriculture.png",
+    icon = Asset"graphics/technologies/boompuff-agriculture.png",
     icon_size = 256,
     effects = {
-      { type="unlock-recipe", recipe="fertilizer" },
-      { type="unlock-recipe", recipe="anfo-explosives" },
+      { type="unlock-recipe", recipe="pktff-fertilizer" },
+      { type="unlock-recipe", recipe="pktff-anfo-explosives" },
     },
     prerequisites = {"agricultural-science-pack"},
     unit = {
@@ -514,13 +517,13 @@ data:extend{
   },
   {
     type = "technology",
-    name = "presto-fuel",
+    name = "pktff-presto-fuel",
     hidden = true,
     -- TODO
-    icon = "__petraspace__/graphics/technologies/boompuff-agriculture.png",
+    icon = Asset"graphics/technologies/boompuff-agriculture.png",
     icon_size = 256,
     effects = {
-      { type="unlock-recipe", recipe="presto-fuel" },
+      { type="unlock-recipe", recipe="pktff-presto-fuel" },
     },
     prerequisites = {"agricultural-science-pack"},
     unit = {
@@ -555,11 +558,11 @@ turbelts.unit = {
 data:extend{
   {
     type = "technology",
-    name = "advanced-bauxite-extraction",
-    icon = "__petraspace__/graphics/icons/fluid/molten-aluminum.png",
+    name = "pktff-advanced-bauxite-extraction",
+    icon = Asset"graphics/icons/fluid/molten-aluminum.png",
     icon_size = 64,
     prerequisites = {
-      "simple-bauxite-extraction",
+      "pktff-simple-bauxite-extraction",
       "metallurgic-science-pack",
       "electromagnetic-science-pack",
       "carbon-fiber",
@@ -570,9 +573,9 @@ data:extend{
       time = 60,
     },
     effects = {
-      recipe("bauxite-liquor"),
-      recipe("bauxite-liquor-electrolysis"),
-      recipe("casting-aluminum-plate"),
+      recipe("pktff-bauxite-liquor"),
+      recipe("pktff-bauxite-liquor-electrolysis"),
+      recipe("pktff-casting-aluminum-plate"),
       recipe("casting-low-density-structure"),
     },
   }
@@ -582,7 +585,7 @@ data:extend{
 data:extend{
   {
     type = "technology",
-    name = "superalloys",
+    name = "pktff-superalloys",
     hidden = true,
     -- TODO
     icon = "__space-age__/graphics/technology/tungsten-steel.png",
@@ -592,7 +595,7 @@ data:extend{
       time = 60,
     },
     effects = {
-      recipe("magpie-alloy"),
+      recipe("pktff-magpie-alloy"),
     },
   }
 }

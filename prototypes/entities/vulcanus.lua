@@ -33,10 +33,10 @@ local big_x = {
 data:extend{
   {
     type = "reactor",
-    name = "geothermal-heat-exchanger",
+    name = "pktff-geothermal-heat-exchanger",
     flags = {"placeable-player", "placeable-neutral", "player-creation"},
-    icon = "__petraspace__/graphics/icons/geothermal-heat-exchanger.png",
-    minable = {mining_time=2, result = "geothermal-heat-exchanger"},
+    icon = Asset"graphics/icons/geothermal-heat-exchanger.png",
+    minable = {mining_time=2, result = "pktff-geothermal-heat-exchanger"},
     selection_box = {{-4.5, -4.5}, {4.5, 4.5}},
     collision_box = {{-4.3, -4.3}, {4.3, 4.3}},
     tile_width = 9,
@@ -100,7 +100,7 @@ data:extend{
     -- It looks like collision_mask and tile_buildability_rules are ANDed,
     -- so unfortunately I do need to specify every tile individually.
     -- Referencing offshore pumps. Same collision mask but w/ elevated rails
-    collision_mask = { layers = pglobals.set{ 
+    collision_mask = { layers = pglobals.set{
       "object", "train", "is_object", "is_lower_object",
       "elevated_rail",
     }},
@@ -122,7 +122,7 @@ data:extend{
       scale = 0.5,
     },
     ]]
-    
+
     resistances = {
       { type="fire", percent=100 },
       { type="impact", percent=30 },
@@ -132,14 +132,14 @@ data:extend{
   },
   {
     type = "item",
-    name = "geothermal-heat-exchanger",
-    icon = "__petraspace__/graphics/icons/geothermal-heat-exchanger.png",
+    name = "pktff-geothermal-heat-exchanger",
+    icon = Asset"graphics/icons/geothermal-heat-exchanger.png",
     subgroup = "smelting-machine",
     order = "cza[geothermal]",
     inventory_move_sound = item_sounds.metal_large_inventory_move,
     pick_sound = item_sounds.metal_large_inventory_pickup,
     drop_sound = item_sounds.metal_large_inventory_move,
-    place_result = "geothermal-heat-exchanger",
+    place_result = "pktff-geothermal-heat-exchanger",
     default_import_location = "vulcanus",
     stack_size = 10,
     weight = rocket_cap / 10
@@ -189,16 +189,16 @@ foundry.energy_source = {
 -- TODO: slightly awkward heat joins on entities like GHX and nuclear
 -- reactor that have copper colors
 local thp = pglobals.copy_then(data.raw["heat-pipe"]["heat-pipe"], {
-  name = "tungsten-heat-pipe",
-  minable = {mining_time=0.1, result = "tungsten-heat-pipe"},
-  corpse = "tungsten-heat-pipe-remnants",
-  icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+  name = "pktff-tungsten-heat-pipe",
+  minable = {mining_time=0.1, result = "pktff-tungsten-heat-pipe"},
+  corpse = "pktff-tungsten-heat-pipe-remnants",
+  icon = Asset"graphics/icons/tungsten-heat-pipe.png",
   order = "z-cza[thp]",
   -- Use the vanilla heat overlay for now
   -- TODO: when at full heat it looks exactly like the vanilla heat pipe
   -- i might need to actually sprite a new greeble for the center bind point
   connection_sprites = make_heat_pipe_pictures(
-    "__petraspace__/graphics/entities/tungsten-heat-pipe/", "thp",
+    Asset"graphics/entities/tungsten-heat-pipe/", "thp",
     {
       single = { name = "straight-vertical-single", ommit_number = true },
       straight_vertical = { variations = 6 },
@@ -225,16 +225,16 @@ thp.heat_buffer.max_temperature = 2000
 data:extend{
   thp,
   pglobals.copy_then(data.raw["item"]["heat-pipe"], {
-    name = "tungsten-heat-pipe",
+    name = "pktff-tungsten-heat-pipe",
     default_import_location = "vulcanus",
-    place_result = "tungsten-heat-pipe",
-    icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+    place_result = "pktff-tungsten-heat-pipe",
+    icon = Asset"graphics/icons/tungsten-heat-pipe.png",
   }),
   pglobals.copy_then(data.raw["corpse"]["heat-pipe-remnants"], {
-    name = "tungsten-heat-pipe-remnants",
-    icon = "__petraspace__/graphics/icons/tungsten-heat-pipe.png",
+    name = "pktff-tungsten-heat-pipe-remnants",
+    icon = Asset"graphics/icons/tungsten-heat-pipe.png",
     animation = make_rotated_animation_variations_from_sheet(6, {
-      filename = "__petraspace__/graphics/entities/tungsten-heat-pipe/remnants.png",
+      filename = Asset"graphics/entities/tungsten-heat-pipe/remnants.png",
       line_length = 1,
       width = 122,
       height = 100,
@@ -247,19 +247,19 @@ data:extend{
 
 data:extend{
   pglobals.copy_then(data.raw["item"]["steel-chest"], {
-    name = "tungsten-steel-strongbox",
+    name = "pktff-tungsten-steel-strongbox",
     default_import_location = "vulcanus",
     order = "a[items]-cz",
-    place_result = "tungsten-steel-strongbox",
-    icon = "__petraspace__/graphics/entities/tungsten-steel-strongbox/base.png",
+    place_result = "pktff-tungsten-steel-strongbox",
+    icon = Asset"graphics/entities/tungsten-steel-strongbox/base.png",
     icon_size = 128,
     weight = rocket_cap / 10,
   }),
   pglobals.copy_then(data.raw["container"]["steel-chest"], {
-    name = "tungsten-steel-strongbox",
+    name = "pktff-tungsten-steel-strongbox",
     order = "z-a[items]-cz",
     default_import_location = "vulcanus",
-    minable = {mining_time=0.5, result="tungsten-steel-strongbox"},
+    minable = {mining_time=0.5, result="pktff-tungsten-steel-strongbox"},
     collision_box = {{-0.8, -0.8}, {0.8, 0.8}},
     selection_box = {{-1, -1}, {1, 1}},
     inventory_size = 96,
@@ -267,13 +267,13 @@ data:extend{
     picture = {
       layers = {
         {
-          filename = "__petraspace__/graphics/entities/tungsten-steel-strongbox/base.png",
+          filename = Asset"graphics/entities/tungsten-steel-strongbox/base.png",
           width = 128, height = 128,
           scale = 0.5,
         },
         -- TODO this only renders a small part of it
         {
-          filename = "__petraspace__/graphics/entities/tungsten-steel-strongbox/shadow.png",
+          filename = Asset"graphics/entities/tungsten-steel-strongbox/shadow.png",
           width = 128, height = 128,
           scale = 0.5,
           draw_as_shadow = true,

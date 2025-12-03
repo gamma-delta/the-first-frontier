@@ -23,11 +23,11 @@ local function make_rocket_juice_tank_item(name, place_result, overlay)
   }
 end
 local function make_rocket_juice_tank(mode, juice_name)
-  local path = "__petraspace__/graphics/entities/propellant-tank/" .. mode .. "-1.png"
+  local path = Asset"graphics/entities/propellant-tank/" .. mode .. "-1.png"
 
   return {
     type = "storage-tank",
-    name = "platform-" .. mode .. "-tank",
+    name = "pktff-platform-" .. mode .. "-tank",
     icon = "__base__/graphics/icons/storage-tank.png",
     flags = {"placeable-player", "placeable-neutral", "not-rotatable"},
     selection_box = {{-2.4, -5.5}, {2.5, 5.5}},
@@ -35,7 +35,7 @@ local function make_rocket_juice_tank(mode, juice_name)
     window_bounding_box = {{-1, -3}, {1, 3}},
     flow_length_in_ticks = 360,
 
-    minable = {mining_time=5, result="empty-platform-tank"},
+    minable = {mining_time=5, result="pktff-empty-platform-tank"},
     surface_conditions = {{property="gravity", max=0}},
 
     fluid_box = {
@@ -61,9 +61,9 @@ local function make_rocket_juice_tank(mode, juice_name)
 end
 
 data:extend{
-  make_rocket_juice_tank_item("empty-platform-tank", nil, "__core__/graphics/icons/alerts/fluid-icon-red.png"),
-  make_rocket_juice_tank_item("platform-fuel-tank", "platform-fuel-tank", "__space-age__/graphics/icons/fluid/thruster-fuel.png"),
-  make_rocket_juice_tank_item("platform-oxidizer-tank", "platform-oxidizer-tank", "__space-age__/graphics/icons/fluid/thruster-oxidizer.png"),
+  make_rocket_juice_tank_item("pktff-empty-platform-tank", nil, "__core__/graphics/icons/alerts/fluid-icon-red.png"),
+  make_rocket_juice_tank_item("pktff-platform-fuel-tank", "pktff-platform-fuel-tank", "__space-age__/graphics/icons/fluid/thruster-fuel.png"),
+  make_rocket_juice_tank_item("pktff-platform-oxidizer-tank", "pktff-platform-oxidizer-tank", "__space-age__/graphics/icons/fluid/thruster-oxidizer.png"),
   make_rocket_juice_tank("fuel", "thruster-fuel"),
   make_rocket_juice_tank("oxidizer", "thruster-oxidizer"),
 }
@@ -76,10 +76,10 @@ that only require the *center* tile to be placed on a foundation
 ]]
 data:extend{
   pglobals.copy_then(data.raw["solar-panel"]["solar-panel"], {
-    name = "platform-solar-array",
+    name = "pktff-platform-solar-array",
     flags = {"placeable-player", "placeable-neutral", "player-creation"},
-    icon = "__petraspace__/graphics/icons/platform-solar-array.png",
-    minable = { mining_time=1, result="platform-solar-array" },
+    icon = Asset"graphics/icons/platform-solar-array.png",
+    minable = { mining_time=1, result="pktff-platform-solar-array" },
     -- 15 x 5
     -- the picture is closer to 15x6, but hush
     -- This collision box is mixel-y, but i would be surprised if anyone noticed
@@ -104,7 +104,7 @@ data:extend{
     }},
     placeable_position_visualization = pglobals.placevis,
     picture = {
-      filename = "__petraspace__/graphics/entities/platform-solar-array.png",
+      filename = Asset"graphics/entities/platform-solar-array.png",
       width = 955, height = 385,
       scale = 0.5,
     },
@@ -114,12 +114,12 @@ data:extend{
     production = "480kW",
   }),
   pglobals.copy_then(data.raw["item"]["solar-panel"], {
-    name = "platform-solar-array",
-    icon = "__petraspace__/graphics/icons/platform-solar-array.png",
+    name = "pktff-platform-solar-array",
+    icon = Asset"graphics/icons/platform-solar-array.png",
     subgroup = "space-platform",
     order = "az[platform-solar-array]",
     stack_size = 10,
     weight = rocket_cap / 10,
-    place_result = "platform-solar-array",
+    place_result = "pktff-platform-solar-array",
   }),
 }
