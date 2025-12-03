@@ -79,7 +79,7 @@ data:extend{
         richness_expression = "(near_zero + flavor*30) * 5 * (70+sqrt(distance))",
       },
       factoriopedia_simulation = {
-        init = make_resource("ice-deposit"),
+        init = make_resource("pktff-ice-deposit"),
       }
     }
   ),

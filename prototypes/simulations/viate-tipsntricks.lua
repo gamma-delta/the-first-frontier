@@ -1,7 +1,7 @@
 local out = {}
 out.welcome = {
   planet = "pktff-viate",
-  -- generate_map = true,
+  generate_map = true,
   mods = {"pk-the-first-frontier"},
 
   -- Instead of manually placing things (cringe!) just generate a map.
@@ -12,12 +12,12 @@ out.welcome = {
     local mesd = helpers.parse_map_exchange_string(map_string)
     game.surfaces[1].map_gen_settings = mesd.map_gen_settings
 
-    for cx = -2,3 do
-      for cy = -2,3 do
-        -- game.surfaces[1].delete_chunk{x=cx, y=cy}
-        -- game.surfaces[1].request_to_generate_chunks{x=cx*32, y=cy*32}
+    for cx = -1,1 do
+      for cy = -1,1 do
+        game.surfaces[1].delete_chunk{x=cx, y=cy}
       end
     end
+    -- game.surfaces[1].request_to_generate_chunks({0, 0}, 3)
   ]]
 }
 

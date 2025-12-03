@@ -202,9 +202,9 @@ data:extend(
 data:extend{
   pglobals.make_blobby_radius_expr{
     name = "pktff_viate_has_ground",
-    input_scale = "150",
+    input_scale = "100",
     radius = "1200",
-    overhang_ok = "70",
+    overhang_ok = "20",
     overhang_bonus = "0.9",
     seed = '"viate_has_ground"',
     persistence = "0.4",
@@ -301,7 +301,7 @@ data:extend{
     name = "pktff_viate_meteor_size_noise",
     expression = [[ basis_noise{
       x=x, y=y, seed0=map_seed, seed1="viate_meteor_size",
-      input_scale=0.03
+      input_scale=0.01
     } + 1 ]]
   },
   {
