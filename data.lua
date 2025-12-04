@@ -45,9 +45,6 @@ require "prototypes/recipe-updates/fulgora"
 require "prototypes/recipe-updates/gleba"
 require "prototypes/recipe-updates/misc"
 
-require "data-updates-at-home/vanilla"
-require "data-updates-at-home/rocket-silo"
-
 -- jansharp, you are the BEST
 local qai = require "__quick-adjustable-inserters__/data_api"
 qai.exclude("")
