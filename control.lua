@@ -7,3 +7,5 @@ veh.add_libraries({
   require("control/demolisher-crafting"),
   require("control/misc"),
 })
+
+require("control/compat")
