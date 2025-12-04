@@ -9,10 +9,12 @@ local function add_items()
   -- to get you started, and because that's probably what the ship is made out of.
   -- save these for later!
   ship_items["pktff-precision-optical-component"] = 25
-  ship_items["pipe"] = 50
+  ship_items["transport-belt"] = 20
+  ship_items["iron-gear-wheel"] = 100
   debris_items["pktff-aluminum-plate"] = 20
   debris_items["low-density-structure"] = 50
-  debris_items["iron-plate"] = 50
+  debris_items["iron-plate"] = 200
+  debris_items["electronic-circuit"] = 100
   remote.call("freeplay", "set_debris_items", debris_items)
   remote.call("freeplay", "set_ship_items", ship_items)
 end

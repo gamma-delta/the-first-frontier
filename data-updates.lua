@@ -23,7 +23,7 @@ togas("fusion-plasma", "e")
 -- It looks like each individual blob of flame in a stream is a separate object.
 -- They last for 2-3 seconds each.
 -- Let's make it as bad as a normal mining drill?
-for _,path in ipairs{"flamethrower-fire-stream", "handheld-flamethrower-fire-stream"} do
+for _,path in ipairs{"flamethrower-fire-stream", } do
   local obj = data.raw["stream"][path]
   obj.emissions_per_second = {pollution=10/60}
 end
