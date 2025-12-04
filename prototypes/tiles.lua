@@ -93,11 +93,6 @@ local function make_sps_transitions(path, count)
 end
 
 data:extend{
-  -- Add new collision layer for things that can't go on the light scaffolding
-  {
-    type = "collision-layer",
-    name = "pktff-space-platform-scaffolding"
-  },
   {
     type = "tile",
     name = "pktff-space-platform-scaffolding",

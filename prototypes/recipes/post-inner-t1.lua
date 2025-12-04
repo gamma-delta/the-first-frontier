@@ -1,14 +1,6 @@
 -- After conquering all planets once (where vanilla spage ends)
 local pglobals = require "globals"
 
--- Turbelts
--- It would be really funny to make them require shipping Jelly to Vulcanus.
--- However I doubt anyone would use them in that case.
--- So, the chicken answer, carbon fiber.
-pglobals.recipe.add("turbo-transport-belt", {type="item", name="carbon-fiber", amount=1})
-pglobals.recipe.add("turbo-underground-belt", {type="item", name="carbon-fiber", amount=8})
-pglobals.recipe.add("turbo-splitter", {type="item", name="carbon-fiber", amount=15})
-
 -- Petrichor enrichment process (holy shit hexcasting reference)
 data:extend{
   {
@@ -92,12 +84,4 @@ data:extend{
     allow_decomposition = false,
     allow_productivity = true,
   },
-}
-
--- Foundries only allow 2 fluids :<
-data.raw["recipe"]["casting-low-density-structure"].ingredients = {
-  { type="fluid", name="molten-copper", amount=250 },
-  { type="fluid", name="pktff-molten-aluminum", amount=8 },
-  { type="item", name="steel-plate", amount=2 },
-  { type="item", name="plastic-bar", amount=5 },
 }

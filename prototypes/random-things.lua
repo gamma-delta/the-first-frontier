@@ -2,6 +2,45 @@ local pglobals = require("globals")
 
 data:extend{
   {
+    type = "recipe-category",
+    -- Smelting done in fueled furnaces
+    name = "pktff-dirty-smelting",
+  },
+  {
+    type = "recipe-category",
+    name = "pktff-dust-spraydown",
+  },
+  {
+    type = "recipe-category",
+    name = "pktff-mystery-flesh-pit",
+  },
+  {
+    -- Cheating here
+    -- https://github.com/danielmartin0/Cerys-Moon-of-Fulgora/blob/main/prototypes/recipe/recipe.lua#L190
+    type = "recipe-category",
+    name = "pktff-demolisher-squishing",
+  },
+
+  -- TODO: switch things back to using this
+  {
+    type = "item-subgroup",
+    group = "intermediate-products",
+    name = "pktff-chemistry",
+  },
+  {
+    type = "item-subgroup",
+    name = "pktff-rocket-juice",
+    group = "space",
+    order = "zzz"
+  },
+
+  -- Add new collision layer for things that can't go on the light scaffolding
+  {
+    type = "collision-layer",
+    name = "pktff-space-platform-scaffolding"
+  },
+
+  {
     type = "burner-usage",
     name = "pktff-mfp-scouts",
     empty_slot_sprite = {

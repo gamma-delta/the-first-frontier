@@ -17,10 +17,6 @@ togas("fluorine", "d")
 -- source: they might be giants
 togas("fusion-plasma", "e")
 
--- Assign crafting categories
-table.insert(data.raw["furnace"]["stone-furnace"].crafting_categories, "pktff-dirty-smelting")
-table.insert(data.raw["furnace"]["steel-furnace"].crafting_categories, "pktff-dirty-smelting")
-
 -- Make flamethrower turrets have Consequences
 -- It looks like each individual blob of flame in a stream is a separate object.
 -- They last for 2-3 seconds each.
@@ -89,20 +85,6 @@ data.raw["item"]["assembling-machine-1"].weight = rocket_cap / 100
 -- frankly i'm surprised they didn't already update it
 data.raw["item"]["chemical-plant"].stack_size = 50
 data.raw["item"]["chemical-plant"].weight = rocket_cap / 50
-
--- Remove OG rocket juice recipes
-data.raw["recipe"]["thruster-fuel"].hidden = true
-data.raw["recipe"]["thruster-oxidizer"].hidden = true
-data.raw["recipe"]["advanced-thruster-fuel"].hidden = true
-data.raw["recipe"]["advanced-thruster-oxidizer"].hidden = true
-
--- Make oxide asteroids drop quicklime
--- It turns out that we don't actually know very much about the makeup
--- of comets, so this is 100% alright (lies)
-data.raw["recipe"]["advanced-oxide-asteroid-crushing"].results[2].name = "pktff-quicklime"
-
--- Make acid-powered platforms feasible
-data.raw["recipe"]["acid-neutralisation"].surface_conditions = nil
 
 -- Remove drag in space. Why is there drag in space?
 -- this is based on oobanooba's eqn for TFMG

@@ -14,7 +14,18 @@ require "prototypes/entities/fulgora"
 require "prototypes/entities/gleba"
 require "prototypes/entities/enemies/sapper"
 require "prototypes/entities/platforms"
-require "prototypes/recipes"
+
+require "prototypes/recipes/tier-0"
+require "prototypes/recipes/rocket"
+require "prototypes/recipes/space"
+require "prototypes/recipes/nauvis-nuclear-1"
+require "prototypes/recipes/vulcanus-1"
+require "prototypes/recipes/gleba-1"
+require "prototypes/recipes/fulgora-1"
+require "prototypes/recipes/post-inner-t1"
+require "prototypes/recipes/vulcanus-2"
+require "prototypes/recipes/science"
+
 require "prototypes/tiles"
 
 require "prototypes/technologies/main"
@@ -25,8 +36,15 @@ require "prototypes/dust-pollution"
 
 require "prototypes/tips-and-tricks"
 
--- must do these here because otherwise quality can't make the recycling
--- recipes correctly
+-- Updating recipes must be done in data stage so that quality catches them.
+require "prototypes/recipe-updates/tier-0"
+require "prototypes/recipe-updates/space"
+require "prototypes/recipe-updates/nauvis-nuclear"
+require "prototypes/recipe-updates/vulcanus"
+require "prototypes/recipe-updates/fulgora"
+require "prototypes/recipe-updates/gleba"
+require "prototypes/recipe-updates/misc"
+
 require "data-updates-at-home/vanilla"
 require "data-updates-at-home/rocket-silo"
 

@@ -1,11 +1,90 @@
--- Recipes for Viate, and its use as a stepping stone
--- It's impossible to get oil products or carbon on Viate
--- (and other moons? need to make those)
--- This means I can mandate some amount of rocket ingredients in from the host
--- planet.
--- MB i'll make each moon purposely devoid of some particular resource
-
+-- Viate, space platforms, and other moons
 local pglobals = require("globals")
+
+data:extend{
+  {
+    type = "recipe",
+    name = "pktff-orbital-data-card-high-pressure",
+    category = "crafting",
+    enabled = false,
+    ingredients = {
+      { type="item", name="pktff-precision-optical-component", amount=1 },
+      { type="item", name="processing-unit", amount=1 },
+    },
+    energy_required = 2,
+    results = {{
+      type="item", name="pktff-orbital-data-card", amount=1,
+    }},
+    surface_conditions = {{ property="pressure", min=500 }},
+    auto_recycle = false,
+    icons = {
+      { icon = "__base__/graphics/icons/nauvis.png" },
+      { icon = Asset"graphics/icons/orbital-data-card.png" },
+    }
+  },
+  {
+    type = "recipe",
+    name = "pktff-orbital-data-card-low-pressure",
+    category = "crafting",
+    enabled = false,
+    ingredients = {
+      { type="item", name="pktff-precision-optical-component", amount=1 },
+      { type="item", name="electronic-circuit", amount=2 },
+    },
+    energy_required = 1,
+    results = {{
+      type="item", name="pktff-orbital-data-card", amount=1,
+    }},
+    -- this means you can do it in space, Viate, and Aquilo, but not Fulgora
+    surface_conditions = {{ property="pressure", max=500 }},
+    auto_recycle = false,
+    icons = {
+      { icon = "__space-age__/graphics/icons/solar-system-edge.png" },
+      { icon = Asset"graphics/icons/orbital-data-card.png" },
+    }
+  },
+  {
+    type = "recipe",
+    name = "pktff-rocket-control-unit",
+    category = "crafting",
+    enabled = false,
+    ingredients = {
+      {type="item", name="pktff-orbital-data-card", amount=1},
+      {type="item", name="processing-unit", amount=1},
+      {type="item", name="electric-engine-unit", amount=1},
+    },
+    energy_required = 10,
+    results = {{type="item", name="pktff-rocket-control-unit", amount=1}},
+    auto_recycle = false,
+  }
+}
+
+data:extend{
+  {
+    type = "recipe",
+    name = "pktff-space-platform-scaffolding",
+    enabled = false,
+    ingredients = {
+      {type="item", name="iron-stick", amount=20},
+      {type="item", name="pktff-aluminum-plate", amount=1},
+      {type="item", name="electric-engine-unit", amount=1},
+    },
+    energy_required = 5,
+    results = {{type="item", name="pktff-space-platform-scaffolding", amount=1}},
+  },
+  {
+    type = "recipe",
+    name = "pktff-space-platform-starter-pack-scaffolding",
+    enabled = false,
+    ingredients = {
+      {type="item", name="pktff-space-platform-scaffolding", amount=60},
+      {type="item", name="pktff-aluminum-plate", amount=20},
+      {type="item", name="advanced-circuit", amount=20},
+    },
+    energy_required = 60,
+    results = {{type="item", name="pktff-space-platform-starter-pack-scaffolding", amount=1}},
+  },
+}
 
 -- Regolith
 data:extend{
@@ -120,58 +199,6 @@ data:extend{
       quaternary = {r = 0.499, g = 0.797, b = 0.8, a = 0.733},
     }
   }
-}
-
--- I want to encourage, but not require, making the mirrors on the moon.
-local hsm = data.raw["recipe"]["chcs-heliostat-mirror"]
-hsm.ingredients = {
-  {type="item", name="electronic-circuit", amount=5},
-  {type="item", name="pktff-aluminum-plate", amount=5}, -- FeC -> Al
-  {type="item", name="iron-gear-wheel", amount=10},
-}
-
--- You cannot ship this, you have to make it on Viate.
--- I want it to be the precursor challenge to space science.
--- So, don't make it hideously expensive ...
-local spt = data.raw["recipe"]["chcs-solar-power-tower"]
-spt.ingredients = {
-  -- Keep it the same, also this way it encourages you to make conc reat babay
-  {type = "item", name="concrete", amount=500},
-  -- Split half of FeC to Al
-  {type = "item", name="pktff-aluminum-plate", amount=200},
-  {type = "item", name="steel-plate", amount=200},
-  {type = "item", name="pktff-precision-optical-component", amount=100}, -- Cu -> POC
-  -- This is only turned on in the Krastorio compat. Why? It makes sense.
-  {type = "item", name="heat-pipe", amount=20}
-}
--- Ship up exactly one, it's easier that way
-data.raw["item"]["chcs-solar-power-tower"].weight = 1000 * kg
-
--- make the SLT more expensive than in the base game because
--- you don't really need hardcore combat utils as much until later.
-local slt = data.raw["recipe"]["chcs-solar-laser-tower"]
-slt.ingredients = {
-  {type = "item", name="concrete", amount=500},
-  -- i guess it needs to be lighter or something to be able to swivel
-  {type = "item", name="pktff-aluminum-plate", amount=400},
-  {type = "item", name="pktff-precision-optical-component", amount=100},
-  {type = "item", name="electric-engine-unit", amount=20},
-}
-
--- And now! Into space
-local splatform_tiles = data.raw["recipe"]["space-platform-foundation"]
-splatform_tiles.ingredients = {
-  {type="item", name="low-density-structure", amount=20},
-  {type="item", name="electric-engine-unit", amount=10},
-  {type="item", name="copper-cable", amount=50},
-}
-splatform_tiles.results[1].amount = 5
-local starterpack = data.raw["recipe"]["space-platform-starter-pack"]
-starterpack.ingredients = {
-  {type="item", name="space-platform-foundation", amount=60},
-  {type="item", name="electric-engine-unit", amount=50},
-  {type="item", name="processing-unit", amount=50},
-  {type="item", name="pktff-precision-optical-component", amount=50},
 }
 
 data:extend{

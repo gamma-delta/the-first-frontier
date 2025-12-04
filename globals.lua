@@ -185,7 +185,23 @@ pglobals.recipe = {
     for _,new in ipairs(news) do
       table.insert(recipe.ingredients, new)
     end
-  end
+  end,
+  -- generate nuclear waste that isn't affected by prod
+  nuclear_waste = function(count)
+    return {
+      type = "item", name = "pktff-nuclear-waste", amount = count,
+      percent_spoiled = 0, ignored_by_productivity = 9999,
+    }
+  end,
+  scrapout = function (name, prob)
+    return {
+      type = "item",
+      name = name,
+      amount = 1,
+      probability = prob,
+      show_details_in_recipe_tooltip = false,
+    }
+  end,
 }
 
 pglobals.tech = {
@@ -323,6 +339,15 @@ pglobals.icons = {
         },
       }
     end
+}
+
+pglobals.colors = {
+  nuclear = {
+    primary = {0.3, 1, 0},
+    secondary = {0.2, 1, 0},
+    tertiary = {0.1, 1, 0},
+    quaternary = {0.3, 1, 0},
+  }
 }
 
 Asset = function(rest) return "__pk-the-first-frontier__/" .. rest end
