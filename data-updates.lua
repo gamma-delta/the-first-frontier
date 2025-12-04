@@ -28,6 +28,12 @@ for _,path in ipairs{"flamethrower-fire-stream", } do
   obj.emissions_per_second = {pollution=10/60}
 end
 
+-- Make furnaces able to do dirty smelting
+for _,path in ipairs{"stone-furnace", "steel-furnace"} do
+  local obj = data.raw["furnace"][path]
+  table.insert(obj.crafting_categories, "pktff-dirty-smelting")
+end
+
 -- Make uranium require more H2SO4
 local uore = data.raw["resource"]["uranium-ore"]
 -- default is 10

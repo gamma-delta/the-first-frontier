@@ -18,3 +18,5 @@ Gleeb is harder though.
 [X] Fix space progression
 
 [X] Add scaffolding mask
+
+[ ] Add disco science compat. You gotta!
