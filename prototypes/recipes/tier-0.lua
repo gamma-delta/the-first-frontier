@@ -115,6 +115,20 @@ data:extend{
   },
 }
 
+data:extend{{
+  type = "recipe",
+  name = "pktff-shotgun-turret",
+  category = "crafting",
+  enabled = false,
+  ingredients = {
+    -- Haha
+    {type="item", name="gun-turret", amount=1},
+    {type="item", name="shotgun", amount=1},
+  },
+  energy_required = 10,
+  results = {{type="item", name="pktff-shotgun-turret", amount=1}}
+}}
+
 local function poc_recipe(hi_pressure)
   local name = hi_pressure and "high-pressure" or "low-pressure"
   local pressure_bound = hi_pressure and "min" or "max"

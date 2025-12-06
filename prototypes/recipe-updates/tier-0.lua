@@ -48,19 +48,6 @@ pglobals.recipe.replace("light-oil-cracking", "water",
 -- Make shotguns and turrets autocraftable w/o Gleba
 pglobals.recipe.replace("shotgun", "wood",
   {type="item", name="pipe", amount=2})
-data:extend{{
-  type = "recipe",
-  name = "shotgun-turret",
-  category = "crafting",
-  enabled = false,
-  ingredients = {
-    -- Haha
-    {type="item", name="gun-turret", amount=1},
-    {type="item", name="shotgun", amount=1},
-  },
-  energy_required = 10,
-  results = {{type="item", name="pktff-shotgun-turret", amount=1}}
-}}
 pglobals.recipe.replace("combat-shotgun", "wood",
   {type="item", name="pktff-aluminum-plate", amount=5})
 -- SLEGT: Now on Nauvis!
