@@ -1,3 +1,10 @@
 I should either commit harder to the early start detritus, or give up on it.
 I'd rather commit harder.
 Should I put Krastorio-style beginner assemblers? Would be nice.
+
+Snapper spawners have a hilarious amount of HP, should probably be nerfed.
+it's not interesting to take them out.
+
+Black science doesn't unlock anything until after oil.
+Some kind of combat buff would be nice but I'm not sure what?
+- Move shotgun turrets earlier probably
