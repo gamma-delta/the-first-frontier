@@ -150,7 +150,7 @@ local function shotgun_top_gfx(cfg)
     line_length = 8,
     axially_symmetrical = false,
     run_mode = "forward",
-    shift = {0.25, -0.3},
+    shift = {0.25, -0.56},
     flags = flags,
     draw_as_shadow = cfg.shadow,
     apply_runtime_tint = cfg.mask,
@@ -167,6 +167,7 @@ local function shotgun_base_gfx(cfg)
     filename = Asset"graphics/entities/shotgun-turret/" .. cfg.file,
     width = 128, height = 128,
     scale = 0.5,
+    shift = {0.0, -0.26},
 
     frame_count = 1,
     flags = flags,
@@ -230,7 +231,7 @@ data:extend{
           prepare_range = 18,
           shoot_in_prepare_state = false,
           -- If they don't lead shots they can't hit strafers
-          lead_target_for_projectile_speed = 1,
+          -- lead_target_for_projectile_speed = 1,
           use_shooter_direction = true,
           turn_range = 1 / 3,
           damage_modifier = 2,

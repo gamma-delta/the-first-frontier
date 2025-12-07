@@ -8,3 +8,5 @@ it's not interesting to take them out.
 Black science doesn't unlock anything until after oil.
 Some kind of combat buff would be nice but I'm not sure what?
 - Move shotgun turrets earlier probably
+- No, these should be their own technology, not part of mili II
+- Need to move their sprite a little north to match with gun turrets

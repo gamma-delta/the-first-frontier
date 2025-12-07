@@ -131,7 +131,21 @@ heating_tower.effects = {
 }
 
 -- Military stuff
-pglobals.tech.add_unlock("military-2", "shotgun-turret")
+data:extend{
+  pglobals.copy_then(data.raw["technology"]["gun-turret"], {
+    name = "pktff-shotgun-turret",
+    prerequisites = {"military-science-pack"},
+    unit = {
+      count = 100,
+      ingredients = science("rgm"),
+      time = 30
+    },
+    effects = {
+      recipe("pktff-shotgun-turret")
+    }
+  })
+}
+
 local slegt_tech = data.raw["technology"]["snouz_long_electric_gun_turret"]
 slegt_tech.prerequisites = {"military-3", "laser"}
 slegt_tech.unit = {
