@@ -19,4 +19,4 @@ Gleeb is harder though.
 
 [X] Add scaffolding mask
 
-[ ] Add disco science compat. You gotta!
+[X] Add disco science compat. You gotta!
