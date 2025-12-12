@@ -30,6 +30,6 @@ end
 
 return {
   events = {
-    [defines.events.on_chunk_generated] = add_inclusions
+    -- [defines.events.on_chunk_generated] = add_inclusions
   }
 }

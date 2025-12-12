@@ -7,41 +7,6 @@ data:extend{
   pglobals.copy_then(
     data.raw["resource"]["stone"],
     {
-      name = "pktff-bauxite-ore",
-      map_color = { 0.75, 0.50, 0.45 },
-      mining_visualization_tint = { 0.75, 0.50, 0.45 },
-      icons = pglobals.icons.ore_deposit(Asset "graphics/icons/bauxite/1.png"),
-      minable = {
-        mining_particle = "stone-particle",
-        mining_time = 1,
-        result = "pktff-bauxite-ore",
-      },
-      stages = { sheet = {
-        filename = Asset"graphics/entities/bauxite-ore.png",
-        priority = "extra-high",
-        size = 128,
-        frame_count = 8,
-        variation_count = 8,
-        scale = 0.5,
-      } },
-      -- Make it search farther in the hope that it covers the whole
-      -- patch of stone or w/e
-      resource_patch_search_radius = 8,
-      factoriopedia_description = { "factoriopedia-description.pktff-bauxite-ore" },
-      -- TODO: probably need to make this stone with inclusions
-      factoriopedia_simulation = {
-        init = make_resource("pktff-bauxite-ore"),
-      },
-      -- Ore per cycle = yield% * 10
-      infinite = true,
-      minimum = 1,
-      normal = 10,
-      infinite_depletion_amount = 0.01,
-    }
-  ),
-  pglobals.copy_then(
-    data.raw["resource"]["stone"],
-    {
       name = "pktff-ice-deposit",
       map_color = { 0.5, 0.7, 1.0 },
       mining_visualization_tint = { 0.75, 0.75, 0.1 },
@@ -126,6 +91,62 @@ data:extend{
   ),
 }
 
+local bauxite = pglobals.copy_then(
+  data.raw["resource"]["stone"],
+  {
+    name = "pktff-bauxite-ore",
+    map_color = { 0.75, 0.50, 0.45 },
+    mining_visualization_tint = { 0.75, 0.50, 0.45 },
+    icons = pglobals.icons.ore_deposit(Asset "graphics/icons/bauxite/1.png"),
+    minable = {
+      mining_particle = "stone-particle",
+      mining_time = 1,
+      result = "pktff-bauxite-ore",
+    },
+    stages = { sheet = {
+      filename = Asset"graphics/entities/bauxite-ore.png",
+      priority = "extra-high",
+      size = 128,
+      frame_count = 8,
+      variation_count = 8,
+      scale = 0.5,
+    } },
+    -- Make it search farther in the hope that it covers the whole
+    -- patch of stone or w/e
+    resource_patch_search_radius = 8,
+    factoriopedia_description = { "factoriopedia-description.pktff-bauxite-ore" },
+    -- TODO: probably need to make this stone with inclusions
+    factoriopedia_simulation = {
+      init = make_resource("pktff-bauxite-ore"),
+    },
+  }
+)
+-- right before stone (which is `b`)
+bauxite.autoplace.order = "azzzz"
+local stone_autoplace = data.raw["resource"]["stone"].autoplace
+data:extend{
+  bauxite,
+  {
+    type = "noise-expression",
+    name = "pktff-bauxite-inclusions-probability",
+    -- basis noise returns from [-1, 1], so this is actually a 2% chance
+    -- originally, it was 1/40 (2.5%)
+    -- i need to give a number that doesn't make a nice fraction of 1 to
+    -- the scale. How the scale works is beyond me but this looks nice
+    -- in Hanodest's visualizer
+    expression = "(" .. stone_autoplace.probability_expression .. ")"
+      .. [[ * (basis_noise{
+        x=x, y=y, seed0=map_seed, seed1="bauxite",
+        input_scale = 0.76
+      } > 0.99) ]],
+  },
+  {
+    type = "noise-expression",
+    name = "pktff-bauxite-inclusions-richness",
+    expression = "(" .. stone_autoplace.richness_expression .. ") * 10",
+  },
+}
+
 -- play with coal
 local anthracite = pglobals.copy_then(data.raw["resource"]["coal"], {
   name = "pktff-anthracite-coal",
@@ -169,11 +190,22 @@ coal.map_color = {0.1, 0.1, 0.1}
 coal.autoplace.order = "ba"
 
 local nauvis_mgs = data.raw["planet"]["nauvis"].map_gen_settings
+-- Place anthracite on Nauvis
 nauvis_mgs.autoplace_settings.entity.settings["pktff-anthracite-coal"] = {}
+-- Place bauxite on nauvis
+nauvis_mgs.autoplace_settings.entity.settings["pktff-bauxite-ore"] = {}
+-- Instead of using the normal probabilities, use the custom ones
+nauvis_mgs.property_expression_names["entity:pktff-bauxite-ore:probability"] = "pktff-bauxite-inclusions-probability"
+nauvis_mgs.property_expression_names["entity:pktff-bauxite-ore:richness"] = "pktff-bauxite-inclusions-richness"
+nauvis_mgs.property_expression_names["entity:lalalaltest:richness"] = "pktff-bauxite-inclusions-richness"
+
 local vulcanus_mgs = data.raw["planet"]["vulcanus"].map_gen_settings
+-- allow anthracite on Vulc
 vulcanus_mgs.autoplace_settings.entity.settings["pktff-anthracite-coal"] = {}
+-- disallow coal on vulc
 vulcanus_mgs.autoplace_settings.entity.settings["coal"] = nil
 vulcanus_mgs.property_expression_names["entity:coal:probability"] = nil
 vulcanus_mgs.property_expression_names["entity:coal:richness"] = nil
+-- set the prob/richness of anthracite to what was previously coal
 vulcanus_mgs.property_expression_names["entity:pktff-anthracite-coal:probability"] = "vulcanus_coal_probability"
 vulcanus_mgs.property_expression_names["entity:pktff-anthracite-coal:richness"] = "vulcanus_coal_richness"

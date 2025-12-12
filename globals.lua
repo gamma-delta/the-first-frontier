@@ -352,4 +352,17 @@ pglobals.colors = {
 
 Asset = function(rest) return "__pk-the-first-frontier__/" .. rest end
 
+pglobals.script_created_effect = function(name)
+  return {
+    type = "direct",
+    action_delivery = {
+      type = "instant",
+      source_effects = {
+        type = "script",
+        effect_id = name
+      }
+    }
+  }
+end
+
 return pglobals

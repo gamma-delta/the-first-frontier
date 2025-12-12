@@ -3,7 +3,6 @@ local item_sounds = require("__base__/prototypes/item_sounds")
 local rocket_cap = 1000*kg
 
 -- TODO: fiddle with this amount
-local pumping_speed = 20
 local function make_rocket_juice_tank_item(name, place_result, overlay)
   return {
     type = "item",
@@ -30,6 +29,7 @@ local function make_rocket_juice_tank(mode, juice_name)
     name = "pktff-platform-" .. mode .. "-tank",
     icon = "__base__/graphics/icons/storage-tank.png",
     flags = {"placeable-player", "placeable-neutral", "not-rotatable"},
+    created_effect = pglobals.script_created_effect("pktff-rocket-juice-tank"),
     selection_box = {{-2.4, -5.5}, {2.5, 5.5}},
     collision_box = {{-2.45, -5.45}, {2.45, 5.45}},
     window_bounding_box = {{-1, -3}, {1, 3}},

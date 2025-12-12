@@ -15,9 +15,17 @@ local function add_qai_techs(force)
     end
   end
 end
+local function add_qai_techs_everywhere()
+  for _,force in pairs(game.forces) do
+    add_qai_techs(force)
+  end
+end
 
-local fill_up_rocket_juice = putil.on_any_built(function(evt)
-  local entity = evt.entity
+---@param evt EventData.on_script_trigger_effect
+local fill_up_rocket_juice = function(evt)
+  if evt.effect_id ~= "pktff-rocket-juice-tank" then return end
+  ---@type LuaEntity
+  local entity = evt.source_entity
   local juice_name
   if entity.name == "pktff-platform-fuel-tank" then
     juice_name = "thruster-fuel"
@@ -30,27 +38,7 @@ local fill_up_rocket_juice = putil.on_any_built(function(evt)
     name = juice_name,
     amount = entity.fluidbox.get_capacity(1)
   }
-end)
-
--- Dust beacons are handled specially
-local COMPOUNDS = {
-  -- ["platform-fuel-tank"] = {"platform-juice-tank-secret-pump"},
-  -- ["platform-oxidizer-tank"] = {"platform-juice-tank-secret-pump"},
-}
-local kill_all_compounds = putil.on_any_removed(function(evt)
-  local entity = evt.entity
-  local killtypes = COMPOUNDS[entity.name]
-  if not killtypes then return end
-  local found = entity.surface.find_entities_filtered{
-    area = entity.bounding_box,
-    name = killtypes
-  }
-  for _,compound in ipairs(found) do
-    if compound and compound.valid then
-      compound.die()
-    end
-  end
-end)
+end
 
 local tmp_you_win = function(evt)
   if evt.research.name ~= "space-platform" then return end
@@ -71,35 +59,24 @@ local tmp_you_win = function(evt)
   }
 end
 
-script.on_configuration_changed(function(_)
-  for _,force in pairs(game.forces) do
-    add_qai_techs(force)
-  end
-end)
-
 return {
-  events = putil.smash_events{
-    fill_up_rocket_juice,
-    kill_all_compounds,
-    {
-      [defines.events.on_force_created] = function(evt)
-        add_qai_techs(evt.force)
-      end,
-      [defines.events.on_research_finished] = tmp_you_win,
-      [defines.events.on_surface_created] = function(evt)
-        local surface = game.surfaces[evt.surface_index]
-        if surface.name == "aquilo" then
-          surface.freeze_daytime = true
-          -- 0 is midday for some reason
-          -- 0.5 is the middle of the night i guess
-          surface.daytime = 0.5
-        end
-      end,
-    }
+  events = {
+    [defines.events.on_script_trigger_effect] = fill_up_rocket_juice,
+
+    [defines.events.on_force_created] = function(evt)
+      add_qai_techs(evt.force)
+    end,
+    [defines.events.on_research_finished] = tmp_you_win,
+    [defines.events.on_surface_created] = function(evt)
+      local surface = game.surfaces[evt.surface_index]
+      if surface.name == "aquilo" then
+        surface.freeze_daytime = true
+        -- 0 is midday for some reason
+        -- 0.5 is the middle of the night i guess
+        surface.daytime = 0.5
+      end
+    end,
   },
-  on_init = function()
-    for _,force in pairs(game.forces) do
-      add_qai_techs(force)
-    end
-  end
+  on_init = add_qai_techs_everywhere,
+  on_configuration_changed = add_qai_techs_everywhere
 }
