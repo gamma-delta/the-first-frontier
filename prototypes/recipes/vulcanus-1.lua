@@ -35,7 +35,7 @@ data:extend{
       -- 2. you need a lot of foundries
       {type="item", name="pktff-quicklime", amount=10},
       -- TODO: swap back to magslag once I implement post-Aquilo1
-      {type="item", name="pktff-native-aluminum", amount_min=0, amount_max=4}
+      {type="item", name="pktff-bauxite-ore", amount_min=0, amount_max=4}
     },
     main_product = "pktff-quicklime",
   },
