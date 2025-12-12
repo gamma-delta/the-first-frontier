@@ -1,5 +1,13 @@
 local utils = {}
 
+---@return table
+utils.storage_table = function(key)
+  if not storage[key] then
+    storage[key] = {}
+  end
+  return storage[key]
+end
+
 -- Return a table associated with the entity for extra data.
 -- This stores it by unit number! So be careful when iterating
 utils.extra = function(entity)

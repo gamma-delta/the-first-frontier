@@ -1,9 +1,11 @@
 local function disco_science()
   if remote.interfaces["DiscoScience"] then
     remote.call("DiscoScience", "setIngredientColor",
-      "orbital-science-pack", {0.41, 0.32, 0.75, 1.0 } --[[@as Color]])
+      "pktff-orbital-science-pack", {0.41, 0.32, 0.75, 1.0 } --[[@as Color]])
   end
 end
 
-script.on_init(disco_science)
-script.on_configuration_changed(disco_science)
+return {
+  on_init = disco_science,
+  on_configuration_changed = disco_science,
+}

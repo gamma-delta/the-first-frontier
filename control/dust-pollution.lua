@@ -26,37 +26,54 @@ local function create_secret_beacon(evt)
       force = evt.force,
       raise_built = true,
     }
-    -- game.print("Created beacon " .. tostring(secret_beacon) .. " parented to " .. tostring(entity))
-    local extra = putil.extra(secret_beacon)
-    extra.parent = entity
+    -- Map destroy ID to child beacon
+    local destroy_id,_,_ = script.register_on_object_destroyed(entity)
+    putil.storage_table("dust-beacon-parents")[destroy_id] = secret_beacon
+    table.insert(putil.storage_table("dust-beacon-tickers"), secret_beacon)
+    game.print("Created beacon " .. tostring(secret_beacon) .. " parented to " .. tostring(entity))
   end
 end
 
-local otbt_events, otbt_nth = putil.on_type_by_tick(
-  "pktff-dust-secret-beacon", 60 * 10,
-  function(secret_beacon)
-    local dat = putil.extra(secret_beacon)
-    -- game.print("Secret beacon extra: " .. serpent.block(dat))
-    if dat.parent and dat.parent.valid then
+---@param evt EventData.on_object_destroyed
+local function check_kill_child_beacon(evt)
+  local dbp = putil.storage_table("dust-beacon-parents")
+  if
+    evt.type == defines.target_type.entity
+    and dbp[evt.registration_number]
+  then
+    dbp[evt.registration_number].die()
+    dbp[evt.registration_number] = nil
+  end
+end
+
+---@param evt NthTickEventData
+local function beacon_tick(evt)
+  local buckets = 10
+  local offset = math.floor(evt.tick / evt.nth_tick) % buckets
+  local dbt = putil.storage_table("dust-beacon-tickers")
+  -- Iterate backwards so that removing is safe
+  for i = #dbt - offset, 1, -buckets do
+    local beacon = dbt[i]
+    if not beacon.valid then
+      table.remove(dbt, i)
+    else
       local pollution_to_slowdown_percent = settings.global["pktff-dust-to-1percent-slower"].value
-      local pollution_amt = secret_beacon.surface.get_pollution(secret_beacon.position)
+      local pollution_amt = beacon.surface.get_pollution(beacon.position)
       local module_count = math.floor(pollution_amt / pollution_to_slowdown_percent)
-      local mi = secret_beacon.get_module_inventory()
-      -- game.print("Putting " .. module_count .. " modules in " .. serpent.line(secret_beacon))
+      local mi = beacon.get_module_inventory()
+      game.print("Putting " .. module_count .. " modules in " .. serpent.line(beacon))
       mi.clear()
       if module_count > 0 then
         mi.insert({ name="pktff-dust-secret-module", count=module_count })
       end
-    else
-      -- game.print("Beacon " .. tostring(secret_beacon) .. " was invalid, killing")
-      secret_beacon.die()
     end
-  end)
+  end
+end
 
 return {
-  events = putil.smash_events{
+  events = util.merge{
     putil.on_any_built(create_secret_beacon),
-    otbt_events
+    {[defines.events.on_object_destroyed] = check_kill_child_beacon}
   },
-  on_nth_tick = otbt_nth
+  on_nth_tick = {[6] = beacon_tick},
 }
