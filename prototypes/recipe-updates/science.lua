@@ -70,7 +70,6 @@ table.insert(yellow_sci.results,
     ignored_by_productivity = 9999, ignored_by_stats=1})
 yellow_sci.main_product = "utility-science-pack"
 
--- Each planetary science pack has one additional item.
 -- Forces reliance on the old bauxite recipe
 pglobals.recipe.add("metallurgic-science-pack",
   {type="item", name="pktff-native-aluminum", amount=1})
