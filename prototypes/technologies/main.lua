@@ -69,6 +69,10 @@ table.insert(
   data.raw["technology"]["logistic-science-pack"].prerequisites,
   "steel-processing"
 )
+table.insert(
+  data.raw["technology"]["chemical-science-pack"].prerequisites,
+  "concrete"
+)
 
 data:extend{
   -- Should I do this as a tip and trick?
