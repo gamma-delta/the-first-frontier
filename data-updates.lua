@@ -1,4 +1,5 @@
 require("data-updates/rocket-silo")
+require("data-updates/worldgen")
 
 local pglobals = require("globals")
 local rocket_cap = 1000 * kg;
