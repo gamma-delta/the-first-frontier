@@ -37,6 +37,7 @@ require "prototypes/dust-pollution"
 require "prototypes/tips-and-tricks"
 
 -- Updating recipes must be done in data stage so that quality catches them.
+require "prototypes/recipe-updates/science"
 require "prototypes/recipe-updates/tier-0"
 require "prototypes/recipe-updates/space"
 require "prototypes/recipe-updates/nauvis-nuclear"
