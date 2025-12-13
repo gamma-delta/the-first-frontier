@@ -10,16 +10,17 @@
     "ch-concentrated-solar",
     "quick-adjustable-inserters >= 2.0.6",
     "snouz_long_electric_gun_turret >= 1.0.5",
-
     "ArmouredBiters >= 1.2.0",
     "better-asteroid-resistance >= 0.0.3",
     "diurnal-dynamics >= 0.14.2",
 
+    "? blueprint-shotgun >= 0.2.13",
+    "? barrel-stages >= 2.0.0",
+    "? barelling-group2 >= 0.5.0",
+
     "? tintable-centrifuges >= 0.1.1",
     "? fire-lights >= 0.13.3",
-    "? barrel-stages >= 2.0.0",
     "? DiscoScience >= 2.0.1",
-    "? blueprint-shotgun >= 0.2.13",
     "? visible-planets >= 1.4.8"
   ],
   "quality_required": true,
