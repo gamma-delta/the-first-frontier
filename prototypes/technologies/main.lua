@@ -403,7 +403,9 @@ data:extend{
     name = "pktff-plutonium-processing",
     icon = Asset"graphics/technologies/plutonium-processing.png",
     icon_size = 256,
-    prerequisites = {"nuclear-power"},
+    -- NOTE: this means that yellow science necessarily comes after purple science.
+    -- Is that OK? If not then I could make the vanilla reproc tech a trigger tech?
+    prerequisites = {"nuclear-fuel-reprocessing"},
     effects = {
       recipe("pktff-mox-fuel-cell"),
       recipe("pktff-breeder-fuel-cell"),
